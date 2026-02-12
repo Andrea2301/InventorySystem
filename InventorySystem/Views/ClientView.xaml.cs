@@ -46,6 +46,11 @@ namespace InventorySystem.Views
 
           
         }
+
+        private void ContextMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

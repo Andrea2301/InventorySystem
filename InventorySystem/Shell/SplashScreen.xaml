@@ -27,7 +27,7 @@
 
                 <TextBlock Text="INVENTORY SYSTEM" FontSize="35" Margin="346,128,56,218"
                            FontWeight="Bold" Foreground="#3f51b5" Width="350" Grid.ColumnSpan="2"/>
-                <Image x:Name="lo" Source="Img/Spreadsheets.png" Margin="52,40,0,72" HorizontalAlignment="Left" Width="330" Grid.ColumnSpan="2" />
+                <Image x:Name="lo" Source="../Assets/Img/Spreadsheets.png" Margin="52,40,0,72" HorizontalAlignment="Left" Width="330" Grid.ColumnSpan="2" />
 
                 <TextBlock Text="Loading..." FontSize="20" Foreground="Gray" Margin="346,184,309,181" Grid.ColumnSpan="2" />
 

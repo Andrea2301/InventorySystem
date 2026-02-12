@@ -9,15 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Img\editar.png" />
-    <None Remove="Img\logo.png" />
-    <None Remove="Img\modelado.ico" />
-    <None Remove="Img\modelado_multi.ico" />
-    <None Remove="Img\precio.png" />
-    <None Remove="Img\Spreadsheets-amico.png" />
-    <None Remove="Img\Spreadsheets-bro.png" />
-    <None Remove="Img\Spreadsheets.png" />
-    <None Remove="Img\user.png" />
+    <None Remove="Assets\Img\editar.png" />
+    <None Remove="Assets\Img\logo.png" />
+    <None Remove="Assets\Img\modelado.ico" />
+    <None Remove="Assets\Img\modelado_multi.ico" />
+    <None Remove="Assets\Img\precio.png" />
+    <None Remove="Assets\Img\Spreadsheets-amico.png" />
+    <None Remove="Assets\Img\Spreadsheets-bro.png" />
+    <None Remove="Assets\Img\Spreadsheets.png" />
+    <None Remove="Assets\Img\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,22 +26,40 @@
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="HandyControls" Version="3.5.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Modern" Version="4.11.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="6.2.1" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Modern" Version="6.2.1" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Img\editar.png" />
-    <Resource Include="Img\logo.png" />
-    <Resource Include="Img\modelado.ico" />
-    <Resource Include="Img\modelado_multi.ico" />
-    <Resource Include="Img\precio.png" />
-    <Resource Include="Img\Spreadsheets-amico.png" />
-    <Resource Include="Img\Spreadsheets-bro.png" />
-    <Resource Include="Img\Spreadsheets.png" />
-    <Resource Include="Img\user.png" />
+    <Resource Include="Assets\Img\editar.png" />
+    <Resource Include="Assets\Img\logo.png" />
+    <Resource Include="Assets\Img\modelado.ico" />
+    <Resource Include="Assets\Img\modelado_multi.ico" />
+    <Resource Include="Assets\Img\precio.png" />
+    <Resource Include="Assets\Img\Spreadsheets-amico.png" />
+    <Resource Include="Assets\Img\Spreadsheets-bro.png" />
+    <Resource Include="Assets\Img\Spreadsheets.png" />
+    <Resource Include="Assets\Img\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\camil\OneDrive\Documentos\Proyectos\res\InventorySystem\InventorySystem\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\camil\OneDrive\Documentos\Proyectos\res\InventorySystem\InventorySystem\.editorconfig" />
   </ItemGroup>
 
 </Project>

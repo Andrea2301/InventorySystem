@@ -8,10 +8,13 @@
         xmlns:Icons="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" xmlns:local1="clr-namespace:InventorySystem.Views"
         mc:Ignorable="d"
-        Icon="/Img/modelado_multi.ico"
+        Icon="../Assets/Img/modelado_multi.ico"
         Title="Dashboard" Height="700" Width="1260"
         WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" Background="Transparent"  AllowsTransparency="True">
+        WindowStyle="None" Background="Transparent"  AllowsTransparency="True"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="ClearType">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -64,7 +67,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Height="59"
                                 Margin="15,25,0,40">
-                        <Image Source="/img/logo.png" Height="55"/>
+                        <Image Source="../Assets/img/logo.png" Height="55"/>
                         <TextBlock Text="INVST"
                                Foreground="#D5CFF5"
                                FontSize="20"
@@ -208,9 +211,6 @@
                             Width="auto" Opacity="0.9"/>
 
                     </Grid>
-
-           
-
                 </Grid>
             </Border>
         </Grid>

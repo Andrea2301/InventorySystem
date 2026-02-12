@@ -7,17 +7,18 @@
 
     <Style x:Key="Search" TargetType="TextBox">
         <Setter Property="Template">
+            
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Grid>
-                        <Border CornerRadius="12"
+                        <Border CornerRadius="10"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false" />
                         </Border>
-                        <TextBlock x:Name="PlaceholderText" Text="{TemplateBinding Tag}" 
-                               Margin="8,0,0,0" VerticalAlignment="Center" Foreground="Gray"
+                        <TextBlock x:Name="PlaceholderText" Text="" 
+                               Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Gray"
                                Visibility="Collapsed"/>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -32,13 +33,15 @@
 
 
     <!-- Add Button-->
-    <Style x:Key="AddButton" TargetType="Button">
+    <Style x:Key="AddButton" TargetType="ToggleButton">
         <Setter Property="Background" Value="#3f51b5"/>
+        <Setter Property="MaxWidth" Value="190"/>
+        <Setter Property="MaxHeight" Value="120"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border Height="30"
-                        CornerRadius="15"
+                        CornerRadius="10"
                         Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center"
                                       HorizontalAlignment="Center"/>
@@ -52,9 +55,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
-    <!--Datagrid Style-->
+   
+
    
     <!--#region --> <!--Grid Buttons-->
     <Style x:Key="Edit" TargetType="Button">

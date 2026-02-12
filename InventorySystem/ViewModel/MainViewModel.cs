@@ -1,4 +1,5 @@
 ﻿using FontAwesome.Sharp;
+using InventorySystem.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
