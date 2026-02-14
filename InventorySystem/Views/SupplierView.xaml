@@ -1,0 +1,282 @@
+<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    x:Class="InventorySystem.Views.SupplierView"
+    mc:Ignorable="d"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
+
+    <Grid Background="#F3F4F6">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0" Margin="20,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title -->
+            <TextBlock Text="Suppliers" 
+                       Grid.Column="0"
+                       FontSize="28" 
+                       FontWeight="SemiBold" 
+                       Foreground="#1F2937" 
+                       VerticalAlignment="Center"/>
+
+            <!-- Right Actions Group -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+
+                <!-- Search Bar -->
+                <Border CornerRadius="20" 
+                        Background="White" 
+                        Width="250" 
+                        Height="40" 
+                        Margin="0,0,15,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Search Icon -->
+                        <fa:IconImage Icon="Search" 
+                                      Style="{StaticResource MenuButtonIcon}" 
+                                      Foreground="#9CA3AF"
+                                      Width="16"
+                                      Height="16"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        
+                        <!-- Input with Placeholder -->
+                        <Grid Grid.Column="1">
+                            <TextBlock Text="Search Suppliers..."
+                                       Foreground="#9CA3AF"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       Padding="2,0,0,0"
+                                       IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Text, ElementName=SearchBox}" Value=""/>
+                                                    <Condition Binding="{Binding IsKeyboardFocused, ElementName=SearchBox}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            
+                            <TextBox x:Name="SearchBox"
+                                     Foreground="#4B5563"
+                                     FontSize="14"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Padding="0,0,10,0"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- Filter Button -->
+                <Button Background="White"
+                        BorderThickness="0"
+                        Width="40"
+                        Height="40"
+                        Margin="0,0,15,0"
+                        Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="20" Padding="10">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.5"/>
+                                </Border.Effect>
+                                <fa:IconImage Icon="Filter" Foreground="#475dbd" Width="16" Height="16"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Add Supplier Button -->
+                <Grid>
+                    <ToggleButton x:Name="AddSuppliersBtn"
+                                  Width="40"
+                                  Height="40"
+                                  Cursor="Hand"
+                                  BorderThickness="0"
+                                  Style="{StaticResource AddButton}">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border CornerRadius="20" Background="#4F46E5">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#C7D2FE" BlurRadius="10" ShadowDepth="4" Opacity="0.8"/>
+                                    </Border.Effect>
+                                    <fa:IconImage Icon="Plus" Foreground="White" Width="16" Height="16"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+
+                    <Popup PlacementTarget="{Binding ElementName=AddSuppliersBtn}"
+                           Placement="Bottom"
+                           HorizontalOffset="-100"
+                           IsOpen="{Binding IsChecked, ElementName=AddSuppliersBtn}"
+                           StaysOpen="False"
+                           AllowsTransparency="True">
+                        <Border Background="White"
+                                BorderBrush="#E5E7EB"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="5"
+                                Margin="0,5,0,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" Color="#E5E7EB" Opacity="0.5" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel Margin="5">
+                                <Button Content="New Supplier Form"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Padding="10,8"
+                                        HorizontalContentAlignment="Left"/>
+                                <Button Content="Import from Excel"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Padding="10,8"
+                                        HorizontalContentAlignment="Left"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </Grid>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- TABLE -->
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="10"
+                Margin="20"
+                Padding="10">
+
+            <DataGrid AutoGenerateColumns="False"
+                      GridLinesVisibility="None"
+                      BorderThickness="0"
+                      AlternatingRowBackground="#F9FAFB"
+                      CanUserAddRows="False">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="Auto"
+                                        MinWidth="50"
+                                        MaxWidth="80"
+                                        Binding="{Binding Id}"
+                                        IsReadOnly="True" />
+
+                    <DataGridTextColumn Header="Company" Width="*"
+                                        MinWidth="150"
+                                        MaxWidth="300" 
+                                        Binding="{Binding CompanyName}"/>
+
+                    <DataGridTextColumn Header="Contact Name" Width="*"
+                                        MinWidth="120"
+                                        MaxWidth="250" 
+                                        Binding="{Binding FirstName}"/>
+                                        
+                    <DataGridTextColumn Header="Phone" Width="Auto"
+                                        MinWidth="120"
+                                        MaxWidth="150"
+                                        Binding="{Binding PhoneNumber}"/>
+
+                    <DataGridTextColumn Header="E-mail" Width="2*"
+                                        MinWidth="180"
+                                        MaxWidth="300"
+                                        Binding="{Binding Email}"/>
+
+                    <DataGridTextColumn Header="Category" Width="*"
+                                        MinWidth="100"
+                                        MaxWidth="200"
+                                        Binding="{Binding Category}"/>
+
+                    <!-- Status -->
+                    <DataGridTemplateColumn Header="Status" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10" Padding="8,2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#FFEBEE"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                    <Setter Property="Background" Value="#E8F5E9"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock FontWeight="SemiBold" FontSize="12">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="Inactive"/>
+                                                <Setter Property="Foreground" Value="#C62828"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                        <Setter Property="Text" Value="Active"/>
+                                                        <Setter Property="Foreground" Value="#2E7D32"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- ACTIONS -->
+                    <DataGridTemplateColumn Width="80"
+                        MinWidth="80"
+                        MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+
+                                    <Button Style="{StaticResource Edit}"
+                                            Margin="0,0,6,0">
+                                        <fa:IconImage Icon="Edit"/>
+                                    </Button>
+
+                                    <Button Style="{StaticResource Delete}">
+                                        <fa:IconImage Icon="Trash"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+    </Grid>
+</UserControl>

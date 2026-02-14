@@ -42,6 +42,14 @@
             <local1:SalesHistoryView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:SupplierViewModel}">
+            <local1:SupplierView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:InformsViewModel}">
+            <local1:InformsView/>
+        </DataTemplate>
+
 
     </Window.Resources>
     <Window.Style>
@@ -137,7 +145,8 @@
 
                     </RadioButton>
                     <RadioButton Style="{StaticResource MenuBottons}"
-             Tag="{StaticResource Buttons}" >
+                                 Tag="{StaticResource Buttons}" 
+                                 Command="{Binding ShowSupplierViewCommand}">
                         
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
@@ -146,7 +155,8 @@
 
                     </RadioButton>
                     <RadioButton Style="{StaticResource MenuBottons}"
-             Tag="{StaticResource Buttons}" >
+                                 Tag="{StaticResource Buttons}" 
+                                 Command="{Binding ShowInformsViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="FilePen" Style="{StaticResource MenuButtonIcon}"/>
                             <TextBlock Text="Informs" Style="{StaticResource ButtonText}"/>

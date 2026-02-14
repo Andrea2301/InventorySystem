@@ -52,15 +52,21 @@ namespace InventorySystem.ViewModel
         public ICommand ShowProductsViewCommand { get;}
         public ICommand ShowSaleViewCommand { get;}
         public ICommand ShowSalesHistoryViewCommand { get;}
+        public ICommand ShowSupplierViewCommand { get; }
+        public ICommand ShowInformsViewCommand { get; }
 
         public MainViewModel()
         {
+            // Initialize QuestPDF license globally
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowClientViewCommand = new ViewModelCommand(ExecuteShowClientViewCommand);
             ShowProductsViewCommand = new ViewModelCommand(ExecuteShowProductsViewCommand);
             ShowSaleViewCommand = new ViewModelCommand(ExecuteShowSaleViewCommand); 
             ShowSalesHistoryViewCommand = new ViewModelCommand(ExecuteShowSalesHistoryViewCommand);
+            ShowSupplierViewCommand = new ViewModelCommand(ExecuteShowSupplierViewCommand);
+            ShowInformsViewCommand = new ViewModelCommand(ExecuteShowInformsViewCommand);
             //Default view
             ExecuteShowHomeViewCommand(null);
            
@@ -103,6 +109,20 @@ namespace InventorySystem.ViewModel
             CurrentChildView = new SalesHistoryViewModel();
             Caption = "Sales History";
             IconChar = IconChar.History;
+        }
+
+        private void ExecuteShowSupplierViewCommand(object obj)
+        {
+            CurrentChildView = new SupplierViewModel();
+            Caption = "Suppliers";
+            IconChar = IconChar.Truck;
+        }
+
+        private void ExecuteShowInformsViewCommand(object obj)
+        {
+            CurrentChildView = new InformsViewModel();
+            Caption = "Informs";
+            IconChar = IconChar.FilePen;
         }
 
     }
