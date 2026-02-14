@@ -1,5 +1,6 @@
 using InventorySystem.Data;
 using InventorySystem.Models;
+using InventorySystem.Services;
 using InventorySystem.ViewModel.Base;
 using System;
 using System.Windows;
@@ -9,6 +10,7 @@ namespace InventorySystem.ViewModel
 {
     public class SupplierFormViewModel : ViewModelBase
     {
+        private readonly ISupplierService _supplierService;
         private Supplier _supplier;
         private string _title;
 
@@ -35,8 +37,11 @@ namespace InventorySystem.ViewModel
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public SupplierFormViewModel(Supplier supplier = null)
+        public event EventHandler RequestClose;
+
+        public SupplierFormViewModel(ISupplierService supplierService, Supplier? supplier = null)
         {
+            _supplierService = supplierService;
             if (supplier == null)
             {
                 Supplier = new Supplier();
@@ -67,28 +72,27 @@ namespace InventorySystem.ViewModel
             CancelCommand = new ViewModelCommand(ExecuteCancelCommand);
         }
 
-        private void ExecuteSaveCommand(object obj)
+        private async void ExecuteSaveCommand(object obj)
         {
+            if (string.IsNullOrWhiteSpace(Supplier.CompanyName))
+            {
+                MessageBox.Show("Company Name is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             try
             {
-                using (var db = new AppDbContext())
+                if (Supplier.Id == 0)
                 {
-                    if (Supplier.Id == 0)
-                    {
-                        db.Suppliers.Add(Supplier);
-                    }
-                    else
-                    {
-                        db.Suppliers.Update(Supplier);
-                    }
-                    db.SaveChanges();
+                    await _supplierService.AddAsync(Supplier);
+                }
+                else
+                {
+                    await _supplierService.UpdateAsync(Supplier);
                 }
 
-                if (obj is Window window)
-                {
-                    window.DialogResult = true;
-                    window.Close();
-                }
+                MessageBox.Show("Supplier saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                RequestClose?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -98,11 +102,7 @@ namespace InventorySystem.ViewModel
 
         private void ExecuteCancelCommand(object obj)
         {
-            if (obj is Window window)
-            {
-                window.DialogResult = false;
-                window.Close();
-            }
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -102,7 +102,75 @@
                     <RowDefinition Height="Auto"/> <!-- Checkout -->
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Current Order" FontSize="20" FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,20"/>
+                <TextBlock Grid.Row="0" Text="Current Order" FontSize="20" FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,10"/>
+
+                <!-- Client Selection -->
+                <StackPanel Grid.Row="0" VerticalAlignment="Bottom" Margin="0,35,0,20">
+                    <TextBlock Text="Customer" FontSize="12" Foreground="#6B7280" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                    <Border Background="#F9FAFB" CornerRadius="10" BorderBrush="#E5E7EB" BorderThickness="1" Height="45">
+                        <Grid>
+                            <fa:IconImage Icon="User" Foreground="#9CA3AF" Width="14" HorizontalAlignment="Left" Margin="10,0"/>
+                            <ComboBox ItemsSource="{Binding Clients}" 
+                                      SelectedItem="{Binding SelectedClient}"
+                                      DisplayMemberPath="FullName"
+                                      BorderThickness="0"
+                                      Background="Transparent"
+                                      VerticalAlignment="Center"
+                                      Margin="35,0,10,0">
+                                <ComboBox.Template>
+                                    <ControlTemplate TargetType="ComboBox">
+                                        <Grid>
+                                            <ToggleButton Name="ToggleButton" 
+                                                          BorderThickness="0" 
+                                                          Background="Transparent" 
+                                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                          Focusable="false" 
+                                                          ClickMode="Press"/>
+                                            <ContentPresenter Name="ContentSite" 
+                                                              IsHitTestVisible="False" 
+                                                              Content="{TemplateBinding SelectionBoxItem}" 
+                                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                                              Margin="0,0,23,0" 
+                                                              VerticalAlignment="Center" 
+                                                              HorizontalAlignment="Left"/>
+                                            <Path Name="Arrow" 
+                                                  Fill="#9CA3AF" 
+                                                  HorizontalAlignment="Right" 
+                                                  VerticalAlignment="Center" 
+                                                  Margin="0,0,10,0" 
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            <Popup Name="Popup" 
+                                                   Placement="Bottom" 
+                                                   IsOpen="{TemplateBinding IsDropDownOpen}" 
+                                                   AllowsTransparency="True" 
+                                                   Focusable="False" 
+                                                   PopupAnimation="Slide">
+                                                <Grid Name="DropDown" 
+                                                      SnapsToDevicePixels="True" 
+                                                      MinWidth="{TemplateBinding ActualWidth}" 
+                                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                                    <Border x:Name="DropDownBorder" 
+                                                            Background="White" 
+                                                            BorderThickness="1" 
+                                                            BorderBrush="#E5E7EB" 
+                                                            CornerRadius="0,0,10,10">
+                                                        <Border.Effect>
+                                                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                                                        </Border.Effect>
+                                                    </Border>
+                                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                                    </ScrollViewer>
+                                                </Grid>
+                                            </Popup>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ComboBox.Template>
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+                </StackPanel>
 
                 <!-- Items List -->
                 <ScrollViewer Grid.Row="1" Margin="0,0,0,20">

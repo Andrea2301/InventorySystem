@@ -1,14 +1,60 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 using System.Data;
 using System.Windows;
+using InventorySystem.Data;
+using InventorySystem.Services;
+using InventorySystem.ViewModel;
+using InventorySystem.Shell;
+using System;
+using InventorySystem.Services.Export;
 
 namespace InventorySystem
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-    }
+        public static IServiceProvider ServiceProvider { get; private set; }
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+
+            // Show Splash Screen first
+            var splashScreen = new InventorySystem.Shell.SplashScreen();
+            splashScreen.Show();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            // Data
+            services.AddDbContext<AppDbContext>();
+
+            // Services
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<IPdfService, PdfService>();
+            services.AddScoped<ISupplierService, SupplierService>();
+
+            // ViewModels
+            services.AddSingleton<MainViewModel>();
+            services.AddTransient<HomeViewModel>();
+            services.AddTransient<ProductsViewModel>();
+            services.AddTransient<ProductFormViewModel>();
+            services.AddTransient<ClientViewModel>();
+            services.AddTransient<ClientFormViewModel>();
+            services.AddTransient<SalesHistoryViewModel>();
+            services.AddTransient<SaleViewModel>();
+            services.AddTransient<SupplierViewModel>();
+            services.AddTransient<SupplierFormViewModel>();
+
+            // Views
+            services.AddTransient<MainWindow>();
+        }
+    }
 }

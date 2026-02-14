@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Data;
 using InventorySystem.Models;
+using InventorySystem.Services;
 using InventorySystem.ViewModel.Base;
 using InventorySystem.Views;
 using System;
@@ -12,8 +13,10 @@ using System.Windows.Input;
 
 namespace InventorySystem.ViewModel
 {
-    class ClientViewModel : ViewModelBase
+    public class ClientViewModel : ViewModelBase
     {
+        private readonly IClientService _clientService;
+        private readonly IServiceProvider _serviceProvider;
         private ObservableCollection<Client> _clients;
         private ICollectionView _clientsView;
         private string _searchText;
@@ -54,8 +57,10 @@ namespace InventorySystem.ViewModel
         public ICommand SortCommand { get; }
         public ICommand OpenImportExcelCommand { get; }
 
-        public ClientViewModel()
+        public ClientViewModel(IClientService clientService, IServiceProvider serviceProvider)
         {
+            _clientService = clientService;
+            _serviceProvider = serviceProvider;
             Clients = new ObservableCollection<Client>();
             ClientsView = CollectionViewSource.GetDefaultView(Clients);
             ClientsView.Filter = FilterClients;
@@ -66,7 +71,7 @@ namespace InventorySystem.ViewModel
             SortCommand = new ViewModelCommand(ExecuteSortCommand);
             OpenImportExcelCommand = new ViewModelCommand(ExecuteOpenImportExcelCommand);
 
-            LoadClients();
+            _ = LoadClientsAsync();
         }
 
         private bool FilterClients(object obj)
@@ -81,16 +86,20 @@ namespace InventorySystem.ViewModel
             return false;
         }
 
-        private void LoadClients()
+        private async Task LoadClientsAsync()
         {
-            using (var db = new AppDbContext())
+            try
             {
-                var list = db.Clients.ToList();
+                var list = await _clientService.GetAllAsync();
                 Clients.Clear();
                 foreach (var client in list)
                 {
                     Clients.Add(client);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading clients: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -112,13 +121,16 @@ namespace InventorySystem.ViewModel
 
         private void ExecuteOpenClientFormCommand(object obj)
         {
-            var viewModel = new ClientFormViewModel();
+            var viewModel = new ClientFormViewModel(_clientService);
             var view = new ClientFormView { DataContext = viewModel };
             
-            if (view.ShowDialog() == true)
+            viewModel.RequestClose += (s, e) =>
             {
-                LoadClients(); // Simple refresh for now
-            }
+                view.Close();
+                _ = LoadClientsAsync();
+            };
+
+            view.ShowDialog();
         }
 
         private void ExecuteEditClientCommand(object obj)
@@ -126,16 +138,19 @@ namespace InventorySystem.ViewModel
             var clientToEdit = obj as Client ?? SelectedClient;
             if (clientToEdit == null) return;
 
-            var viewModel = new ClientFormViewModel(clientToEdit);
+            var viewModel = new ClientFormViewModel(_clientService, clientToEdit);
             var view = new ClientFormView { DataContext = viewModel };
 
-            if (view.ShowDialog() == true)
+            viewModel.RequestClose += (s, e) =>
             {
-                LoadClients();
-            }
+                view.Close();
+                _ = LoadClientsAsync();
+            };
+
+            view.ShowDialog();
         }
 
-        private void ExecuteDeleteClientCommand(object obj)
+        private async void ExecuteDeleteClientCommand(object obj)
         {
             var clientToDelete = obj as Client ?? SelectedClient;
             if (clientToDelete == null) return;
@@ -145,12 +160,15 @@ namespace InventorySystem.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
-                using (var db = new AppDbContext())
+                try
                 {
-                    db.Clients.Remove(clientToDelete);
-                    db.SaveChanges();
+                    await _clientService.DeleteAsync(clientToDelete.Id);
+                    await LoadClientsAsync();
                 }
-                LoadClients();
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -161,78 +179,78 @@ namespace InventorySystem.ViewModel
             
             if (view.ShowDialog() == true)
             {
-                try
-                {
-                    string filePath = viewModel.SelectedFilePath;
-                    if (string.IsNullOrEmpty(filePath)) 
-                    {
-                        MessageBox.Show("No file selected.", "Import Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
+                _ = ImportClients(viewModel.SelectedFilePath);
+            }
+        }
 
-                    // Use explicit useHeaderRow: true to ensure MiniExcel uses the first row for keys
-                    var rows = MiniExcelLibs.MiniExcel.Query(filePath, useHeaderRow: true)
-                                .Cast<IDictionary<string, object>>()
-                                .ToList();
+        private async Task ImportClients(string filePath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filePath)) 
+                {
+                    MessageBox.Show("No file selected.", "Import Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Use explicit useHeaderRow: true to ensure MiniExcel uses the first row for keys
+                var rows = MiniExcelLibs.MiniExcel.Query(filePath, useHeaderRow: true)
+                            .Cast<IDictionary<string, object>>()
+                            .ToList();
+                
+                if (rows == null || rows.Count == 0)
+                {
+                    MessageBox.Show("The file is empty or could not be read. Please ensure it has a header row.", "Empty File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var clientsToImport = new List<Client>();
+                foreach (var row in rows)
+                {
+                    // Robust mapping (case-insensitive and handling potential spaces)
+                    var keys = row.Keys.Select(k => k.Trim()).ToList();
                     
-                    if (rows == null || rows.Count == 0)
+                    string GetValue(params string[] possibleAliases)
                     {
-                        MessageBox.Show("The file is empty or could not be read. Please ensure it has a header row.", "Empty File", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
+                        foreach (var alias in possibleAliases)
+                        {
+                            var matchingKey = row.Keys.FirstOrDefault(k => k.Trim().Equals(alias, StringComparison.OrdinalIgnoreCase));
+                            if (matchingKey != null) return row[matchingKey]?.ToString() ?? "";
+                        }
+                        return "";
                     }
 
-                    using (var db = new AppDbContext())
+                    var firstName = GetValue("FirstName", "First Name", "Nombre");
+                    var lastName = GetValue("LastName", "Last Name", "Apellido");
+
+                    if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName)) continue;
+
+                    clientsToImport.Add(new Client
                     {
-                        int successCount = 0;
-                        foreach (var row in rows)
-                        {
-                            // Robust mapping (case-insensitive and handling potential spaces)
-                            var keys = row.Keys.Select(k => k.Trim()).ToList();
-                            
-                            string GetValue(params string[] possibleAliases)
-                            {
-                                foreach (var alias in possibleAliases)
-                                {
-                                    var matchingKey = row.Keys.FirstOrDefault(k => k.Trim().Equals(alias, StringComparison.OrdinalIgnoreCase));
-                                    if (matchingKey != null) return row[matchingKey]?.ToString() ?? "";
-                                }
-                                return "";
-                            }
-
-                            var firstName = GetValue("FirstName", "First Name", "Nombre");
-                            var lastName = GetValue("LastName", "Last Name", "Apellido");
-
-                            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName)) continue;
-
-                            db.Clients.Add(new Client
-                            {
-                                FirstName = firstName,
-                                LastName = lastName,
-                                Email = GetValue("Email", "Correo", "E-mail"),
-                                PhoneNumber = GetValue("Phone", "PhoneNumber", "Telefono", "Teléfono", "Celular"),
-                                DocumentNumber = GetValue("Document", "DNI", "Cedula", "Cédula", "Documento", "IdNumber"),
-                                IsActive = true,
-                                CreatedAt = DateTime.Now
-                            });
-                            successCount++;
-                        }
-                        
-                        if (successCount > 0)
-                        {
-                            db.SaveChanges();
-                            LoadClients();
-                            MessageBox.Show($"{successCount} clients imported successfully.", "Import Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No valid data found in the file to import.", "Import Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-                    }
+                        FirstName = firstName,
+                        LastName = lastName,
+                        Email = GetValue("Email", "Correo", "E-mail"),
+                        PhoneNumber = GetValue("Phone", "PhoneNumber", "Telefono", "Teléfono", "Celular"),
+                        DocumentNumber = GetValue("Document", "DNI", "Cedula", "Cédula", "Documento", "IdNumber"),
+                        IsActive = true,
+                        CreatedAt = DateTime.Now
+                    });
                 }
-                catch (Exception ex)
+                
+                if (clientsToImport.Count > 0)
                 {
-                    MessageBox.Show($"Error importing file: {ex.Message}\n\nStackTrace: {ex.StackTrace}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await _clientService.AddRangeAsync(clientsToImport);
+                    await LoadClientsAsync();
+                    MessageBox.Show($"{clientsToImport.Count} clients imported successfully.", "Import Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+                else
+                {
+                    MessageBox.Show("No valid data found in the file to import.", "Import Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error importing file: {ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

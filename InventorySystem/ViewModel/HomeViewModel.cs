@@ -84,9 +84,11 @@ namespace InventorySystem.ViewModel
         }
 
         public Func<double, string> Formatter { get; set; }
+        private readonly AppDbContext _db;
 
-        public HomeViewModel()
+        public HomeViewModel(AppDbContext db)
         {
+            _db = db;
             Formatter = value => value.ToString("C0");
             CriticalItems = new ObservableCollection<Product>();
             TopProducts = new ObservableCollection<TopProductInfo>();
@@ -104,98 +106,95 @@ namespace InventorySystem.ViewModel
         {
             try
             {
-                using (var db = new AppDbContext())
+                var today = DateTime.Today;
+                var yesterday = today.AddDays(-1);
+
+                // 1. Core KPIs
+                var salesTodayList = _db.Sales.Where(s => s.SaleDate >= today).ToList();
+                var salesTotalToday = salesTodayList.Sum(s => s.TotalAmount);
+                TotalSalesToday = $"${salesTotalToday:N2}";
+
+                var salesYesterday = _db.Sales
+                    .Where(s => s.SaleDate >= yesterday && s.SaleDate < today)
+                    .ToList()
+                    .Sum(s => s.TotalAmount);
+
+                if (salesYesterday > 0)
                 {
-                    var today = DateTime.Today;
-                    var yesterday = today.AddDays(-1);
+                    var trend = ((salesTotalToday - salesYesterday) / salesYesterday) * 100;
+                    SalesTrend = $"{(trend >= 0 ? "+" : "")}{trend:F1}% vs yesterday";
+                }
+                else
+                {
+                    SalesTrend = "No data from yesterday";
+                }
 
-                    // 1. Core KPIs
-                    var salesTodayList = db.Sales.Where(s => s.SaleDate >= today).ToList();
-                    var salesTotalToday = salesTodayList.Sum(s => s.TotalAmount);
-                    TotalSalesToday = $"${salesTotalToday:N2}";
+                NewClientsToday = _db.Clients.Count(c => c.CreatedAt >= today).ToString();
+                
+                var allProducts = _db.Products.ToList();
+                TotalStock = allProducts.Sum(p => p.Quantity).ToString();
+                TotalStockValue = $"${allProducts.Sum(p => p.Price * p.Quantity):N0}";
 
-                    var salesYesterday = db.Sales
-                        .Where(s => s.SaleDate >= yesterday && s.SaleDate < today)
-                        .ToList()
-                        .Sum(s => s.TotalAmount);
+                // 2. Critical Stock (Quantity < 5)
+                var lowStock = allProducts.Where(p => p.Quantity < 5 && p.IsActive).OrderBy(p => p.Quantity).Take(5).ToList();
+                CriticalItems.Clear();
+                foreach (var item in lowStock) CriticalItems.Add(item);
+                CriticalStockCount = lowStock.Count.ToString();
 
-                    if (salesYesterday > 0)
+                // 3. Top Products (Sales-based)
+                var topSelling = _db.SaleDetails
+                    .GroupBy(d => d.ProductId)
+                    .Select(g => new { ProductId = g.Key, TotalQty = g.Sum(d => d.Quantity) })
+                    .OrderByDescending(x => x.TotalQty)
+                    .Take(5)
+                    .ToList();
+
+                TopProducts.Clear();
+                foreach (var tsp in topSelling)
+                {
+                    var prod = allProducts.FirstOrDefault(p => p.Id == tsp.ProductId);
+                    if (prod != null)
                     {
-                        var trend = ((salesTotalToday - salesYesterday) / salesYesterday) * 100;
-                        SalesTrend = $"{(trend >= 0 ? "+" : "")}{trend:F1}% vs yesterday";
+                        TopProducts.Add(new TopProductInfo { Name = prod.Name, Quantity = tsp.TotalQty, Category = prod.Category });
                     }
-                    else
+                }
+
+                // 4. Sales History Chart
+                var sixMonthsAgo = today.AddMonths(-5);
+                var historicalSales = _db.Sales
+                    .Where(s => s.SaleDate >= sixMonthsAgo)
+                    .ToList()
+                    .GroupBy(s => new { s.SaleDate.Year, s.SaleDate.Month })
+                    .Select(g => new { Date = g.Key, Amount = g.Sum(s => s.TotalAmount) })
+                    .OrderBy(g => g.Date.Year).ThenBy(g => g.Date.Month)
+                    .ToList();
+
+                if (historicalSales.Count == 0)
+                {
+                    SaleSeries = new SeriesCollection
                     {
-                        SalesTrend = "No data from yesterday";
-                    }
-
-                    NewClientsToday = db.Clients.Count(c => c.CreatedAt >= today).ToString();
-                    
-                    var allProducts = db.Products.ToList();
-                    TotalStock = allProducts.Sum(p => p.Quantity).ToString();
-                    TotalStockValue = $"${allProducts.Sum(p => p.Price * p.Quantity):N0}";
-
-                    // 2. Critical Stock (Quantity < 5)
-                    var lowStock = allProducts.Where(p => p.Quantity < 5 && p.IsActive).OrderBy(p => p.Quantity).Take(5).ToList();
-                    CriticalItems.Clear();
-                    foreach (var item in lowStock) CriticalItems.Add(item);
-                    CriticalStockCount = lowStock.Count.ToString();
-
-                    // 3. Top Products (Sales-based)
-                    var topSelling = db.SaleDetails
-                        .GroupBy(d => d.ProductId)
-                        .Select(g => new { ProductId = g.Key, TotalQty = g.Sum(d => d.Quantity) })
-                        .OrderByDescending(x => x.TotalQty)
-                        .Take(5)
-                        .ToList();
-
-                    TopProducts.Clear();
-                    foreach (var tsp in topSelling)
-                    {
-                        var prod = allProducts.FirstOrDefault(p => p.Id == tsp.ProductId);
-                        if (prod != null)
+                        new LineSeries
                         {
-                            TopProducts.Add(new TopProductInfo { Name = prod.Name, Quantity = tsp.TotalQty, Category = prod.Category });
+                            Title = "Sample Revenue",
+                            Values = new ChartValues<decimal> { 1200, 1500, 1100, 1800, 2100, 1900 },
+                            PointGeometry = DefaultGeometries.Circle,
+                            Stroke = System.Windows.Media.Brushes.DodgerBlue,
+                            Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.LightBlue, System.Windows.Media.Colors.Transparent, 90)
                         }
-                    }
-
-                    // 4. Sales History Chart
-                    var sixMonthsAgo = today.AddMonths(-5);
-                    var historicalSales = db.Sales
-                        .Where(s => s.SaleDate >= sixMonthsAgo)
-                        .ToList()
-                        .GroupBy(s => new { s.SaleDate.Year, s.SaleDate.Month })
-                        .Select(g => new { Date = g.Key, Amount = g.Sum(s => s.TotalAmount) })
-                        .OrderBy(g => g.Date.Year).ThenBy(g => g.Date.Month)
-                        .ToList();
-
-                    if (historicalSales.Count == 0)
+                    };
+                }
+                else
+                {
+                    SaleSeries = new SeriesCollection
                     {
-                        SaleSeries = new SeriesCollection
+                        new LineSeries
                         {
-                            new LineSeries
-                            {
-                                Title = "Sample Revenue",
-                                Values = new ChartValues<decimal> { 1200, 1500, 1100, 1800, 2100, 1900 },
-                                PointGeometry = DefaultGeometries.Circle,
-                                Stroke = System.Windows.Media.Brushes.DodgerBlue,
-                                Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.LightBlue, System.Windows.Media.Colors.Transparent, 90)
-                            }
-                        };
-                    }
-                    else
-                    {
-                        SaleSeries = new SeriesCollection
-                        {
-                            new LineSeries
-                            {
-                                Title = "Revenue",
-                                Values = new ChartValues<decimal>(historicalSales.Select(x => x.Amount)),
-                                Stroke = System.Windows.Media.Brushes.Indigo,
-                                Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.Indigo, System.Windows.Media.Colors.Transparent, 90)
-                            }
-                        };
-                    }
+                            Title = "Revenue",
+                            Values = new ChartValues<decimal>(historicalSales.Select(x => x.Amount)),
+                            Stroke = System.Windows.Media.Brushes.Indigo,
+                            Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.Indigo, System.Windows.Media.Colors.Transparent, 90)
+                        }
+                    };
                 }
             }
             catch (Exception)

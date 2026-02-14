@@ -1,3 +1,4 @@
+using InventorySystem.Services;
 using InventorySystem.ViewModel.Base;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,15 @@ using System.Windows.Input;
 
 namespace InventorySystem.ViewModel
 {
-    class SaleViewModel : ViewModelBase
+    public class SaleViewModel : ViewModelBase
     {
+        private readonly ISaleService _saleService;
+        private readonly IProductService _productService;
+        private readonly IClientService _clientService;
         private System.Collections.ObjectModel.ObservableCollection<Models.Product> _products;
         private System.Collections.ObjectModel.ObservableCollection<CartItemViewModel> _cart;
+        private System.Collections.ObjectModel.ObservableCollection<Models.Client> _clients;
+        private Models.Client _selectedClient;
         private string _searchText;
         private decimal _total;
 
@@ -27,6 +33,18 @@ namespace InventorySystem.ViewModel
             set { _cart = value; OnPropertyChanged(nameof(Cart)); }
         }
 
+        public System.Collections.ObjectModel.ObservableCollection<Models.Client> Clients
+        {
+            get => _clients;
+            set { _clients = value; OnPropertyChanged(nameof(Clients)); }
+        }
+
+        public Models.Client SelectedClient
+        {
+            get => _selectedClient;
+            set { _selectedClient = value; OnPropertyChanged(nameof(SelectedClient)); }
+        }
+
         public string SearchText
         {
             get => _searchText;
@@ -34,7 +52,7 @@ namespace InventorySystem.ViewModel
             { 
                 _searchText = value; 
                 OnPropertyChanged(nameof(SearchText));
-                FilterProducts();
+                _ = FilterProductsAsync();
             }
         }
 
@@ -48,38 +66,73 @@ namespace InventorySystem.ViewModel
         public ICommand RemoveFromCartCommand { get; }
         public ICommand CheckoutCommand { get; }
 
-        public SaleViewModel()
+        public SaleViewModel(ISaleService saleService, IProductService productService, IClientService clientService)
         {
+            _saleService = saleService;
+            _productService = productService;
+            _clientService = clientService;
             Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>();
             Cart = new System.Collections.ObjectModel.ObservableCollection<CartItemViewModel>();
+            Clients = new System.Collections.ObjectModel.ObservableCollection<Models.Client>();
             Cart.CollectionChanged += (s, e) => CalculateTotal();
 
             AddToCartCommand = new ViewModelCommand(ExecuteAddToCartCommand);
             RemoveFromCartCommand = new ViewModelCommand(ExecuteRemoveFromCartCommand);
             CheckoutCommand = new ViewModelCommand(ExecuteCheckoutCommand, CanExecuteCheckout);
 
-            LoadProducts();
+            _ = LoadInitialData();
         }
 
-        private void LoadProducts()
+        private async Task LoadInitialData()
         {
-            using (var context = new Data.AppDbContext())
+            await LoadProductsAsync();
+            await LoadClientsAsync();
+        }
+
+        private async Task LoadClientsAsync()
+        {
+            try
             {
-                var list = context.Products.Where(p => p.IsActive && p.Quantity > 0).ToList();
-                Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>(list);
+                var list = await _clientService.GetAllAsync();
+                Clients = new System.Collections.ObjectModel.ObservableCollection<Models.Client>(list);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error loading clients: {ex.Message}", "Error");
             }
         }
 
-        private void FilterProducts()
+        private async Task LoadProductsAsync()
         {
-            using (var context = new Data.AppDbContext())
+            try
             {
-                var query = context.Products.Where(p => p.IsActive && p.Quantity > 0);
+                var list = await _productService.GetAllAsync();
+                var activeProducts = list.Where(p => p.IsActive && p.Quantity > 0).ToList();
+                Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>(activeProducts);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error loading products: {ex.Message}", "Error");
+            }
+        }
+
+        private async Task FilterProductsAsync()
+        {
+            try
+            {
+                var list = await _productService.GetAllAsync();
+                var query = list.Where(p => p.IsActive && p.Quantity > 0);
+                
                 if (!string.IsNullOrWhiteSpace(SearchText))
                 {
-                    query = query.Where(p => p.Name.ToLower().Contains(SearchText.ToLower()));
+                    query = query.Where(p => p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
                 }
+                
                 Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>(query.ToList());
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error filtering products: {ex.Message}", "Error");
             }
         }
 
@@ -117,53 +170,38 @@ namespace InventorySystem.ViewModel
 
         private bool CanExecuteCheckout(object obj) => Cart.Count > 0;
 
-        private void ExecuteCheckoutCommand(object obj)
+        private async void ExecuteCheckoutCommand(object obj)
         {
             try
             {
-                using (var context = new Data.AppDbContext())
+                var sale = new Models.Sale
                 {
-                    // Ensure tables are created
-                    context.Database.EnsureCreated();
+                    SaleDate = DateTime.Now,
+                    TotalAmount = Total,
+                    ClientId = SelectedClient?.Id ?? 0 // Use selected client or let service handle default
+                };
 
-                    var sale = new Models.Sale
+                foreach (var item in Cart)
+                {
+                    var detail = new Models.SaleDetail
                     {
-                        SaleDate = DateTime.Now,
-                        TotalAmount = Total,
-                        // For now we'll use a placeholder client if needed, or null if schema allows
-                        ClientId = context.Clients.FirstOrDefault()?.Id ?? 0 
+                        ProductId = item.Product.Id,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.Product.Price,
+                        TotalPrice = item.Subtotal
                     };
-
-                    foreach (var item in Cart)
-                    {
-                        var detail = new Models.SaleDetail
-                        {
-                            ProductId = item.Product.Id,
-                            Quantity = item.Quantity,
-                            UnitPrice = item.Product.Price,
-                            TotalPrice = item.Subtotal
-                        };
-                        sale.SaleDetails.Add(detail);
-
-                        // Update Stock
-                        var dbProduct = context.Products.Find(item.Product.Id);
-                        if (dbProduct != null)
-                        {
-                            dbProduct.Quantity -= item.Quantity;
-                        }
-                    }
-
-                    context.Sales.Add(sale);
-                    context.SaveChanges();
+                    sale.SaleDetails.Add(detail);
                 }
 
-                System.Windows.MessageBox.Show("Sale finalized successfully!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                await _saleService.CreateSaleAsync(sale);
+
+                System.Windows.MessageBox.Show("¡Venta finalizada con éxito!", "Éxito", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 Cart.Clear();
-                LoadProducts(); // Refresh stock in view
+                await LoadProductsAsync();
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error: {ex.Message}", "Error");
+                System.Windows.MessageBox.Show($"Error al finalizar la venta: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
     }

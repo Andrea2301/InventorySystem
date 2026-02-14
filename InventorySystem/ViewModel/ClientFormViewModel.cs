@@ -4,11 +4,13 @@ using InventorySystem.ViewModel.Base;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
+using InventorySystem.Services;
 
 namespace InventorySystem.ViewModel
 {
     public class ClientFormViewModel : ViewModelBase
     {
+        private readonly IClientService _clientService;
         private Client _client;
         private bool _isEditMode;
 
@@ -31,16 +33,38 @@ namespace InventorySystem.ViewModel
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public ClientFormViewModel(Client client = null)
+        public event EventHandler RequestClose;
+
+        public ClientFormViewModel(IClientService clientService, Client? client = null)
         {
+            _clientService = clientService;
             IsEditMode = client != null;
-            Client = client ?? new Client { IsActive = true };
+            
+            if (client == null)
+            {
+                Client = new Client { IsActive = true };
+            }
+            else
+            {
+                // Shallow copy to avoid live updates before save
+                Client = new Client
+                {
+                    Id = client.Id,
+                    FirstName = client.FirstName,
+                    LastName = client.LastName,
+                    Email = client.Email,
+                    PhoneNumber = client.PhoneNumber,
+                    DocumentNumber = client.DocumentNumber,
+                    IsActive = client.IsActive,
+                    CreatedAt = client.CreatedAt
+                };
+            }
 
             SaveCommand = new ViewModelCommand(ExecuteSaveCommand);
             CancelCommand = new ViewModelCommand(ExecuteCancelCommand);
         }
 
-        private void ExecuteSaveCommand(object obj)
+        private async void ExecuteSaveCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Client.FirstName) || string.IsNullOrWhiteSpace(Client.LastName))
             {
@@ -48,33 +72,29 @@ namespace InventorySystem.ViewModel
                 return;
             }
 
-            using (var db = new AppDbContext())
+            try
             {
                 if (IsEditMode)
                 {
-                    db.Clients.Update(Client);
+                    await _clientService.UpdateAsync(Client);
                 }
                 else
                 {
-                    db.Clients.Add(Client);
+                    await _clientService.AddAsync(Client);
                 }
-                db.SaveChanges();
-            }
 
-            if (obj is Window window)
+                MessageBox.Show("Client saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                RequestClose?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
             {
-                window.DialogResult = true;
-                window.Close();
+                MessageBox.Show($"Error saving client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void ExecuteCancelCommand(object obj)
         {
-            if (obj is Window window)
-            {
-                window.DialogResult = false;
-                window.Close();
-            }
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InventorySystem"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             xmlns:converters="clr-namespace:InventorySystem.Converters"
-             
-             StartupUri="Shell/SplashScreen.xaml">
+             xmlns:converters="clr-namespace:InventorySystem.Converters">
 
     <Application.Resources>
         <ResourceDictionary>

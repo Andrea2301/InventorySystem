@@ -6,11 +6,13 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using InventorySystem.Services;
 
 namespace InventorySystem.ViewModel
 {
     public class ProductFormViewModel : ViewModelBase
     {
+        private readonly IProductService _productService;
         private Product _product;
         private string _selectedImagePath;
         private BitmapImage _previewImage;
@@ -52,8 +54,10 @@ namespace InventorySystem.ViewModel
 
         public event EventHandler RequestClose;
 
-        public ProductFormViewModel(Product? product = null)
+        public ProductFormViewModel(IProductService productService, Product? product = null)
         {
+            _productService = productService;
+
             if (product == null)
             {
                 Product = new Product();
@@ -113,7 +117,7 @@ namespace InventorySystem.ViewModel
             }
         }
 
-        private void ExecuteSaveCommand(object obj)
+        private async void ExecuteSaveCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Product.Name))
             {
@@ -139,57 +143,15 @@ namespace InventorySystem.ViewModel
                 return;
             }
 
-            // Image Handling Logic - COMMENTED OUT FOR NOW AS REQUESTED
-            /*
-            if (!string.IsNullOrEmpty(_selectedImagePath))
-            {
-                try
-                {
-                    // 1. Define destination folder (Assets/Products)
-                    string projectPath = AppDomain.CurrentDomain.BaseDirectory;
-                    string assetsPath = Path.Combine(projectPath, "Assets", "Products");
-
-                    // Create directory if not exists
-                    if (!Directory.Exists(assetsPath))
-                    {
-                        Directory.CreateDirectory(assetsPath);
-                    }
-
-                    // 2. Generate unique filename
-                    string extension = Path.GetExtension(_selectedImagePath);
-                    string uniqueFileName = $"{Guid.NewGuid()}{extension}";
-                    string destinationPath = Path.Combine(assetsPath, uniqueFileName);
-
-                    // 3. Copy file
-                    File.Copy(_selectedImagePath, destinationPath, true);
-
-                    // 4. Save RELATIVE path to database
-                    Product.ImagePath = Path.Combine("Assets", "Products", uniqueFileName);
-                    
-                    // Optional: If you still need byte[] for legacy reasons, you can keep it or remove it.
-                    // Product.ImageData = File.ReadAllBytes(destinationPath); 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error saving image: {ex.Message}");
-                    return;
-                }
-            }
-            */
-
             try
             {
-                using (var context = new Data.AppDbContext())
+                if (Product.Id == 0)
                 {
-                    if (Product.Id == 0)
-                    {
-                        context.Products.Add(Product);
-                    }
-                    else
-                    {
-                        context.Products.Update(Product);
-                    }
-                    context.SaveChanges();
+                    await _productService.AddAsync(Product);
+                }
+                else
+                {
+                    await _productService.UpdateAsync(Product);
                 }
 
                 MessageBox.Show($"Product Saved Successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

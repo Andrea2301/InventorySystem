@@ -10,11 +10,13 @@ using System.Windows.Input;
 using InventorySystem.Data;
 using Microsoft.EntityFrameworkCore;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace InventorySystem.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        
+        private readonly IServiceProvider _serviceProvider;
         private ViewModelBase _currentChildView;
         private string _caption;
         private IconChar _iconChar;
@@ -58,11 +60,14 @@ namespace InventorySystem.ViewModel
         public ICommand ShowSupplierViewCommand { get; }
         public ICommand ShowInformsViewCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
+
             // Apply any pending migrations on startup
-            using (var db = new AppDbContext())
+            using (var scope = _serviceProvider.CreateScope())
             {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 db.Database.Migrate();
             }
 
@@ -76,64 +81,59 @@ namespace InventorySystem.ViewModel
             ShowSalesHistoryViewCommand = new ViewModelCommand(ExecuteShowSalesHistoryViewCommand);
             ShowSupplierViewCommand = new ViewModelCommand(ExecuteShowSupplierViewCommand);
             ShowInformsViewCommand = new ViewModelCommand(ExecuteShowInformsViewCommand);
+            
             //Default view
             ExecuteShowHomeViewCommand(null);
-           
-
-
         }
-
 
         private void ExecuteShowHomeViewCommand(object obj)
         {
-            CurrentChildView = new HomeViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<HomeViewModel>();
             Caption = "Dashboard";
             IconChar = IconChar.Home;
         }
 
         private void ExecuteShowClientViewCommand(object obj)
         {
-            CurrentChildView = new ClientViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<ClientViewModel>();
             Caption = "Clients";
             IconChar = IconChar.UserGroup; 
         }
 
-
         private void ExecuteShowProductsViewCommand(object obj)
         {
-            CurrentChildView = new ProductsViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<ProductsViewModel>();
             Caption = "Products";
             IconChar = IconChar.Boxes;
         }
 
         private void ExecuteShowSaleViewCommand(object obj)
         {
-            CurrentChildView = new SaleViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<SaleViewModel>();
             Caption = "Sales";
             IconChar = IconChar.FileInvoiceDollar;
         }
 
         private void ExecuteShowSalesHistoryViewCommand(object obj)
         {
-            CurrentChildView = new SalesHistoryViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<SalesHistoryViewModel>();
             Caption = "Sales History";
             IconChar = IconChar.History;
         }
 
         private void ExecuteShowSupplierViewCommand(object obj)
         {
-            CurrentChildView = new SupplierViewModel();
+            CurrentChildView = _serviceProvider.GetRequiredService<SupplierViewModel>();
             Caption = "Suppliers";
             IconChar = IconChar.Truck;
         }
 
         private void ExecuteShowInformsViewCommand(object obj)
         {
-            CurrentChildView = new InformsViewModel();
+            CurrentChildView = new InformsViewModel(); // Will refactor this later
             Caption = "Informs";
             IconChar = IconChar.FilePen;
         }
-
     }
 }
 

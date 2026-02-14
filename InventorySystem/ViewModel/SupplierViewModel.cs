@@ -7,11 +7,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using InventorySystem.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InventorySystem.ViewModel
 {
     public class SupplierViewModel : ViewModelBase
     {
+        private readonly ISupplierService _supplierService;
+        private readonly IServiceProvider _serviceProvider;
         private ObservableCollection<Supplier> _suppliers;
         private string _searchText;
 
@@ -32,7 +36,7 @@ namespace InventorySystem.ViewModel
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
-                ExecuteSearchCommand(null);
+                _ = SearchSuppliersAsync();
             }
         }
 
@@ -41,51 +45,77 @@ namespace InventorySystem.ViewModel
         public ICommand DeleteSupplierCommand { get; }
         public ICommand SearchCommand { get; }
 
-        public SupplierViewModel()
+        public SupplierViewModel(ISupplierService supplierService, IServiceProvider serviceProvider)
         {
+            _supplierService = supplierService;
+            _serviceProvider = serviceProvider;
+
             ShowAddSupplierCommand = new ViewModelCommand(ExecuteShowAddSupplierCommand);
             ShowEditSupplierCommand = new ViewModelCommand(ExecuteShowEditSupplierCommand);
             DeleteSupplierCommand = new ViewModelCommand(ExecuteDeleteSupplierCommand);
-            SearchCommand = new ViewModelCommand(ExecuteSearchCommand);
+            SearchCommand = new ViewModelCommand(async _ => await SearchSuppliersAsync());
 
-            LoadSuppliers();
+            _ = LoadSuppliersAsync();
         }
 
-        private void LoadSuppliers()
+        private async Task LoadSuppliersAsync()
         {
-            using (var db = new AppDbContext())
+            try
             {
-                var list = db.Suppliers.ToList();
+                var list = await _supplierService.GetAllAsync();
                 Suppliers = new ObservableCollection<Supplier>(list);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading suppliers: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task SearchSuppliersAsync()
+        {
+            try
+            {
+                var list = await _supplierService.SearchAsync(SearchText);
+                Suppliers = new ObservableCollection<Supplier>(list);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error searching suppliers: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void ExecuteShowAddSupplierCommand(object obj)
         {
-            var viewModel = new SupplierFormViewModel();
+            var viewModel = _serviceProvider.GetRequiredService<SupplierFormViewModel>();
             var view = new SupplierFormView { DataContext = viewModel };
 
-            if (view.ShowDialog() == true)
+            viewModel.RequestClose += (s, e) => 
             {
-                LoadSuppliers();
-            }
+                view.Close();
+                _ = LoadSuppliersAsync();
+            };
+
+            view.ShowDialog();
         }
 
         private void ExecuteShowEditSupplierCommand(object obj)
         {
             if (obj is Supplier supplier)
             {
-                var viewModel = new SupplierFormViewModel(supplier);
+                var viewModel = new SupplierFormViewModel(_supplierService, supplier);
                 var view = new SupplierFormView { DataContext = viewModel };
 
-                if (view.ShowDialog() == true)
+                viewModel.RequestClose += (s, e) => 
                 {
-                    LoadSuppliers();
-                }
+                    view.Close();
+                    _ = LoadSuppliersAsync();
+                };
+
+                view.ShowDialog();
             }
         }
 
-        private void ExecuteDeleteSupplierCommand(object obj)
+        private async void ExecuteDeleteSupplierCommand(object obj)
         {
             if (obj is Supplier supplier)
             {
@@ -94,32 +124,16 @@ namespace InventorySystem.ViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    using (var db = new AppDbContext())
+                    try
                     {
-                        db.Suppliers.Remove(supplier);
-                        db.SaveChanges();
+                        await _supplierService.DeleteAsync(supplier.Id);
+                        await LoadSuppliersAsync();
                     }
-                    LoadSuppliers();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting supplier: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-            }
-        }
-
-        private void ExecuteSearchCommand(object obj)
-        {
-            using (var db = new AppDbContext())
-            {
-                var query = db.Suppliers.AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(SearchText))
-                {
-                    query = query.Where(s => 
-                        s.CompanyName.Contains(SearchText) || 
-                        s.FirstName.Contains(SearchText) || 
-                        s.LastName.Contains(SearchText) ||
-                        s.Category.Contains(SearchText));
-                }
-
-                Suppliers = new ObservableCollection<Supplier>(query.ToList());
             }
         }
     }

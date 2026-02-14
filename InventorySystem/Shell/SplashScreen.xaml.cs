@@ -13,7 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace InventorySystem
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
+
+namespace InventorySystem.Shell
 {
     /// <summary>
     /// Lógica de interacción para SplashScreen.xaml
@@ -40,7 +43,7 @@ namespace InventorySystem
 
             if (Progressbar.Value == 70)
             {
-                MainWindow mainWindow = new MainWindow();
+                var mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
                 Close();  // Cierra la ventana actual (SplashScreen)
                 mainWindow.Show();  // Muestra la nueva ventana (MainWindow)
             }

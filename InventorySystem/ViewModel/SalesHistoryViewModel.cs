@@ -1,4 +1,6 @@
 using InventorySystem.Models;
+using InventorySystem.Services;
+using InventorySystem.Services.Export;
 using InventorySystem.ViewModel.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,8 +11,10 @@ using System.Windows.Input;
 
 namespace InventorySystem.ViewModel
 {
-    class SalesHistoryViewModel : ViewModelBase
+    public class SalesHistoryViewModel : ViewModelBase
     {
+        private readonly ISaleService _saleService;
+        private readonly IPdfService _pdfService;
         private ObservableCollection<Sale> _sales;
         private Sale _selectedSale;
         private string _searchText;
@@ -34,60 +38,33 @@ namespace InventorySystem.ViewModel
             { 
                 _searchText = value; 
                 OnPropertyChanged(nameof(SearchText));
-                LoadSales(); 
+                _ = LoadSalesAsync(); 
             }
         }
 
         public ICommand ViewDetailCommand { get; }
         public ICommand PrintReceiptCommand { get; }
 
-        public SalesHistoryViewModel()
+        public SalesHistoryViewModel(ISaleService saleService, IPdfService pdfService)
         {
+            _saleService = saleService;
+            _pdfService = pdfService;
             Sales = new ObservableCollection<Sale>();
             ViewDetailCommand = new ViewModelCommand(ExecuteViewDetailCommand);
             PrintReceiptCommand = new ViewModelCommand(ExecutePrintReceiptCommand);
-            LoadSales();
+            _ = LoadSalesAsync();
         }
 
-        private void LoadSales()
+        private async Task LoadSalesAsync()
         {
             try
             {
-                using (var context = new Data.AppDbContext())
+                var list = await _saleService.GetAllSalesAsync(SearchText);
+                Sales.Clear();
+                foreach (var sale in list)
                 {
-                    // Ensure tables are created
-                    context.Database.EnsureCreated();
-
-                    var query = context.Sales
-                        .Include(s => s.Client)
-                        .Include(s => s.SaleDetails)
-                        .ThenInclude(sd => sd.Product)
-                        .AsQueryable();
-
-                    if (!string.IsNullOrWhiteSpace(SearchText))
-                    {
-                        string searchLower = SearchText.ToLower();
-
-                        if (int.TryParse(SearchText, out int searchId))
-                        {
-                            query = query.Where(s => s.Id == searchId || 
-                                                   (s.Client != null && (s.Client.FirstName.ToLower().Contains(searchLower) || 
-                                                                        s.Client.LastName.ToLower().Contains(searchLower))));
-                        }
-                        else
-                        {
-                            query = query.Where(s => s.Client != null && (s.Client.FirstName.ToLower().Contains(searchLower) || 
-                                                                        s.Client.LastName.ToLower().Contains(searchLower)));
-                        }
-                    }
-
-                    var list = query.OrderByDescending(s => s.SaleDate).ToList();
-                    Sales = new ObservableCollection<Sale>(list);
+                    Sales.Add(sale);
                 }
-            }
-            catch (Microsoft.Data.Sqlite.SqliteException sqlEx)
-            {
-                MessageBox.Show($"Database error: {sqlEx.Message}\n\nThis usually happens if the database schema is outdated. Try deleting 'inventory.db' to reset it.", "SQL Error");
             }
             catch (Exception ex)
             {
@@ -99,20 +76,38 @@ namespace InventorySystem.ViewModel
         {
             if (obj is Sale sale)
             {
-                // We'll open a detail window/popup
                 var detailView = new Views.SaleDetailView();
                 detailView.DataContext = sale; 
                 detailView.ShowDialog();
             }
         }
 
-        private void ExecutePrintReceiptCommand(object obj)
+        private async void ExecutePrintReceiptCommand(object obj)
         {
             if (obj is Sale sale)
             {
-                // Placeholder for receipt generation
-                MessageBox.Show($"Generating receipt for Sale #{sale.Id}...\n(In a real scenario, this would generate a PDF or print to a thermal printer)", 
-                                "Receipt Generation", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    var sfd = new Microsoft.Win32.SaveFileDialog
+                    {
+                        FileName = $"Factura_{sale.Id:D6}",
+                        DefaultExt = ".pdf",
+                        Filter = "PDF Documents (.pdf)|*.pdf"
+                    };
+
+                    if (sfd.ShowDialog() == true)
+                    {
+                        await _pdfService.GenerateInvoiceAsync(sale, sfd.FileName);
+                        MessageBox.Show("Factura generada exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                        
+                        // Opcional: Abrir el PDF automáticamente
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(sfd.FileName) { UseShellExecute = true });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al generar la factura: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
