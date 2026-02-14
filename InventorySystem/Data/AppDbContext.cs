@@ -14,6 +14,7 @@ namespace InventorySystem.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleDetail> SaleDetails { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

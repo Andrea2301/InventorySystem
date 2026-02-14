@@ -7,9 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using InventorySystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace InventorySystem.ViewModel
 {
-    class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         
         private ViewModelBase _currentChildView;
@@ -57,6 +60,12 @@ namespace InventorySystem.ViewModel
 
         public MainViewModel()
         {
+            // Apply any pending migrations on startup
+            using (var db = new AppDbContext())
+            {
+                db.Database.Migrate();
+            }
+
             // Initialize QuestPDF license globally
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 

@@ -7,115 +7,181 @@
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:local="clr-namespace:InventorySystem.Views"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     mc:Ignorable="d"
     Height="610" Width="1000">
 
-    <Border  Background="#f3f6f9" CornerRadius="10" Opacity="80" >
-        <Grid Margin="0,10,0,0">
+    <Border Background="#F9FAFB" CornerRadius="10">
+        <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="280" />
-                <RowDefinition />
-                <!-- Agregar una tercera fila si es necesario -->
+                <RowDefinition Height="Auto"/> <!-- KPIs -->
+                <RowDefinition Height="*"/>    <!-- Main Content -->
             </Grid.RowDefinitions>
 
-            <!-- Cartas en la primera fila -->
-            <Grid Margin="10,32,10,30" Grid.Row="1">
-                <Grid.Effect>
-                    <BlurEffect/>
-                </Grid.Effect>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-
-                </Grid.ColumnDefinitions>
-
-
-            </Grid>
-
-            <!-- Sección de gráficos en la segunda fila -->
-            <Grid Margin="585,0,10,0" Height="320" VerticalAlignment="Center" Grid.Row="1" >
-                <Grid.Effect>
-                    <DropShadowEffect Color="WhiteSmoke"/>
-                </Grid.Effect>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <!--PieChart -->
-                <Border Background="White" CornerRadius="10" Grid.ColumnSpan="2" Margin="10,10,8,30" >
+            <!-- KPI Row -->
+            <UniformGrid Columns="4" Grid.Row="0" Margin="0,0,0,20">
+                <!-- Total Revenue -->
+                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
                     <Border.Effect>
-                        <DropShadowEffect Color="WhiteSmoke" />
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
                     </Border.Effect>
-                    <lvc:PieChart x:Name="PieChart" LegendLocation="Bottom"  Hoverable="False" Margin="10,29,10,29"  Grid.ColumnSpan="2" >
-                        <lvc:PieChart.Style>
-                            <Style/>
-                        </lvc:PieChart.Style>
-                        <lvc:PieChart.Series>
-                            <lvc:PieSeries Title="Maria" Values="3" DataLabels="True" Fill="#cbd8f2" Stroke="Transparent"
-                        LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" Fill="#3f51b5" Stroke="Transparent"
-                         LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" Fill="#7c9dde" Stroke="Transparent"
-                         LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" Fill="#5d7dd4" Stroke="Transparent"
-                         LabelPoint="{Binding PointLabel}"/>
-                        </lvc:PieChart.Series>
-                    </lvc:PieChart>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <fa:IconImage Icon="CircleDollarToSlot" Foreground="#6366F1" Width="20" Height="20"/>
+                            <TextBlock Text="Total Revenue" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalSalesToday}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
+                        <TextBlock Text="{Binding SalesTrend}" FontSize="11" Foreground="#10B981" Margin="0,5,0,0"/>
+                    </StackPanel>
                 </Border>
-                <!-- CartesianChart  -->
+
+                <!-- Stock Value -->
+                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <fa:IconImage Icon="Vault" Foreground="#F59E0B" Width="20" Height="20"/>
+                            <TextBlock Text="Inventory Value" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalStockValue}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
+                        <TextBlock Text="Total value of assets" FontSize="11" Foreground="#9CA3AF" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Critical Stock -->
+                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <fa:IconImage Icon="TriangleExclamation" Foreground="#EF4444" Width="20" Height="20"/>
+                            <TextBlock Text="Critical Stock" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding CriticalStockCount}" FontSize="24" FontWeight="Bold" Foreground="#EF4444"/>
+                        <TextBlock Text="Items need restocking" FontSize="11" Foreground="#EF4444" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Productivity / New Clients -->
+                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <fa:IconImage Icon="UserPlus" Foreground="#10B981" Width="20" Height="20"/>
+                            <TextBlock Text="New Clients" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding NewClientsToday}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
+                        <TextBlock Text="Registered today" FontSize="11" Foreground="#9CA3AF" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Main Content Grid -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Trends & Performance -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/> <!-- Chart -->
+                        <RowDefinition Height="*"/>    <!-- Top Products -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Revenue Trend -->
+                    <Border Background="White" CornerRadius="15" Margin="8" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="Revenue Performance" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,20"/>
+                            <lvc:CartesianChart Height="180" Series="{Binding SaleSeries}" LegendLocation="None">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis IsEnabled="False"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Revenue" LabelFormatter="{Binding Formatter}"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Top Selling Products -->
+                    <Border Grid.Row="1" Background="White" CornerRadius="15" Margin="8" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="Top Selling Products" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,15"/>
+                            <ItemsControl ItemsSource="{Binding TopProducts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="#F3F4F6" BorderThickness="0,0,0,1" Padding="0,10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Medium" Foreground="#374151"/>
+                                                    <TextBlock Text="{Binding Category}" FontSize="11" Foreground="#9CA3AF"/>
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="1" Text="{Binding Quantity, StringFormat={}{0} units}" 
+                                                           VerticalAlignment="Center" FontWeight="Bold" Foreground="#4F46E5"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Health Column (Right) -->
+                <Border Grid.Column="1" Background="White" CornerRadius="15" Margin="8" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Critical Stock Alerts" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,15"/>
+                        
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding CriticalItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#FEF2F2" CornerRadius="8" Margin="0,0,0,8" Padding="12">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="#991B1B"/>
+                                                    <TextBlock Text="Low availability" FontSize="11" Foreground="#B91C1C"/>
+                                                </StackPanel>
+                                                <Border Grid.Column="1" Background="#FEE2E2" CornerRadius="10" Padding="8,2">
+                                                    <TextBlock Text="{Binding Quantity}" Foreground="#991B1B" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
             </Grid>
-            <Border Background="White" Margin="10,10,430,30" Grid.Row="1" CornerRadius="10">
-                <Border.Effect>
-                    <DropShadowEffect Color="WhiteSmoke"/>
-                </Border.Effect>
-                <lvc:CartesianChart LegendLocation="Bottom" Grid.Row="3" Foreground="#FF4E4D4D" Margin="32,30,32,30" Background="Transparent" >
-
-                    <lvc:CartesianChart.RenderTransform>
-                        <TransformGroup>
-                        </TransformGroup>
-                    </lvc:CartesianChart.RenderTransform>
-
-                    <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Title="{Binding SaleSeries.Title}" Values="{Binding SaleSeries.Values}"
-                                      MaxColumnWidth="15" 
-                                      Fill="#323d76"/>
-                        <lvc:ColumnSeries Title="{Binding StockSeries.Title}" Values="{Binding StockSeries.Values}"
-                                      Fill="#3f51b5"
-                                      MaxColumnWidth="15"
-                                      />
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-            </Border>
-            <Border Background="White" CornerRadius="10" Margin="342,60,359,70" Padding="25">
-                <Border.Effect>
-                    <DropShadowEffect Color="WhiteSmoke"/>
-                </Border.Effect>
-                <StackPanel>
-                    <TextBlock Text="Ventas hoy" FontSize="20" FontWeight="Light"/>
-                    <TextBlock Text="$5,200" FontSize="28" Foreground="DarkBlue"/>
-                </StackPanel>
-            </Border>
-            <Border Background="White" CornerRadius="10" Margin="17,55,695,70" Padding="25">
-                <Border.Effect>
-                    <DropShadowEffect Color="WhiteSmoke"/>
-                </Border.Effect>
-                <StackPanel>
-                    <TextBlock Text="Clientes nuevos" FontSize="20" FontWeight="Light"/>
-                    <TextBlock Text="18" FontSize="28" Foreground="DarkGreen"/>
-                </StackPanel>
-            </Border>
-            <Border Background="White" CornerRadius="10" Margin="686,60,15,70" Padding="25">
-                <Border.Effect>
-                    <DropShadowEffect Color="WhiteSmoke"/>
-                </Border.Effect>
-                <StackPanel>
-                    <TextBlock Text="General Stock" FontSize="20" FontWeight="Light"/>
-                    <TextBlock Text="5000" FontSize="28" Foreground="Red"/>
-                </StackPanel>
-            </Border>
         </Grid>
     </Border>
 </UserControl>
-

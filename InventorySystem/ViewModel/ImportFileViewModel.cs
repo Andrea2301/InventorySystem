@@ -47,8 +47,8 @@ namespace InventorySystem.ViewModel
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Excel Files|*.xls;*.xlsx;*.xlsm",
-                Title = "Select an Excel File"
+                Filter = "Excel & CSV Files|*.xls;*.xlsx;*.xlsm;*.csv",
+                Title = "Select an Excel or CSV File"
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -87,13 +87,14 @@ namespace InventorySystem.ViewModel
             if (files != null && files.Length > 0)
             {
                 string file = files[0];
-                if (file.EndsWith(".xls") || file.EndsWith(".xlsx") || file.EndsWith(".xlsm"))
+                string ext = System.IO.Path.GetExtension(file).ToLower();
+                if (ext == ".xls" || ext == ".xlsx" || ext == ".xlsm" || ext == ".csv")
                 {
                     SelectedFilePath = file;
                 }
                 else
                 {
-                    MessageBox.Show("Please select a valid Excel file.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Please select a valid Excel or CSV file.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }

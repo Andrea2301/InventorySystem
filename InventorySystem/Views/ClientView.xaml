@@ -89,6 +89,7 @@
                             </TextBlock>
                             
                             <TextBox x:Name="SearchBox"
+                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                                      Foreground="#4B5563"
                                      FontSize="14"
                                      BorderThickness="0"
@@ -106,14 +107,15 @@
                         Width="40"
                         Height="40"
                         Margin="0,0,15,0"
-                        Cursor="Hand">
+                        Cursor="Hand"
+                        Command="{Binding SortCommand}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" CornerRadius="20" Padding="10">
                                 <Border.Effect>
                                     <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.5"/>
                                 </Border.Effect>
-                                <fa:IconImage Icon="Filter" Foreground="#475dbd" Width="16" Height="16"/>
+                                <fa:IconImage Icon="SortAlphaDown" Foreground="#475dbd" Width="16" Height="16"/>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
@@ -188,18 +190,11 @@
                       GridLinesVisibility="None"
                       BorderThickness="0"
                       AlternatingRowBackground="#F9FAFB"
-                      CanUserAddRows="False">
+                      CanUserAddRows="False"
+                      ItemsSource="{Binding ClientsView}"
+                      SelectedItem="{Binding SelectedClient}">
 
                 <DataGrid.Columns>
-
-
-
-                    <DataGridTextColumn Header="#" Width="Auto"
-                                        MinWidth="40"
-                                        MaxWidth="60"
-                                        Binding="{Binding Id}"
-                                        IsReadOnly="True"/>
-                    
                     <DataGridTextColumn Header="ID" Width="Auto"
                                         MinWidth="50"
                                         MaxWidth="80"
@@ -209,27 +204,32 @@
                     <DataGridTextColumn Header="Name"  Width="*"
                                         MinWidth="120"
                                         MaxWidth="250" 
-                                        Binding="{Binding FirstName}"/>
+                                        Binding="{Binding FirstName}"
+                                        IsReadOnly="True"/>
                                         
                     <DataGridTextColumn Header="Last Name"  Width="*"
                                         MinWidth="120"
                                         MaxWidth="250"
-                                        Binding="{Binding LastName}"/>
+                                        Binding="{Binding LastName}"
+                                        IsReadOnly="True"/>
                                         
                     <DataGridTextColumn Header="Phone" Width="Auto"
                                         MinWidth="120"
                                         MaxWidth="150"
-                                        Binding="{Binding PhoneNumber}"/>
+                                        Binding="{Binding PhoneNumber}"
+                                        IsReadOnly="True"/>
                     <DataGridTextColumn Header="E-mail" Width="2*"
                                         MinWidth="180"
                                         MaxWidth="300"
-                                        Binding="{Binding Email}"/>
+                                        Binding="{Binding Email}"
+                                        IsReadOnly="True"/>
 
                     <!-- Date Added -->
                     <DataGridTextColumn Header="Date Added"
                                         Width="Auto"
                                         MinWidth="120"
-                                        Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy}"/>
+                                        Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy}"
+                                        IsReadOnly="True"/>
 
                     <!-- Status -->
                     <DataGridTemplateColumn Header="Status" Width="100">
@@ -275,12 +275,16 @@
                                             HorizontalAlignment="Center">
 
                                     <Button Style="{StaticResource Edit}"
-                                            Margin="0,0,6,0">
-                                        <fa:IconImage Icon="Edit"/>
+                                            Margin="0,0,6,0"
+                                            Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}">
+                                        <fa:IconImage Icon="Edit" Width="14" Height="14"/>
                                     </Button>
 
-                                    <Button Style="{StaticResource Delete}">
-                                        <fa:IconImage Icon="Trash"/>
+                                    <Button Style="{StaticResource Delete}"
+                                            Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}">
+                                        <fa:IconImage Icon="Trash" Width="14" Height="14"/>
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>

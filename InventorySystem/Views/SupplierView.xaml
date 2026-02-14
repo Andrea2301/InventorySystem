@@ -93,7 +93,8 @@
                                      Background="Transparent"
                                      VerticalAlignment="Center"
                                      VerticalContentAlignment="Center"
-                                     Padding="0,0,10,0"/>
+                                     Padding="0,0,10,0"
+                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -158,7 +159,8 @@
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Padding="10,8"
-                                        HorizontalContentAlignment="Left"/>
+                                        HorizontalContentAlignment="Left"
+                                        Command="{Binding ShowAddSupplierCommand}"/>
                                 <Button Content="Import from Excel"
                                         Background="Transparent"
                                         BorderThickness="0"
@@ -184,7 +186,9 @@
                       GridLinesVisibility="None"
                       BorderThickness="0"
                       AlternatingRowBackground="#F9FAFB"
-                      CanUserAddRows="False">
+                      CanUserAddRows="False"
+                      ItemsSource="{Binding Suppliers}"
+                      IsReadOnly="True">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="Auto"
@@ -262,12 +266,16 @@
                                             HorizontalAlignment="Center">
 
                                     <Button Style="{StaticResource Edit}"
-                                            Margin="0,0,6,0">
-                                        <fa:IconImage Icon="Edit"/>
+                                            Margin="0,0,6,0"
+                                            Command="{Binding DataContext.ShowEditSupplierCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}">
+                                        <fa:IconImage Icon="Pen" Width="14" Height="14"/>
                                     </Button>
 
-                                    <Button Style="{StaticResource Delete}">
-                                        <fa:IconImage Icon="Trash"/>
+                                    <Button Style="{StaticResource Delete}"
+                                            Command="{Binding DataContext.DeleteSupplierCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}">
+                                        <fa:IconImage Icon="Trash" Width="14" Height="14"/>
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>
