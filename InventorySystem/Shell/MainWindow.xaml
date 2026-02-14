@@ -38,6 +38,10 @@
             <local1:SaleView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:SalesHistoryViewModel}">
+            <local1:SalesHistoryView/>
+        </DataTemplate>
+
 
     </Window.Resources>
     <Window.Style>

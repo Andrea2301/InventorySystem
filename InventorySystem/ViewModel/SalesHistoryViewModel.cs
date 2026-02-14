@@ -66,23 +66,28 @@ namespace InventorySystem.ViewModel
 
                     if (!string.IsNullOrWhiteSpace(SearchText))
                     {
+                        string searchLower = SearchText.ToLower();
 
                         if (int.TryParse(SearchText, out int searchId))
                         {
                             query = query.Where(s => s.Id == searchId || 
-                                                   (s.Client != null && (s.Client.FirstName.ToLower().Contains(SearchText.ToLower()) || 
-                                                                        s.Client.LastName.ToLower().Contains(SearchText.ToLower()))));
+                                                   (s.Client != null && (s.Client.FirstName.ToLower().Contains(searchLower) || 
+                                                                        s.Client.LastName.ToLower().Contains(searchLower))));
                         }
                         else
                         {
-                            query = query.Where(s => s.Client != null && (s.Client.FirstName.ToLower().Contains(SearchText.ToLower()) || 
-                                                                        s.Client.LastName.ToLower().Contains(SearchText.ToLower())));
+                            query = query.Where(s => s.Client != null && (s.Client.FirstName.ToLower().Contains(searchLower) || 
+                                                                        s.Client.LastName.ToLower().Contains(searchLower)));
                         }
                     }
 
                     var list = query.OrderByDescending(s => s.SaleDate).ToList();
                     Sales = new ObservableCollection<Sale>(list);
                 }
+            }
+            catch (Microsoft.Data.Sqlite.SqliteException sqlEx)
+            {
+                MessageBox.Show($"Database error: {sqlEx.Message}\n\nThis usually happens if the database schema is outdated. Try deleting 'inventory.db' to reset it.", "SQL Error");
             }
             catch (Exception ex)
             {
