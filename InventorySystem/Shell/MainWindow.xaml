@@ -34,6 +34,10 @@
             <local1:ProductsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:SaleViewModel}">
+            <local1:SaleView/>
+        </DataTemplate>
+
 
     </Window.Resources>
     <Window.Style>
@@ -110,15 +114,27 @@
 
                     </RadioButton>
                     <RadioButton Style="{StaticResource MenuBottons}"
-             Tag="{StaticResource Buttons}" >
+                                Tag="{StaticResource Buttons}" 
+                                 Command="{Binding ShowSaleViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="FileInvoiceDollar" Style="{StaticResource MenuButtonIcon}"/>
                             <TextBlock Text="Sales" Style="{StaticResource ButtonText}"/>
                         </StackPanel>
 
                     </RadioButton>
+                    
+                    <RadioButton Style="{StaticResource MenuBottons}"
+                                 Tag="{StaticResource Buttons}" 
+                                 Command="{Binding ShowSalesHistoryViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="History" Style="{StaticResource MenuButtonIcon}"/>
+                            <TextBlock Text="Historial" Style="{StaticResource ButtonText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
                     <RadioButton Style="{StaticResource MenuBottons}"
              Tag="{StaticResource Buttons}" >
+                        
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
                             <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>

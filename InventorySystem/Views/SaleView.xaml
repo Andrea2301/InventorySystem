@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="InventorySystem.Views.SaleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:InventorySystem.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1200">
+    
+    <Grid Background="#F3F4F6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>    <!-- Product Selection -->
+            <ColumnDefinition Width="400"/>  <!-- Cart Summary -->
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT COLUMN: PRODUCTS -->
+        <Border Grid.Column="0" Background="White" Margin="20" CornerRadius="20">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/> <!-- Header -->
+                    <RowDefinition Height="*"/>    <!-- Grid -->
+                </Grid.RowDefinitions>
+
+                <!-- Search and Header -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <Grid>
+                        <TextBlock Text="Store Catalog" FontSize="24" FontWeight="Bold" Foreground="#1F2937"/>
+                        <Border HorizontalAlignment="Right" Background="#F9FAFB" CornerRadius="10" Width="300" Height="40" BorderBrush="#E5E7EB" BorderThickness="1">
+                            <Grid>
+                                <fa:IconImage Icon="Search" Foreground="#9CA3AF" Width="14" HorizontalAlignment="Left" Margin="10,0"/>
+                                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                                         VerticalAlignment="Center" 
+                                         BorderThickness="0" 
+                                         Background="Transparent" 
+                                         Margin="35,0,10,0"
+                                         FontSize="14"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Product Grid -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Products}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- PRODUCT CARD (Mini version of what we used in ProductsView) -->
+                                <Button Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Background="Transparent" 
+                                        BorderThickness="0" 
+                                        Cursor="Hand"
+                                        Padding="0"
+                                        Margin="8">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="White" CornerRadius="15" Width="180" Height="220" BorderBrush="#F3F4F6" BorderThickness="1">
+                                                <Border.Effect>
+                                                    <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.5"/>
+                                                </Border.Effect>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="100"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Row="0" Background="#F9FAFB" CornerRadius="15,15,0,0">
+                                                        <fa:IconImage Icon="BoxOpen" Foreground="#E5E7EB" Width="40"/>
+                                                    </Border>
+
+                                                    <StackPanel Grid.Row="1" Margin="10">
+                                                        <TextBlock Text="{Binding Category}" Foreground="#9CA3AF" FontSize="10" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{Binding Name}" Foreground="#1F2937" FontSize="14" FontWeight="Bold" Margin="0,2"/>
+                                                        <TextBlock Text="{Binding Price, StringFormat=C}" Foreground="#4F46E5" FontSize="16" FontWeight="ExtraBold" VerticalAlignment="Bottom" Margin="0,5,0,0"/>
+                                                        <TextBlock Text="{Binding Quantity, StringFormat='{}Stock: {0}'}" FontSize="10" Foreground="#6B7280"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- RIGHT COLUMN: CART -->
+        <Border Grid.Column="1" Background="White" Margin="0,20,20,20" CornerRadius="20">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/> <!-- Cart Title -->
+                    <RowDefinition Height="*"/>    <!-- Cart Items -->
+                    <RowDefinition Height="Auto"/> <!-- Calculations -->
+                    <RowDefinition Height="Auto"/> <!-- Checkout -->
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Current Order" FontSize="20" FontWeight="Bold" Foreground="#1F2937" Margin="0,0,0,20"/>
+
+                <!-- Items List -->
+                <ScrollViewer Grid.Row="1" Margin="0,0,0,20">
+                    <ItemsControl ItemsSource="{Binding Cart}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#F3F4F6" BorderThickness="0,0,0,1" Padding="0,10" Margin="0,0,5,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="60"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding Product.Name}" FontWeight="SemiBold" Foreground="#374151"/>
+                                            <TextBlock Text="{Binding Product.Price, StringFormat=C}" FontSize="12" Foreground="#9CA3AF"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" 
+                                                     Width="30" TextAlignment="Center" BorderThickness="1" BorderBrush="#E5E7EB"/>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Column="2" Text="{Binding Subtotal, StringFormat=C}" 
+                                                   FontWeight="Bold" Foreground="#1F2937" HorizontalAlignment="Right"/>
+                                        
+                                        <!-- Delete Button -->
+                                        <Button Grid.Column="2" Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-10,-5,0"
+                                                Background="Transparent" BorderThickness="0">
+                                            <fa:IconImage Icon="TimesCircle" Foreground="#EF4444" Width="12"/>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Calculation Summary -->
+                <StackPanel Grid.Row="2" Margin="0,0,0,20">
+                    <Separator Background="#F3F4F6" Margin="0,0,0,20"/>
+                    <Grid Margin="0,5">
+                        <TextBlock Text="Subtotal" Foreground="#6B7280"/>
+                        <TextBlock Text="{Binding Total, StringFormat=C}" HorizontalAlignment="Right" Foreground="#1F2937"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <TextBlock Text="Tax (0%)" Foreground="#6B7280"/>
+                        <TextBlock Text="$0.00" HorizontalAlignment="Right" Foreground="#1F2937"/>
+                    </Grid>
+                    <Grid Margin="0,15,0,0">
+                        <TextBlock Text="TOTAL" FontSize="24" FontWeight="ExtraBold" Foreground="#1F2937"/>
+                        <TextBlock Text="{Binding Total, StringFormat=C}" FontSize="24" FontWeight="ExtraBold" Foreground="#4F46E5" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Finalize Button -->
+                <Button Grid.Row="3" Command="{Binding CheckoutCommand}"
+                        Content="Finalize Transaction" 
+                        Background="#4F46E5" Foreground="White" 
+                        Height="50" FontSize="16" FontWeight="Bold"
+                        BorderThickness="0" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="12"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -36,6 +36,8 @@ namespace InventorySystem.Models
 
         public byte[]? ImageData { get; set; }
 
+        public string? ImagePath { get; set; }
+
         // Optional: Helper property for UI binding
         [NotMapped]
         public string Status => IsActive ? (Quantity > 0 ? "In Stock" : "Out of Stock") : "Inactive";

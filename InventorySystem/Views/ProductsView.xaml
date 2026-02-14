@@ -51,7 +51,6 @@
                         
                         <!-- Search Icon -->
                         <fa:IconImage Icon="Search" 
-                                      Style="{StaticResource MenuButtonIcon}" 
                                       Foreground="#9CA3AF"
                                       Width="16"
                                       Height="16"
@@ -189,8 +188,8 @@
                         <!-- CARD -->
                         <Border Background="White" 
                                 CornerRadius="15" 
-                                Width="240" 
-                                Height="340" 
+                                Width="200" 
+                                Height="280" 
                                 Margin="10">
                             
                             <Border.Effect>
@@ -199,9 +198,9 @@
 
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="160"/> <!-- Image -->
+                                    <RowDefinition Height="120"/> <!-- Image -->
                                     <RowDefinition Height="*"/>   <!-- Info -->
-                                    <RowDefinition Height="50"/>  <!-- Actions -->
+                                    <RowDefinition Height="40"/>  <!-- Actions -->
                                 </Grid.RowDefinitions>
 
                                 <!-- 1. IMAGE SECTION -->
@@ -210,8 +209,8 @@
                                         <!-- Placeholder Icon (shows if image is null) -->
                                         <fa:IconImage Icon="BoxOpen" 
                                                       Foreground="#E5E7EB" 
-                                                      Width="60" 
-                                                      Height="60"
+                                                      Width="40" 
+                                                      Height="40"
                                                       HorizontalAlignment="Center"
                                                       VerticalAlignment="Center"/>
                                         
@@ -261,37 +260,37 @@
                                 </Border>
 
                                 <!-- 2. INFO SECTION -->
-                                <StackPanel Grid.Row="1" Margin="15,10,15,5">
+                                <StackPanel Grid.Row="1" Margin="12,8,12,5">
                                     
                                     <!-- Category -->
                                     <TextBlock Text="{Binding Category}" 
                                                Foreground="#9CA3AF" 
-                                               FontSize="12" 
+                                               FontSize="11" 
                                                FontWeight="SemiBold"
                                                TextTrimming="CharacterEllipsis"/>
 
                                     <!-- Name -->
                                     <TextBlock Text="{Binding Name}" 
                                                Foreground="#1F2937" 
-                                               FontSize="16" 
+                                               FontSize="14" 
                                                FontWeight="Bold"
                                                TextWrapping="Wrap"
-                                               MaxHeight="44"
+                                               MaxHeight="40"
                                                TextTrimming="CharacterEllipsis"
-                                               Margin="0,2,0,5"/>
+                                               Margin="0,2,0,3"/>
 
                                     <!-- Qty -->
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                        <fa:IconImage Icon="LayerGroup" Width="12" Height="12" Foreground="#9CA3AF" Margin="0,0,5,0"/>
-                                        <TextBlock Text="{Binding Quantity, StringFormat='{}Available: {0}'}" 
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                                        <fa:IconImage Icon="LayerGroup" Width="10" Height="10" Foreground="#9CA3AF" Margin="0,0,5,0"/>
+                                        <TextBlock Text="{Binding Quantity, StringFormat='{}Stock: {0}'}" 
                                                    Foreground="#6B7280" 
-                                                   FontSize="12"/>
+                                                   FontSize="11"/>
                                     </StackPanel>
 
                                     <!-- Price -->
                                     <TextBlock Text="{Binding Price, StringFormat=C}" 
                                                Foreground="#4F46E5" 
-                                               FontSize="18" 
+                                               FontSize="16" 
                                                FontWeight="ExtraBold"
                                                VerticalAlignment="Bottom"/>
                                 </StackPanel>

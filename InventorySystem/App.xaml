@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InventorySystem"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:converters="clr-namespace:InventorySystem.Converters"
              
              StartupUri="Shell/SplashScreen.xaml">
 
@@ -14,6 +15,8 @@
                 <ResourceDictionary Source="Assets/Styles/ClientStyle.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/Pop up.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 

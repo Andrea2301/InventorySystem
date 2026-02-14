@@ -1,0 +1,134 @@
+<UserControl x:Class="InventorySystem.Views.SalesHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:InventorySystem.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1100">
+    
+    <Grid Background="#F3F4F6">
+        <Border Background="White" Margin="20" CornerRadius="20">
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/> <!-- Title & Search -->
+                    <RowDefinition Height="*"/>    <!-- Sales List -->
+                </Grid.RowDefinitions>
+
+                <!-- HEADER -->
+                <Grid Grid.Row="0" Margin="0,0,0,30">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:IconImage Icon="CalendarAlt" Foreground="#4F46E5" Width="28" Margin="0,0,15,0"/>
+                        <TextBlock Text="Sales History" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
+                    </StackPanel>
+
+                    <Border HorizontalAlignment="Right" Background="#F9FAFB" CornerRadius="12" Width="350" Height="45" BorderBrush="#E5E7EB" BorderThickness="1">
+                        <Grid>
+                            <fa:IconImage Icon="Search" Foreground="#9CA3AF" Width="16" HorizontalAlignment="Left" Margin="15,0"/>
+                            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                                     VerticalAlignment="Center" 
+                                     BorderThickness="0" 
+                                     Background="Transparent" 
+                                     Margin="45,0,15,0"
+                                     FontSize="15"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- SALES GRID -->
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Sales}" 
+                          SelectedItem="{Binding SelectedSale}"
+                          AutoGenerateColumns="False" 
+                          CanUserAddRows="False" 
+                          IsReadOnly="True"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          GridLinesVisibility="None"
+                          HeadersVisibility="Column"
+                          RowHeight="60">
+                    
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F9FAFB"/>
+                            <Setter Property="Foreground" Value="#6B7280"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Padding" Value="15,10"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                        </Style>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#F3F4F6"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#F9FAFB"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                        <Border Padding="15,0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Order #" Binding="{Binding Id}" Width="100"/>
+                        
+                        <DataGridTemplateColumn Header="Date" Width="180">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:IconImage Icon="Clock" Width="12" Foreground="#9CA3AF" Margin="0,0,5,0"/>
+                                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" Foreground="#374151"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Client" Binding="{Binding Client.FullName, FallbackValue='General Client'}" Width="*"/>
+                        
+                        <DataGridTemplateColumn Header="Amount" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontWeight="Bold" Foreground="#4F46E5" FontSize="15"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Actions" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Margin="0,0,10,0" ToolTip="View Details"
+                                                Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource Edit}">
+                                            <fa:IconImage Icon="Eye" Width="14" Height="14"/>
+                                        </Button>
+                                        <Button ToolTip="Print Receipt"
+                                                Command="{Binding DataContext.PrintReceiptCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource Pop}">
+                                            <fa:IconImage Icon="Receipt" Width="14" Height="14" Foreground="White"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

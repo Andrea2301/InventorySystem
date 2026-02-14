@@ -42,7 +42,7 @@ namespace InventorySystem.ViewModel
             set
             {
                 _iconChar = value;
-                OnPropertyChanged(nameof(Icon)); // Corregido aquí
+                OnPropertyChanged(nameof(IconChar));
             }
         }
 
@@ -50,13 +50,17 @@ namespace InventorySystem.ViewModel
         public ICommand ShowHomeViewCommand { get;}
         public ICommand ShowClientViewCommand { get;}
         public ICommand ShowProductsViewCommand { get;}
+        public ICommand ShowSaleViewCommand { get;}
+        public ICommand ShowSalesHistoryViewCommand { get;}
 
         public MainViewModel()
         {
 
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowClientViewCommand = new ViewModelCommand(ExecuteShowClientViewCommand);
-            ShowProductsViewCommand = new ViewModelCommand(ExecuteShowProductsViewCommand); 
+            ShowProductsViewCommand = new ViewModelCommand(ExecuteShowProductsViewCommand);
+            ShowSaleViewCommand = new ViewModelCommand(ExecuteShowSaleViewCommand); 
+            ShowSalesHistoryViewCommand = new ViewModelCommand(ExecuteShowSalesHistoryViewCommand);
             //Default view
             ExecuteShowHomeViewCommand(null);
            
@@ -85,6 +89,20 @@ namespace InventorySystem.ViewModel
             CurrentChildView = new ProductsViewModel();
             Caption = "Products";
             IconChar = IconChar.Boxes;
+        }
+
+        private void ExecuteShowSaleViewCommand(object obj)
+        {
+            CurrentChildView = new SaleViewModel();
+            Caption = "Sales";
+            IconChar = IconChar.FileInvoiceDollar;
+        }
+
+        private void ExecuteShowSalesHistoryViewCommand(object obj)
+        {
+            CurrentChildView = new SalesHistoryViewModel();
+            Caption = "Sales History";
+            IconChar = IconChar.History;
         }
 
     }
