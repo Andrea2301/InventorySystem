@@ -29,6 +29,17 @@ A comprehensive inventory management solution designed for small to medium-sized
 
 ---
 
+## Why a Desktop Application?
+
+While many systems today are cloud-based, this project intentionally focuses on a **desktop-first approach** to ensure:
+- Full offline operation
+- Local data ownership
+- Immediate responsiveness
+- Business continuity during service outages
+
+This system is designed to later integrate with a cloud service via a synchronization bridge.
+
+
 ##  Screenshot
 
 ### Dashboard
