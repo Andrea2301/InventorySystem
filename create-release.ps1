@@ -110,7 +110,7 @@ On first launch, the application will:
 ## Support
 
 For issues or questions, please visit:
-https://github.com/yourusername/InventorySystem/issues
+https://github.com/Andrea2301/InventorySystem/issues
 
 ## License
 

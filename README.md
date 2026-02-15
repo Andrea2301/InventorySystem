@@ -5,9 +5,9 @@
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![WPF](https://img.shields.io/badge/WPF-Desktop-0078D4?logo=windows)](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/)
 [![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite)](https://www.sqlite.org/)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/yourusername/InventorySystem/releases)
-[![Status](https://img.shields.io/badge/Status-Active%20Development-success.svg)](https://github.com/yourusername/InventorySystem)
-[![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)](https://github.com/yourusername/InventorySystem/graphs/commit-activity)
+[![Version](https://img.shields.io/badge/Version-1.0.3-blue.svg)](https://github.com/Andrea2301/InventorySystem/releases)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-success.svg)](https://github.com/Andrea2301/InventorySystem)
+[![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)](https://github.com/Andrea2301/InventorySystem/graphs/commit-activity)
 
 
 
