@@ -1,6 +1,6 @@
 # 📦 Inventory Management System
 
-> A modern, enterprise-grade Desktop Inventory and Point of Sale (POS) system built with WPF and .NET 8
+> A modern, Desktop Inventory and Point of Sale (POS) system built with WPF and .NET 8
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![WPF](https://img.shields.io/badge/WPF-Desktop-0078D4?logo=windows)](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/)
