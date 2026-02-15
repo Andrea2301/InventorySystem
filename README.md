@@ -176,14 +176,41 @@ InventorySystem/
 
 ---
 
-##  Getting Started
+## 🚦 Getting Started
 
-### Prerequisites
+### 📥 Download & Install (Recommended)
+
+**For End Users - No Development Tools Required:**
+
+1. **Download the latest release**
+   - Go to [Releases](https://github.com/yourusername/InventorySystem/releases)
+   - Download `InventorySystem-v1.0.0-win-x64.zip`
+
+2. **Extract the ZIP file**
+   - Right-click → Extract All
+   - Choose a location (e.g., `C:\InventorySystem`)
+
+3. **Install (Easy Method)**
+   - Right-click on `install.ps1`
+   - Select "Run with PowerShell"
+   - Follow the prompts
+   - Launch from Desktop shortcut
+
+   **OR Manual Method:**
+   - Simply run `InventorySystem.exe`
+
+> **Note**: No .NET installation required! Everything is included.
+
+---
+
+### 🛠️ Build from Source (For Developers)
+
+**Prerequisites:**
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
 - Visual Studio 2022 (recommended) or Visual Studio Code
 - Windows 10/11
 
-### Installation
+**Steps:**
 
 1. **Clone the repository**
    ```bash
@@ -198,7 +225,7 @@ InventorySystem/
 
 3. **Build the project**
    ```bash
-   dotnet build
+   dotnet build --configuration Release
    ```
 
 4. **Run the application**
@@ -206,7 +233,27 @@ InventorySystem/
    dotnet run --project InventorySystem
    ```
 
-   Or simply open `InventorySystem.sln` in Visual Studio and press F5.
+   Or open `InventorySystem.sln` in Visual Studio and press F5.
+
+---
+
+### 📦 Create Release Package (For Maintainers)
+
+To create a distributable package for GitHub Releases:
+
+```powershell
+.\create-release.ps1 -Version "1.0.0"
+```
+
+This will:
+- Build the project in Release mode
+- Create a self-contained package
+- Generate a ZIP file in `releases/`
+- Create release notes
+
+Upload the generated ZIP to GitHub Releases.
+
+---
 
 ### First Run
 

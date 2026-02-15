@@ -24,6 +24,20 @@ namespace InventorySystem
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+            // Initialize Database
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                try
+                {
+                    context.Database.EnsureCreated();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error initializing database: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
             // Show Splash Screen first
             var splashScreen = new InventorySystem.Shell.SplashScreen();
             splashScreen.Show();
