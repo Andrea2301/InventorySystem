@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:helpers="clr-namespace:InventorySystem.Helpers"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="600" Width="450"
         WindowStartupLocation="CenterScreen"
@@ -50,11 +51,22 @@
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="25,10">
                 <StackPanel>
                     
+                    <!-- Status Toggle -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Text="Supplier Status:" VerticalAlignment="Center" Foreground="#3F51B5" Margin="0,0,15,0"/>
+                        <CheckBox Style="{StaticResource ModernToggleSwitch}" 
+                                  IsChecked="{Binding IsActive}" 
+                                  Content="{Binding IsActive, Converter={StaticResource BooleanToStatusConverter}}"/>
+                    </StackPanel>
+
                     <!-- Basic Info Section -->
                     <TextBlock Text="Basic Information" Foreground="#3F51B5" FontWeight="Bold" Margin="0,10,0,10"/>
                     
                     <TextBlock Text="Document Number" Foreground="#757575" Margin="0,5,0,2"/>
-                    <TextBox Text="{Binding Supplier.DocumentNumber, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding DocumentNumber, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             helpers:TextBoxBehavior.Restriction="Numeric"
+                             Padding="5" Height="35"/>
 
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
@@ -65,17 +77,26 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="First Name" Foreground="#757575" Margin="0,0,0,2"/>
-                            <TextBox Text="{Binding Supplier.FirstName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
+                                     Style="{StaticResource ValidatingTextBox}" 
+                                     helpers:TextBoxBehavior.Restriction="Letters"
+                                     Padding="5" Height="35"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Last Name" Foreground="#757575" Margin="0,0,0,2"/>
-                            <TextBox Text="{Binding Supplier.LastName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                                     Style="{StaticResource ValidatingTextBox}" 
+                                     helpers:TextBoxBehavior.Restriction="Letters"
+                                     Padding="5" Height="35"/>
                         </StackPanel>
                     </Grid>
 
                     <TextBlock Text="Company Name" Foreground="#757575" Margin="0,10,0,2"/>
-                    <TextBox Text="{Binding Supplier.CompanyName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             helpers:TextBoxBehavior.Restriction="Letters"
+                             Padding="5" Height="35"/>
 
                     <Separator Margin="0,20,0,10" Background="#F0F0F0"/>
 
@@ -83,19 +104,30 @@
                     <TextBlock Text="Contact Details" Foreground="#3F51B5" FontWeight="Bold" Margin="0,0,0,10"/>
 
                     <TextBlock Text="Email" Foreground="#757575" Margin="0,5,0,2"/>
-                    <TextBox Text="{Binding Supplier.Email, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             Padding="5" Height="35"/>
 
                     <TextBlock Text="Phone" Foreground="#757575" Margin="0,10,0,2"/>
-                    <TextBox Text="{Binding Supplier.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             helpers:TextBoxBehavior.Restriction="Phone"
+                             Padding="5" Height="35"/>
 
                     <TextBlock Text="Website" Foreground="#757575" Margin="0,10,0,2"/>
-                    <TextBox Text="{Binding Supplier.Website, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding Website, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             Padding="5" Height="35"/>
 
                     <TextBlock Text="Address" Foreground="#757575" Margin="0,10,0,2"/>
-                    <TextBox Text="{Binding Supplier.Address, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             Padding="5" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
                     
                     <TextBlock Text="Category" Foreground="#757575" Margin="0,10,0,2"/>
-                    <TextBox Text="{Binding Supplier.Category, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" Padding="5" Height="35"/>
+                    <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource ValidatingTextBox}" 
+                             Padding="5" Height="35"/>
 
                 </StackPanel>
             </ScrollViewer>

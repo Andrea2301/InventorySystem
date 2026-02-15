@@ -40,6 +40,7 @@ namespace InventorySystem
             services.AddScoped<ISaleService, SaleService>();
             services.AddScoped<IPdfService, PdfService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<ISeedDataService, SeedDataService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();

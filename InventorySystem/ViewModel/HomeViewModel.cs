@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using InventorySystem.Services;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
 namespace InventorySystem.ViewModel
 {
     public class HomeViewModel : ViewModelBase
@@ -84,15 +88,50 @@ namespace InventorySystem.ViewModel
         }
 
         public Func<double, string> Formatter { get; set; }
-        private readonly AppDbContext _db;
+        public ICommand RefreshCommand { get; }
+        public ICommand SeedDataCommand { get; }
+        public ICommand ShowDatabaseStatsCommand { get; }
+        public ICommand TestCommand { get; }
 
-        public HomeViewModel(AppDbContext db)
+        private readonly AppDbContext _db;
+        private readonly ISeedDataService _seedService;
+
+        public HomeViewModel(AppDbContext db, ISeedDataService seedService)
         {
             _db = db;
+            _seedService = seedService;
             Formatter = value => value.ToString("C0");
             CriticalItems = new ObservableCollection<Product>();
             TopProducts = new ObservableCollection<TopProductInfo>();
+            
+            RefreshCommand = new ViewModelCommand(_ => LoadDashboardData());
+            SeedDataCommand = new ViewModelCommand(_ => ExecuteSeedDataCommandSync());
+            ShowDatabaseStatsCommand = new ViewModelCommand(_ => Helpers.DatabaseDiagnostics.ShowDatabaseStats(_db));
+            TestCommand = new ViewModelCommand(_ => System.Windows.MessageBox.Show("Test button works!", "Success"));
+            
             LoadDashboardData();
+        }
+
+        private void ExecuteSeedDataCommandSync()
+        {
+            // Fire and forget pattern for async operation
+            _ = ExecuteSeedDataCommand();
+        }
+
+        private async Task ExecuteSeedDataCommand()
+        {
+            try
+            {
+                await _seedService.SeedAsync();
+                LoadDashboardData();
+                System.Windows.MessageBox.Show("Sample data generated successfully! Dashboard refreshed.", "Success", 
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error generating sample data: {ex.Message}", "Error", 
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         public class TopProductInfo
@@ -134,6 +173,9 @@ namespace InventorySystem.ViewModel
                 var allProducts = _db.Products.ToList();
                 TotalStock = allProducts.Sum(p => p.Quantity).ToString();
                 TotalStockValue = $"${allProducts.Sum(p => p.Price * p.Quantity):N0}";
+
+                // Debug: Log counts
+                System.Diagnostics.Debug.WriteLine($"Dashboard Load - Products: {allProducts.Count}, Sales Today: {salesTodayList.Count}, Clients: {_db.Clients.Count()}");
 
                 // 2. Critical Stock (Quantity < 5)
                 var lowStock = allProducts.Where(p => p.Quantity < 5 && p.IsActive).OrderBy(p => p.Quantity).Take(5).ToList();
@@ -201,6 +243,20 @@ namespace InventorySystem.ViewModel
             {
                 TotalSalesToday = "$0.00";
                 TotalStock = "0";
+                TotalStockValue = "$0.00";
+                CriticalStockCount = "0";
+                SalesTrend = "Error loading data";
+                
+                // Fallback chart on error
+                SaleSeries = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Sample Data",
+                        Values = new ChartValues<decimal> { 10, 20, 15, 25, 30 },
+                        Stroke = System.Windows.Media.Brushes.Gray
+                    }
+                };
             }
         }
     }

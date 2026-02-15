@@ -12,9 +12,12 @@
                 <ResourceDictionary Source="Assets/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/ClientStyle.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/Pop up.xaml"/>
+                <ResourceDictionary Source="Assets/Styles/ValidationStyles.xaml"/>
+                <ResourceDictionary Source="Assets/Styles/ToggleStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <converters:BooleanToStatusConverter x:Key="BooleanToStatusConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 

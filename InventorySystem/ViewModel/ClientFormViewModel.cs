@@ -11,24 +11,51 @@ namespace InventorySystem.ViewModel
     public class ClientFormViewModel : ViewModelBase
     {
         private readonly IClientService _clientService;
-        private Client _client;
+        private int _id;
+        private string _firstName;
+        private string _lastName;
+        private string _email;
+        private string _phoneNumber;
+        private string _documentNumber;
+        private string _address;
+        private bool _isActive;
+        private DateTime _createdAt;
         private bool _isEditMode;
 
-        public Client Client
+        public bool IsEditMode { get => _isEditMode; set { _isEditMode = value; OnPropertyChanged(nameof(IsEditMode)); } }
+
+        public string FirstName
         {
-            get => _client;
-            set
-            {
-                _client = value;
-                OnPropertyChanged(nameof(Client));
-            }
+            get => _firstName;
+            set { _firstName = value; OnPropertyChanged(nameof(FirstName)); ValidateProperty(nameof(FirstName), value); }
         }
 
-        public bool IsEditMode
+        public string LastName
         {
-            get => _isEditMode;
-            set { _isEditMode = value; OnPropertyChanged(nameof(IsEditMode)); }
+            get => _lastName;
+            set { _lastName = value; OnPropertyChanged(nameof(LastName)); ValidateProperty(nameof(LastName), value); }
         }
+
+        public string Email
+        {
+            get => _email;
+            set { _email = value; OnPropertyChanged(nameof(Email)); ValidateProperty(nameof(Email), value); }
+        }
+
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); ValidateProperty(nameof(PhoneNumber), value); }
+        }
+
+        public string DocumentNumber
+        {
+            get => _documentNumber;
+            set { _documentNumber = value; OnPropertyChanged(nameof(DocumentNumber)); ValidateProperty(nameof(DocumentNumber), value); }
+        }
+
+        public string Address { get => _address; set { _address = value; OnPropertyChanged(nameof(Address)); } }
+        public bool IsActive { get => _isActive; set { _isActive = value; OnPropertyChanged(nameof(IsActive)); } }
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -42,46 +69,81 @@ namespace InventorySystem.ViewModel
             
             if (client == null)
             {
-                Client = new Client { IsActive = true };
+                _isActive = true;
+                _createdAt = DateTime.UtcNow;
             }
             else
             {
-                // Shallow copy to avoid live updates before save
-                Client = new Client
-                {
-                    Id = client.Id,
-                    FirstName = client.FirstName,
-                    LastName = client.LastName,
-                    Email = client.Email,
-                    PhoneNumber = client.PhoneNumber,
-                    DocumentNumber = client.DocumentNumber,
-                    IsActive = client.IsActive,
-                    CreatedAt = client.CreatedAt
-                };
+                _id = client.Id;
+                _firstName = client.FirstName;
+                _lastName = client.LastName;
+                _email = client.Email;
+                _phoneNumber = client.PhoneNumber;
+                _documentNumber = client.DocumentNumber;
+                _address = client.Address;
+                _isActive = client.IsActive;
+                _createdAt = client.CreatedAt;
             }
 
             SaveCommand = new ViewModelCommand(ExecuteSaveCommand);
             CancelCommand = new ViewModelCommand(ExecuteCancelCommand);
+
+            if (client != null) ValidateAll();
+        }
+
+        private void ValidateProperty(string propertyName, object value)
+        {
+            ClearErrors(propertyName);
+            string valStr = value?.ToString();
+
+            switch (propertyName)
+            {
+                case nameof(FirstName):
+                    if (string.IsNullOrWhiteSpace(valStr)) AddError(propertyName, "First name is required.");
+                    break;
+                case nameof(LastName):
+                    if (string.IsNullOrWhiteSpace(valStr)) AddError(propertyName, "Last name is required.");
+                    break;
+                case nameof(DocumentNumber):
+                    if (string.IsNullOrWhiteSpace(valStr)) AddError(propertyName, "Document number is required.");
+                    break;
+                case nameof(Email):
+                    if (!string.IsNullOrWhiteSpace(valStr) && !System.Text.RegularExpressions.Regex.IsMatch(valStr, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                        AddError(propertyName, "Invalid email format.");
+                    break;
+            }
+        }
+
+        private void ValidateAll()
+        {
+            ValidateProperty(nameof(FirstName), FirstName);
+            ValidateProperty(nameof(LastName), LastName);
+            ValidateProperty(nameof(DocumentNumber), DocumentNumber);
+            ValidateProperty(nameof(Email), Email);
         }
 
         private async void ExecuteSaveCommand(object obj)
         {
-            if (string.IsNullOrWhiteSpace(Client.FirstName) || string.IsNullOrWhiteSpace(Client.LastName))
-            {
-                MessageBox.Show("First Name and Last Name are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            ValidateAll();
+            if (HasErrors) return;
 
             try
             {
-                if (IsEditMode)
+                var client = new Client
                 {
-                    await _clientService.UpdateAsync(Client);
-                }
-                else
-                {
-                    await _clientService.AddAsync(Client);
-                }
+                    Id = _id,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    PhoneNumber = PhoneNumber,
+                    DocumentNumber = DocumentNumber,
+                    Address = Address,
+                    IsActive = IsActive,
+                    CreatedAt = _createdAt
+                };
+
+                if (IsEditMode) await _clientService.UpdateAsync(client);
+                else await _clientService.AddAsync(client);
 
                 MessageBox.Show("Client saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 RequestClose?.Invoke(this, EventArgs.Empty);
@@ -92,9 +154,6 @@ namespace InventorySystem.ViewModel
             }
         }
 
-        private void ExecuteCancelCommand(object obj)
-        {
-            RequestClose?.Invoke(this, EventArgs.Empty);
-        }
+        private void ExecuteCancelCommand(object obj) => RequestClose?.Invoke(this, EventArgs.Empty);
     }
 }

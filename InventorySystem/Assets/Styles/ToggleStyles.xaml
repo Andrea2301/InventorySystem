@@ -1,0 +1,68 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ToggleOnColor">#4CAF50</Color>
+    <Color x:Key="ToggleOffColor">#E0E0E0</Color>
+    <SolidColorBrush x:Key="ToggleOnBrush" Color="{StaticResource ToggleOnColor}"/>
+    <SolidColorBrush x:Key="ToggleOffBrush" Color="{StaticResource ToggleOffColor}"/>
+
+    <Style x:Key="ModernToggleSwitch" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="{StaticResource ToggleOffBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid x:Name="ToggleGrid" Width="40" Height="22">
+                            <Border x:Name="BackgroundBorder" 
+                                    Background="{TemplateBinding Background}" 
+                                    CornerRadius="11" 
+                                    BorderThickness="0"/>
+                            
+                            <Ellipse x:Name="Dot" 
+                                     Fill="White" 
+                                     Width="18" Height="18" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="2,0,0,0">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="4" ShadowDepth="1" Opacity="0.3"/>
+                                </Ellipse.Effect>
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform x:Name="DotTransform" X="0"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Grid>
+                        <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center" Content="{TemplateBinding Content}"/>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource ToggleOnBrush}"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DotTransform" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         To="18" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DotTransform" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         To="0" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
