@@ -64,12 +64,12 @@ namespace InventorySystem.ViewModel
         {
             _serviceProvider = serviceProvider;
 
-            // Apply any pending migrations on startup
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
-            }
+            // Apply any pending migrations on startup - REMOVED: Managed in App.xaml.cs via EnsureCreated
+            // using (var scope = _serviceProvider.CreateScope())
+            // {
+            //     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            //     db.Database.Migrate();
+            // }
 
             // Initialize QuestPDF license globally
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
