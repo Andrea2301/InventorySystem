@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\Img\modelado.ico</ApplicationIcon>
     <AssemblyName>InventorySystem</AssemblyName>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Your Name</Authors>
     <Company>Your Company</Company>
     <Product>Inventory Management System</Product>
