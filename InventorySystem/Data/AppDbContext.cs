@@ -18,7 +18,10 @@ namespace InventorySystem.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite("Data Source=inventory.db");
+            // Use BaseDirectory to ensure the DB is created in the app folder, not System32 or elsewhere
+            string dbName = "inventory.db";
+            string dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbName);
+            options.UseSqlite($"Data Source={dbPath}");
         }
     }
 }
