@@ -303,7 +303,7 @@ options.UseSqlite("Data Source=inventory.db");
 ##  Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/Andrea2301)
+- GitHub: [@Andrea2301](https://github.com/Andrea2301)
 
 ---
 
