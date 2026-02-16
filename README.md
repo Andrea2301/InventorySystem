@@ -176,9 +176,9 @@ InventorySystem/
 
 ---
 
-## 🚦 Getting Started
+##  Getting Started
 
-### 📥 Download & Install (Recommended)
+###  Download & Install (Recommended)
 
 **For End Users - No Development Tools Required:**
 
@@ -203,7 +203,7 @@ InventorySystem/
 
 ---
 
-### 🛠️ Build from Source (For Developers)
+###  Build from Source (For Developers)
 
 **Prerequisites:**
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
