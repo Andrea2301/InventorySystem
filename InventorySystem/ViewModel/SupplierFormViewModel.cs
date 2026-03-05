@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace InventorySystem.ViewModel
 {
-    public class SupplierFormViewModel : ViewModelBase
+    public class SupplierFormViewModel : ViewModelBase, ICloseableViewModel
     {
         private readonly ISupplierService _supplierService;
         private int _id;

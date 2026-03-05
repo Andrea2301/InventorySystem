@@ -95,11 +95,13 @@ namespace InventorySystem.ViewModel
 
         private readonly AppDbContext _db;
         private readonly ISeedDataService _seedService;
+        private readonly IMessageService _messageService;
 
-        public HomeViewModel(AppDbContext db, ISeedDataService seedService)
+        public HomeViewModel(AppDbContext db, ISeedDataService seedService, IMessageService messageService)
         {
             _db = db;
             _seedService = seedService;
+            _messageService = messageService;
             Formatter = value => value.ToString("C0");
             CriticalItems = new ObservableCollection<Product>();
             TopProducts = new ObservableCollection<TopProductInfo>();
@@ -107,7 +109,7 @@ namespace InventorySystem.ViewModel
             RefreshCommand = new ViewModelCommand(_ => LoadDashboardData());
             SeedDataCommand = new ViewModelCommand(_ => ExecuteSeedDataCommandSync());
             ShowDatabaseStatsCommand = new ViewModelCommand(_ => Helpers.DatabaseDiagnostics.ShowDatabaseStats(_db));
-            TestCommand = new ViewModelCommand(_ => System.Windows.MessageBox.Show("Test button works!", "Success"));
+            TestCommand = new ViewModelCommand(_ => _messageService.ShowInfo("Test button works!"));
             
             LoadDashboardData();
         }
@@ -122,15 +124,18 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 await _seedService.SeedAsync();
                 LoadDashboardData();
-                System.Windows.MessageBox.Show("Sample data generated successfully! Dashboard refreshed.", "Success", 
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                _messageService.ShowInfo("Sample data generated successfully! Dashboard refreshed.");
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error generating sample data: {ex.Message}", "Error", 
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                _messageService.ShowError($"Error generating sample data: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 

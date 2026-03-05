@@ -16,7 +16,8 @@ namespace InventorySystem.ViewModel
     public class ClientViewModel : ViewModelBase
     {
         private readonly IClientService _clientService;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IDialogService _dialogService;
+        private readonly IMessageService _messageService;
         private ObservableCollection<Client> _clients;
         private ICollectionView _clientsView;
         private string _searchText;
@@ -57,10 +58,11 @@ namespace InventorySystem.ViewModel
         public ICommand SortCommand { get; }
         public ICommand OpenImportExcelCommand { get; }
 
-        public ClientViewModel(IClientService clientService, IServiceProvider serviceProvider)
+        public ClientViewModel(IClientService clientService, IDialogService dialogService, IMessageService messageService)
         {
             _clientService = clientService;
-            _serviceProvider = serviceProvider;
+            _dialogService = dialogService;
+            _messageService = messageService;
             Clients = new ObservableCollection<Client>();
             ClientsView = CollectionViewSource.GetDefaultView(Clients);
             ClientsView.Filter = FilterClients;
@@ -90,6 +92,7 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var list = await _clientService.GetAllAsync();
                 Clients.Clear();
                 foreach (var client in list)
@@ -99,7 +102,11 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading clients: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _messageService.ShowError($"Error loading clients: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
@@ -122,15 +129,8 @@ namespace InventorySystem.ViewModel
         private void ExecuteOpenClientFormCommand(object obj)
         {
             var viewModel = new ClientFormViewModel(_clientService);
-            var view = new ClientFormView { DataContext = viewModel };
-            
-            viewModel.RequestClose += (s, e) =>
-            {
-                view.Close();
-                _ = LoadClientsAsync();
-            };
-
-            view.ShowDialog();
+            viewModel.RequestClose += (s, e) => _ = LoadClientsAsync();
+            _dialogService.ShowDialog(viewModel);
         }
 
         private void ExecuteEditClientCommand(object obj)
@@ -139,15 +139,8 @@ namespace InventorySystem.ViewModel
             if (clientToEdit == null) return;
 
             var viewModel = new ClientFormViewModel(_clientService, clientToEdit);
-            var view = new ClientFormView { DataContext = viewModel };
-
-            viewModel.RequestClose += (s, e) =>
-            {
-                view.Close();
-                _ = LoadClientsAsync();
-            };
-
-            view.ShowDialog();
+            viewModel.RequestClose += (s, e) => _ = LoadClientsAsync();
+            _dialogService.ShowDialog(viewModel);
         }
 
         private async void ExecuteDeleteClientCommand(object obj)
@@ -155,19 +148,21 @@ namespace InventorySystem.ViewModel
             var clientToDelete = obj as Client ?? SelectedClient;
             if (clientToDelete == null) return;
 
-            var result = MessageBox.Show($"Are you sure you want to delete {clientToDelete.FullName}?", 
-                "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            if (_messageService.ShowConfirmation($"Are you sure you want to delete {clientToDelete.FullName}?", "Confirm Delete"))
             {
                 try
                 {
+                    IsLoading = true;
                     await _clientService.DeleteAsync(clientToDelete.Id);
                     await LoadClientsAsync();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error deleting client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageService.ShowError($"Error deleting client: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
                 }
             }
         }
@@ -189,10 +184,11 @@ namespace InventorySystem.ViewModel
             {
                 if (string.IsNullOrEmpty(filePath)) 
                 {
-                    MessageBox.Show("No file selected.", "Import Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _messageService.ShowWarning("No file selected.");
                     return;
                 }
 
+                IsLoading = true;
                 // Use explicit useHeaderRow: true to ensure MiniExcel uses the first row for keys
                 var rows = MiniExcelLibs.MiniExcel.Query(filePath, useHeaderRow: true)
                             .Cast<IDictionary<string, object>>()
@@ -200,7 +196,7 @@ namespace InventorySystem.ViewModel
                 
                 if (rows == null || rows.Count == 0)
                 {
-                    MessageBox.Show("The file is empty or could not be read. Please ensure it has a header row.", "Empty File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _messageService.ShowWarning("The file is empty or could not be read. Please ensure it has a header row.");
                     return;
                 }
 
@@ -241,16 +237,20 @@ namespace InventorySystem.ViewModel
                 {
                     await _clientService.AddRangeAsync(clientsToImport);
                     await LoadClientsAsync();
-                    MessageBox.Show($"{clientsToImport.Count} clients imported successfully.", "Import Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _messageService.ShowInfo($"{clientsToImport.Count} clients imported successfully.");
                 }
                 else
                 {
-                    MessageBox.Show("No valid data found in the file to import.", "Import Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _messageService.ShowWarning("No valid data found in the file to import.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error importing file: {ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _messageService.ShowError($"Error importing file: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
     }

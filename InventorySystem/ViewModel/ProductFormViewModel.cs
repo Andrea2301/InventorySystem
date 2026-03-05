@@ -10,7 +10,7 @@ using InventorySystem.Services;
 
 namespace InventorySystem.ViewModel
 {
-    public class ProductFormViewModel : ViewModelBase
+    public class ProductFormViewModel : ViewModelBase, ICloseableViewModel
     {
         private readonly IProductService _productService;
         private Product _originalProduct;

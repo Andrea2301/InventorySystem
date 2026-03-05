@@ -8,7 +8,7 @@ using InventorySystem.Services;
 
 namespace InventorySystem.ViewModel
 {
-    public class ClientFormViewModel : ViewModelBase
+    public class ClientFormViewModel : ViewModelBase, ICloseableViewModel
     {
         private readonly IClientService _clientService;
         private int _id;

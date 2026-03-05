@@ -60,15 +60,15 @@
    
     <!--#region --> <!--Grid Buttons-->
     <Style x:Key="Edit" TargetType="Button">
-        <Setter Property="Background" Value="#32951b"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource SoftEditBg}"/>
+        <Setter Property="Foreground" Value="{StaticResource SoftEditFg}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Width" Value="32"/>
         <Setter Property="Height" Value="32"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -77,22 +77,22 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#3F51B5"/>
+                <Setter Property="Background" Value="{StaticResource SoftEditHover}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
 
     <Style x:Key="Delete" TargetType="Button">
-        <Setter Property="Background" Value="#e00016"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource SoftDeleteBg}"/>
+        <Setter Property="Foreground" Value="{StaticResource SoftDeleteFg}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Width" Value="32"/>
         <Setter Property="Height" Value="32"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -101,7 +101,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#3F51B5"/>
+                <Setter Property="Background" Value="{StaticResource SoftDeleteHover}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

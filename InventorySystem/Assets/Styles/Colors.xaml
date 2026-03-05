@@ -8,4 +8,17 @@
     
     <!--Color Buttons-->
     <SolidColorBrush x:Key="Buttons" Color="WhiteSmoke"></SolidColorBrush>
+
+    <!-- Modern Soft Palette for Actions -->
+    <SolidColorBrush x:Key="SoftEditBg" Color="#ECFDF5"/> <!-- Emerald 50 -->
+    <SolidColorBrush x:Key="SoftEditFg" Color="#059669"/> <!-- Emerald 600 -->
+    <SolidColorBrush x:Key="SoftEditHover" Color="#D1FAE5"/>
+
+    <SolidColorBrush x:Key="SoftDeleteBg" Color="#FEF2F2"/> <!-- Red 50 -->
+    <SolidColorBrush x:Key="SoftDeleteFg" Color="#DC2626"/> <!-- Red 600 -->
+    <SolidColorBrush x:Key="SoftDeleteHover" Color="#FEE2E2"/>
+
+    <SolidColorBrush x:Key="SoftInfoBg" Color="#EEF2FF"/> <!-- Indigo 50 -->
+    <SolidColorBrush x:Key="SoftInfoFg" Color="#4F46E5"/> <!-- Indigo 600 -->
+    <SolidColorBrush x:Key="SoftInfoHover" Color="#E0E7FF"/>
 </ResourceDictionary>

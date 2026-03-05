@@ -113,14 +113,14 @@
                                         <Button Margin="0,0,10,0" ToolTip="View Details"
                                                 Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
-                                                Style="{StaticResource Edit}">
-                                            <fa:IconImage Icon="Eye" Width="14" Height="14"/>
+                                                Style="{StaticResource btnEdit}">
+                                            <fa:IconImage Icon="Eye" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                                         </Button>
                                         <Button ToolTip="Print Receipt"
                                                 Command="{Binding DataContext.PrintReceiptCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
-                                                Style="{StaticResource Pop}">
-                                            <fa:IconImage Icon="Receipt" Width="14" Height="14" Foreground="White"/>
+                                                Style="{StaticResource btnInfo}">
+                                            <fa:IconImage Icon="Receipt" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
@@ -130,5 +130,12 @@
                 </DataGrid>
             </Grid>
         </Border>
+        <!-- LOADING OVERLAY -->
+        <Grid Style="{StaticResource LoadingOverlay}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Loading history..." Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

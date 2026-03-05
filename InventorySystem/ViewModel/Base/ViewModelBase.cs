@@ -9,6 +9,17 @@ namespace InventorySystem.ViewModel.Base
 {
     public abstract class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
     {
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+
         private readonly Dictionary<string, List<string>> _propertyErrors = new Dictionary<string, List<string>>();
 
         public event PropertyChangedEventHandler PropertyChanged;

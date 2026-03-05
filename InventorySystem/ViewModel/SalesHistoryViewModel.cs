@@ -15,6 +15,8 @@ namespace InventorySystem.ViewModel
     {
         private readonly ISaleService _saleService;
         private readonly IPdfService _pdfService;
+        private readonly IDialogService _dialogService;
+        private readonly IMessageService _messageService;
         private ObservableCollection<Sale> _sales;
         private Sale _selectedSale;
         private string _searchText;
@@ -45,10 +47,12 @@ namespace InventorySystem.ViewModel
         public ICommand ViewDetailCommand { get; }
         public ICommand PrintReceiptCommand { get; }
 
-        public SalesHistoryViewModel(ISaleService saleService, IPdfService pdfService)
+        public SalesHistoryViewModel(ISaleService saleService, IPdfService pdfService, IDialogService dialogService, IMessageService messageService)
         {
             _saleService = saleService;
             _pdfService = pdfService;
+            _dialogService = dialogService;
+            _messageService = messageService;
             Sales = new ObservableCollection<Sale>();
             ViewDetailCommand = new ViewModelCommand(ExecuteViewDetailCommand);
             PrintReceiptCommand = new ViewModelCommand(ExecutePrintReceiptCommand);
@@ -59,6 +63,7 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var list = await _saleService.GetAllSalesAsync(SearchText);
                 Sales.Clear();
                 foreach (var sale in list)
@@ -68,7 +73,11 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading sales history: {ex.Message}", "Error");
+                _messageService.ShowError($"Error loading sales history: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
@@ -76,9 +85,7 @@ namespace InventorySystem.ViewModel
         {
             if (obj is Sale sale)
             {
-                var detailView = new Views.SaleDetailView();
-                detailView.DataContext = sale; 
-                detailView.ShowDialog();
+                _dialogService.ShowDialog(sale);
             }
         }
 
@@ -97,8 +104,9 @@ namespace InventorySystem.ViewModel
 
                     if (sfd.ShowDialog() == true)
                     {
+                        IsLoading = true;
                         await _pdfService.GenerateInvoiceAsync(sale, sfd.FileName);
-                        MessageBox.Show("Factura generada exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _messageService.ShowInfo("Factura generada exitosamente.");
                         
                         // Opcional: Abrir el PDF automáticamente
                         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(sfd.FileName) { UseShellExecute = true });
@@ -106,7 +114,11 @@ namespace InventorySystem.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al generar la factura: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _messageService.ShowError($"Error al generar la factura: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
                 }
             }
         }

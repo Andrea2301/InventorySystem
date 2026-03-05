@@ -55,6 +55,8 @@ namespace InventorySystem
             services.AddScoped<IPdfService, PdfService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<ISeedDataService, SeedDataService>();
+            services.AddScoped<IDialogService, DialogService>();
+            services.AddSingleton<IMessageService, MessageService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();

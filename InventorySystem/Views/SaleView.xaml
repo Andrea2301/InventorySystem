@@ -243,5 +243,12 @@
                 </Button>
             </Grid>
         </Border>
+        <!-- LOADING OVERLAY -->
+        <Grid Style="{StaticResource LoadingOverlay}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Processing sale..." Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

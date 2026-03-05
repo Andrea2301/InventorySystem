@@ -26,8 +26,8 @@
 
 
     <Style x:Key="Pop" TargetType="Button">
-        <Setter Property="Background" Value="#4F46E5"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource SoftInfoBg}"/>
+        <Setter Property="Foreground" Value="{StaticResource SoftInfoFg}"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -42,7 +42,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#4338CA"/>
+                <Setter Property="Background" Value="{StaticResource SoftInfoHover}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

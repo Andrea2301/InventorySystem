@@ -11,7 +11,8 @@ namespace InventorySystem.ViewModel
     public class ProductsViewModel : ViewModelBase
     {
         private readonly IProductService _productService;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IDialogService _dialogService;
+        private readonly IMessageService _messageService;
 
         public ICommand OpenProductFormCommand { get; }
         public ICommand EditProductCommand { get; }
@@ -28,10 +29,11 @@ namespace InventorySystem.ViewModel
             }
         }
 
-        public ProductsViewModel(IProductService productService, IServiceProvider serviceProvider)
+        public ProductsViewModel(IProductService productService, IDialogService dialogService, IMessageService messageService)
         {
             _productService = productService;
-            _serviceProvider = serviceProvider;
+            _dialogService = dialogService;
+            _messageService = messageService;
 
             OpenProductFormCommand = new ViewModelCommand(ExecuteOpenProductFormCommand);
             EditProductCommand = new ViewModelCommand(ExecuteEditProductCommand);
@@ -39,20 +41,13 @@ namespace InventorySystem.ViewModel
             _ = LoadProductsAsync();
         }
 
-        private async void ExecuteEditProductCommand(object obj)
+        private void ExecuteEditProductCommand(object obj)
         {
             if (obj is Product product)
             {
                 var viewModel = new ProductFormViewModel(_productService, product);
-                var view = new Views.ProductFormView { DataContext = viewModel };
-
-                viewModel.RequestClose += (s, e) =>
-                {
-                    view.Close();
-                    _ = LoadProductsAsync();
-                };
-
-                view.ShowDialog();
+                viewModel.RequestClose += (s, e) => _ = LoadProductsAsync();
+                _dialogService.ShowDialog(viewModel);
             }
         }
 
@@ -60,21 +55,21 @@ namespace InventorySystem.ViewModel
         {
             if (obj is Product product)
             {
-                var result = System.Windows.MessageBox.Show($"Are you sure you want to delete '{product.Name}'?", 
-                                           "Confirm Delete", 
-                                           System.Windows.MessageBoxButton.YesNo, 
-                                           System.Windows.MessageBoxImage.Question);
-
-                if (result == System.Windows.MessageBoxResult.Yes)
+                if (_messageService.ShowConfirmation($"Are you sure you want to delete '{product.Name}'?", "Confirm Delete"))
                 {
                     try
                     {
+                        IsLoading = true;
                         await _productService.DeleteAsync(product.Id);
                         await LoadProductsAsync();
                     }
                     catch (Exception ex)
                     {
-                        System.Windows.MessageBox.Show($"Error deleting product: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        _messageService.ShowError($"Error deleting product: {ex.Message}");
+                    }
+                    finally
+                    {
+                        IsLoading = false;
                     }
                 }
             }
@@ -84,28 +79,26 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var list = await _productService.GetAllAsync();
                 Products = new ObservableCollection<Product>(list);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading products: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                _messageService.ShowError($"Error loading products: {ex.Message}");
                 Products = new ObservableCollection<Product>();
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
         private void ExecuteOpenProductFormCommand(object obj)
         {
             var viewModel = new ProductFormViewModel(_productService);
-            var view = new Views.ProductFormView { DataContext = viewModel };
-
-            viewModel.RequestClose += (s, e) => 
-            {
-                view.Close();
-                _ = LoadProductsAsync();
-            };
-            
-            view.ShowDialog();
+            viewModel.RequestClose += (s, e) => _ = LoadProductsAsync();
+            _dialogService.ShowDialog(viewModel);
         }
     }
 }

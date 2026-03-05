@@ -14,6 +14,8 @@ namespace InventorySystem.ViewModel
         private readonly ISaleService _saleService;
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
+        private readonly IDialogService _dialogService;
+        private readonly IMessageService _messageService;
         private System.Collections.ObjectModel.ObservableCollection<Models.Product> _products;
         private System.Collections.ObjectModel.ObservableCollection<CartItemViewModel> _cart;
         private System.Collections.ObjectModel.ObservableCollection<Models.Client> _clients;
@@ -66,11 +68,13 @@ namespace InventorySystem.ViewModel
         public ICommand RemoveFromCartCommand { get; }
         public ICommand CheckoutCommand { get; }
 
-        public SaleViewModel(ISaleService saleService, IProductService productService, IClientService clientService)
+        public SaleViewModel(ISaleService saleService, IProductService productService, IClientService clientService, IDialogService dialogService, IMessageService messageService)
         {
             _saleService = saleService;
             _productService = productService;
             _clientService = clientService;
+            _dialogService = dialogService;
+            _messageService = messageService;
             Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>();
             Cart = new System.Collections.ObjectModel.ObservableCollection<CartItemViewModel>();
             Clients = new System.Collections.ObjectModel.ObservableCollection<Models.Client>();
@@ -85,8 +89,15 @@ namespace InventorySystem.ViewModel
 
         private async Task LoadInitialData()
         {
-            await LoadProductsAsync();
-            await LoadClientsAsync();
+             IsLoading = true;
+             try 
+             {
+                await Task.WhenAll(LoadProductsAsync(), LoadClientsAsync());
+             }
+             finally 
+             {
+                IsLoading = false;
+             }
         }
 
         private async Task LoadClientsAsync()
@@ -98,7 +109,7 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading clients: {ex.Message}", "Error");
+                _messageService.ShowError($"Error loading clients: {ex.Message}");
             }
         }
 
@@ -112,7 +123,7 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading products: {ex.Message}", "Error");
+                _messageService.ShowError($"Error loading products: {ex.Message}");
             }
         }
 
@@ -132,7 +143,7 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error filtering products: {ex.Message}", "Error");
+                _messageService.ShowError($"Error filtering products: {ex.Message}");
             }
         }
 
@@ -174,6 +185,7 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var sale = new Models.Sale
                 {
                     SaleDate = DateTime.Now,
@@ -195,13 +207,17 @@ namespace InventorySystem.ViewModel
 
                 await _saleService.CreateSaleAsync(sale);
 
-                System.Windows.MessageBox.Show("¡Venta finalizada con éxito!", "Éxito", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                _messageService.ShowInfo("¡Venta finalizada con éxito!");
                 Cart.Clear();
                 await LoadProductsAsync();
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error al finalizar la venta: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                _messageService.ShowError($"Error al finalizar la venta: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
     }

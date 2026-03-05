@@ -15,7 +15,8 @@ namespace InventorySystem.ViewModel
     public class SupplierViewModel : ViewModelBase
     {
         private readonly ISupplierService _supplierService;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IDialogService _dialogService;
+        private readonly IMessageService _messageService;
         private ObservableCollection<Supplier> _suppliers;
         private string _searchText;
 
@@ -45,10 +46,11 @@ namespace InventorySystem.ViewModel
         public ICommand DeleteSupplierCommand { get; }
         public ICommand SearchCommand { get; }
 
-        public SupplierViewModel(ISupplierService supplierService, IServiceProvider serviceProvider)
+        public SupplierViewModel(ISupplierService supplierService, IDialogService dialogService, IMessageService messageService)
         {
             _supplierService = supplierService;
-            _serviceProvider = serviceProvider;
+            _dialogService = dialogService;
+            _messageService = messageService;
 
             ShowAddSupplierCommand = new ViewModelCommand(ExecuteShowAddSupplierCommand);
             ShowEditSupplierCommand = new ViewModelCommand(ExecuteShowEditSupplierCommand);
@@ -62,12 +64,17 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var list = await _supplierService.GetAllAsync();
                 Suppliers = new ObservableCollection<Supplier>(list);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading suppliers: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _messageService.ShowError($"Error loading suppliers: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
@@ -75,27 +82,25 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                IsLoading = true;
                 var list = await _supplierService.SearchAsync(SearchText);
                 Suppliers = new ObservableCollection<Supplier>(list);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error searching suppliers: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _messageService.ShowError($"Error searching suppliers: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
         private void ExecuteShowAddSupplierCommand(object obj)
         {
-            var viewModel = _serviceProvider.GetRequiredService<SupplierFormViewModel>();
-            var view = new SupplierFormView { DataContext = viewModel };
-
-            viewModel.RequestClose += (s, e) => 
-            {
-                view.Close();
-                _ = LoadSuppliersAsync();
-            };
-
-            view.ShowDialog();
+            var viewModel = new SupplierFormViewModel(_supplierService);
+            viewModel.RequestClose += (s, e) => _ = LoadSuppliersAsync();
+            _dialogService.ShowDialog(viewModel);
         }
 
         private void ExecuteShowEditSupplierCommand(object obj)
@@ -103,15 +108,8 @@ namespace InventorySystem.ViewModel
             if (obj is Supplier supplier)
             {
                 var viewModel = new SupplierFormViewModel(_supplierService, supplier);
-                var view = new SupplierFormView { DataContext = viewModel };
-
-                viewModel.RequestClose += (s, e) => 
-                {
-                    view.Close();
-                    _ = LoadSuppliersAsync();
-                };
-
-                view.ShowDialog();
+                viewModel.RequestClose += (s, e) => _ = LoadSuppliersAsync();
+                _dialogService.ShowDialog(viewModel);
             }
         }
 
@@ -119,19 +117,21 @@ namespace InventorySystem.ViewModel
         {
             if (obj is Supplier supplier)
             {
-                var result = MessageBox.Show($"Are you sure you want to delete {supplier.CompanyName}?", 
-                    "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
+                if (_messageService.ShowConfirmation($"Are you sure you want to delete {supplier.CompanyName}?", "Confirm Delete"))
                 {
                     try
                     {
+                        IsLoading = true;
                         await _supplierService.DeleteAsync(supplier.Id);
                         await LoadSuppliersAsync();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error deleting supplier: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        _messageService.ShowError($"Error deleting supplier: {ex.Message}");
+                    }
+                    finally
+                    {
+                        IsLoading = false;
                     }
                 }
             }
