@@ -44,8 +44,12 @@
             <local1:SupplierView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:InformsViewModel}">
-            <local1:InformsView/>
+        <DataTemplate DataType="{x:Type viewModel:ReportsViewModel}">
+            <local1:ReportsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:MaintenanceViewModel}">
+            <local1:MaintenanceView/>
         </DataTemplate>
 
 
@@ -93,74 +97,106 @@
 
                     <!--Menu Bottons-->
 
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                Tag="{StaticResource Buttons}"
-                                 IsChecked="False"
-                                 Command="{Binding ShowHomeViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Home" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Dashboard" Style="{StaticResource ButtonText}"/>
+                    <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
+                        <Expander.Header>
+                            <TextBlock Text="General" Style="{StaticResource ExpanderHeaderText}"/>
+                        </Expander.Header>
+                        <StackPanel>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         IsChecked="True"
+                                         Command="{Binding ShowHomeViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Home" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Dashboard" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
                         </StackPanel>
+                    </Expander>
 
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                Tag="{StaticResource Buttons}"
-                                 IsChecked="True"
-                                 Command="{Binding ShowClientViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Clients" Style="{StaticResource ButtonText}"/>
+                    <Expander Style="{StaticResource MenuExpander}">
+                        <Expander.Header>
+                            <TextBlock Text="Management" Style="{StaticResource ExpanderHeaderText}"/>
+                        </Expander.Header>
+                        <StackPanel>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowClientViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Clients" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowProductsViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Boxes" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Products" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSupplierViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
                         </StackPanel>
+                    </Expander>
 
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource MenuBottons}"
-             Tag="{StaticResource Buttons}" 
-                                 IsChecked="True"
-                                 Command="{Binding ShowProductsViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Boxes" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Products" Style="{StaticResource ButtonText}"/>
+                    <Expander Style="{StaticResource MenuExpander}">
+                        <Expander.Header>
+                            <TextBlock Text="Sales" Style="{StaticResource ExpanderHeaderText}"/>
+                        </Expander.Header>
+                        <StackPanel>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSaleViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="FileInvoiceDollar" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="New Sale" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSalesHistoryViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="History" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="History" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
                         </StackPanel>
+                    </Expander>
 
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                Tag="{StaticResource Buttons}" 
-                                 Command="{Binding ShowSaleViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="FileInvoiceDollar" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Sales" Style="{StaticResource ButtonText}"/>
+                    <Expander Style="{StaticResource MenuExpander}">
+                        <Expander.Header>
+                            <TextBlock Text="System" Style="{StaticResource ExpanderHeaderText}"/>
+                        </Expander.Header>
+                        <StackPanel>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowReportsViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Reports" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowMaintenanceViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Database" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Maintenance" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
                         </StackPanel>
-
-                    </RadioButton>
-                    
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                 Tag="{StaticResource Buttons}" 
-                                 Command="{Binding ShowSalesHistoryViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="History" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Historial" Style="{StaticResource ButtonText}"/>
-                        </StackPanel>
-
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                 Tag="{StaticResource Buttons}" 
-                                 Command="{Binding ShowSupplierViewCommand}">
-                        
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>
-                        </StackPanel>
-
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource MenuBottons}"
-                                 Tag="{StaticResource Buttons}" 
-                                 Command="{Binding ShowInformsViewCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="FilePen" Style="{StaticResource MenuButtonIcon}"/>
-                            <TextBlock Text="Informs" Style="{StaticResource ButtonText}"/>
-                        </StackPanel>
-
-                    </RadioButton>
+                    </Expander>
                 </StackPanel>
             </Border>
             <!--Main-->

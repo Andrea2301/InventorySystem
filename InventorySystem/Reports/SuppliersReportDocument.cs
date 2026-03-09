@@ -8,13 +8,13 @@ using InventorySystem.Models;
 
 namespace InventorySystem.Reports
 {
-    public class SalesReportDocument : IDocument
+    public class SuppliersReportDocument : IDocument
     {
-        private readonly IEnumerable<Sale> _sales;
+        private readonly IEnumerable<Supplier> _suppliers;
 
-        public SalesReportDocument(IEnumerable<Sale> sales)
+        public SuppliersReportDocument(IEnumerable<Supplier> suppliers)
         {
-            _sales = sales ?? new List<Sale>();
+            _suppliers = suppliers ?? new List<Supplier>();
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -39,26 +39,21 @@ namespace InventorySystem.Reports
 
         private void ComposeHeader(IContainer container)
         {
-            var titleStyle = TextStyle.Default.FontSize(24).SemiBold().FontColor(Color.FromHex("3F51B5"));
+            var titleStyle = TextStyle.Default.FontSize(24).SemiBold().FontColor(Color.FromHex("4F46E5"));
 
             container.Row(row =>
             {
                 row.RelativeItem().Column(column =>
                 {
-                    column.Item().Text("INVENTORY SYSTEM MB").Style(titleStyle);
+                    column.Item().Text("SUPPLIERS DIRECTORY").Style(titleStyle);
                     column.Item().Text(text =>
                     {
                         text.Span("Date: ").SemiBold();
                         text.Span($"{DateTime.Now:MM/dd/yyyy}");
                     });
-                    column.Item().Text(text =>
-                    {
-                        text.Span("Report Type: ").SemiBold();
-                        text.Span("Sales Analysis");
-                    });
                 });
 
-                row.ConstantItem(100).Height(50).Placeholder(); // Placeholder for Logo
+                row.ConstantItem(100).Height(50).Placeholder();
             });
         }
 
@@ -68,40 +63,40 @@ namespace InventorySystem.Reports
             {
                 column.Spacing(20);
 
-                var totalSales = _sales.Sum(s => s.TotalAmount);
-                var saleCount = _sales.Count();
-                var averageTicket = saleCount > 0 ? totalSales / saleCount : 0;
+                var totalSuppliers = _suppliers.Count();
+                var activeSuppliers = _suppliers.Count(s => s.IsActive);
+                var categories = _suppliers.Select(s => s.Category).Distinct().Count();
 
                 // Summary Cards Row
                 column.Item().Row(row =>
                 {
                     row.Spacing(20);
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Revenue", $"${totalSales:N2}", Color.FromHex("EEF2FF"), Color.FromHex("4F46E5")));
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Orders", saleCount.ToString(), Color.FromHex("F0FDF4"), Color.FromHex("16A34A")));
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Average Ticket", $"${averageTicket:N2}", Color.FromHex("FFF7ED"), Color.FromHex("EA580C")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Suppliers", totalSuppliers.ToString(), Color.FromHex("EEF2FF"), Color.FromHex("4F46E5")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Active", activeSuppliers.ToString(), Color.FromHex("F0FDF4"), Color.FromHex("16A34A")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Categories", categories.ToString(), Color.FromHex("EEF2FF"), Color.FromHex("4F46E5")));
                 });
 
-                // Products Table
-                column.Item().Text("Sales History Details").FontSize(14).SemiBold();
+                // Suppliers Table
+                column.Item().Text("Supplier Details").FontSize(14).SemiBold();
                 
                 column.Item().Table(table =>
                 {
                     table.ColumnsDefinition(columns =>
                     {
                         columns.ConstantColumn(30);
-                        columns.RelativeColumn(2);
                         columns.RelativeColumn(3);
-                        columns.RelativeColumn();
+                        columns.RelativeColumn(3);
+                        columns.RelativeColumn(2);
                         columns.RelativeColumn();
                     });
 
                     table.Header(header =>
                     {
                         header.Cell().Element(CellStyle).Text("ID");
-                        header.Cell().Element(CellStyle).Text("Date");
-                        header.Cell().Element(CellStyle).Text("Client");
-                        header.Cell().Element(CellStyle).Text("Status");
-                        header.Cell().Element(CellStyle).Text("Total");
+                        header.Cell().Element(CellStyle).Text("Company Name");
+                        header.Cell().Element(CellStyle).Text("Contact Person");
+                        header.Cell().Element(CellStyle).Text("Email");
+                        header.Cell().Element(CellStyle).Text("Phone");
 
                         static IContainer CellStyle(IContainer container)
                         {
@@ -112,13 +107,13 @@ namespace InventorySystem.Reports
                         }
                     });
 
-                    foreach (var sale in _sales.OrderByDescending(s => s.SaleDate))
+                    foreach (var supplier in _suppliers.OrderBy(s => s.CompanyName))
                     {
-                        table.Cell().Element(ItemStyle).Text(sale.Id.ToString());
-                        table.Cell().Element(ItemStyle).Text(sale.SaleDate.ToString("MM/dd/yyyy HH:mm"));
-                        table.Cell().Element(ItemStyle).Text(sale.Client?.FullName ?? "Walk-in Customer");
-                        table.Cell().Element(ItemStyle).Text("Completed");
-                        table.Cell().Element(ItemStyle).Text($"${sale.TotalAmount:N2}");
+                        table.Cell().Element(ItemStyle).Text(supplier.Id.ToString());
+                        table.Cell().Element(ItemStyle).Text(supplier.CompanyName);
+                        table.Cell().Element(ItemStyle).Text(supplier.FullName);
+                        table.Cell().Element(ItemStyle).Text(supplier.Email);
+                        table.Cell().Element(ItemStyle).Text(supplier.PhoneNumber);
 
                         static IContainer ItemStyle(IContainer container)
                         {

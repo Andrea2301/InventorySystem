@@ -58,7 +58,8 @@ namespace InventorySystem.ViewModel
         public ICommand ShowSaleViewCommand { get;}
         public ICommand ShowSalesHistoryViewCommand { get;}
         public ICommand ShowSupplierViewCommand { get; }
-        public ICommand ShowInformsViewCommand { get; }
+        public ICommand ShowReportsViewCommand { get; }
+        public ICommand ShowMaintenanceViewCommand { get; }
 
         public MainViewModel(IServiceProvider serviceProvider)
         {
@@ -80,7 +81,8 @@ namespace InventorySystem.ViewModel
             ShowSaleViewCommand = new ViewModelCommand(ExecuteShowSaleViewCommand); 
             ShowSalesHistoryViewCommand = new ViewModelCommand(ExecuteShowSalesHistoryViewCommand);
             ShowSupplierViewCommand = new ViewModelCommand(ExecuteShowSupplierViewCommand);
-            ShowInformsViewCommand = new ViewModelCommand(ExecuteShowInformsViewCommand);
+            ShowReportsViewCommand = new ViewModelCommand(ExecuteShowReportsViewCommand);
+            ShowMaintenanceViewCommand = new ViewModelCommand(ExecuteShowMaintenanceViewCommand);
             
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -128,11 +130,18 @@ namespace InventorySystem.ViewModel
             IconChar = IconChar.Truck;
         }
 
-        private void ExecuteShowInformsViewCommand(object obj)
+        private void ExecuteShowReportsViewCommand(object obj)
         {
-            CurrentChildView = new InformsViewModel(); // Will refactor this later
-            Caption = "Informs";
-            IconChar = IconChar.FilePen;
+            CurrentChildView = _serviceProvider.GetRequiredService<ReportsViewModel>();
+            Caption = "Reports";
+            IconChar = IconChar.ChartPie;
+        }
+
+        private void ExecuteShowMaintenanceViewCommand(object obj)
+        {
+            CurrentChildView = _serviceProvider.GetRequiredService<MaintenanceViewModel>();
+            Caption = "Maintenance";
+            IconChar = IconChar.Database;
         }
     }
 }

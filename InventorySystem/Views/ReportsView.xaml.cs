@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace InventorySystem.Views
 {
-    public partial class InformsView : UserControl
+    public partial class ReportsView : UserControl
     {
-        public InformsView()
+        public ReportsView()
         {
             InitializeComponent();
         }

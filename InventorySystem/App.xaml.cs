@@ -57,6 +57,7 @@ namespace InventorySystem
             services.AddScoped<ISeedDataService, SeedDataService>();
             services.AddScoped<IDialogService, DialogService>();
             services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<IDatabaseService, DatabaseService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
@@ -69,6 +70,8 @@ namespace InventorySystem
             services.AddTransient<SaleViewModel>();
             services.AddTransient<SupplierViewModel>();
             services.AddTransient<SupplierFormViewModel>();
+            services.AddTransient<MaintenanceViewModel>();
+            services.AddTransient<ReportsViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();

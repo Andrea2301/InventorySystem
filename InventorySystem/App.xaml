@@ -19,6 +19,8 @@
             
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <converters:BooleanToStatusConverter x:Key="BooleanToStatusConverter"/>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 

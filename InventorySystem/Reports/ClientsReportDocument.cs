@@ -8,13 +8,13 @@ using InventorySystem.Models;
 
 namespace InventorySystem.Reports
 {
-    public class SalesReportDocument : IDocument
+    public class ClientsReportDocument : IDocument
     {
-        private readonly IEnumerable<Sale> _sales;
+        private readonly IEnumerable<Client> _clients;
 
-        public SalesReportDocument(IEnumerable<Sale> sales)
+        public ClientsReportDocument(IEnumerable<Client> clients)
         {
-            _sales = sales ?? new List<Sale>();
+            _clients = clients ?? new List<Client>();
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -39,13 +39,13 @@ namespace InventorySystem.Reports
 
         private void ComposeHeader(IContainer container)
         {
-            var titleStyle = TextStyle.Default.FontSize(24).SemiBold().FontColor(Color.FromHex("3F51B5"));
+            var titleStyle = TextStyle.Default.FontSize(24).SemiBold().FontColor(Color.FromHex("4F46E5"));
 
             container.Row(row =>
             {
                 row.RelativeItem().Column(column =>
                 {
-                    column.Item().Text("INVENTORY SYSTEM MB").Style(titleStyle);
+                    column.Item().Text("CLIENTS DIRECTORY").Style(titleStyle);
                     column.Item().Text(text =>
                     {
                         text.Span("Date: ").SemiBold();
@@ -54,11 +54,11 @@ namespace InventorySystem.Reports
                     column.Item().Text(text =>
                     {
                         text.Span("Report Type: ").SemiBold();
-                        text.Span("Sales Analysis");
+                        text.Span("Customer Base Analysis");
                     });
                 });
 
-                row.ConstantItem(100).Height(50).Placeholder(); // Placeholder for Logo
+                row.ConstantItem(100).Height(50).Placeholder();
             });
         }
 
@@ -68,40 +68,40 @@ namespace InventorySystem.Reports
             {
                 column.Spacing(20);
 
-                var totalSales = _sales.Sum(s => s.TotalAmount);
-                var saleCount = _sales.Count();
-                var averageTicket = saleCount > 0 ? totalSales / saleCount : 0;
+                var totalClients = _clients.Count();
+                var activeClients = _clients.Count(c => c.IsActive);
+                var inactiveClients = totalClients - activeClients;
 
                 // Summary Cards Row
                 column.Item().Row(row =>
                 {
                     row.Spacing(20);
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Revenue", $"${totalSales:N2}", Color.FromHex("EEF2FF"), Color.FromHex("4F46E5")));
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Orders", saleCount.ToString(), Color.FromHex("F0FDF4"), Color.FromHex("16A34A")));
-                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Average Ticket", $"${averageTicket:N2}", Color.FromHex("FFF7ED"), Color.FromHex("EA580C")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Total Clients", totalClients.ToString(), Color.FromHex("EEF2FF"), Color.FromHex("4F46E5")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Active", activeClients.ToString(), Color.FromHex("F0FDF4"), Color.FromHex("16A34A")));
+                    row.RelativeItem().Element(c => ComposeSummaryCard(c, "Inactive", inactiveClients.ToString(), Color.FromHex("FEF2F2"), Color.FromHex("DC2626")));
                 });
 
-                // Products Table
-                column.Item().Text("Sales History Details").FontSize(14).SemiBold();
+                // Clients Table
+                column.Item().Text("Client Details").FontSize(14).SemiBold();
                 
                 column.Item().Table(table =>
                 {
                     table.ColumnsDefinition(columns =>
                     {
                         columns.ConstantColumn(30);
-                        columns.RelativeColumn(2);
                         columns.RelativeColumn(3);
-                        columns.RelativeColumn();
+                        columns.RelativeColumn(3);
+                        columns.RelativeColumn(2);
                         columns.RelativeColumn();
                     });
 
                     table.Header(header =>
                     {
                         header.Cell().Element(CellStyle).Text("ID");
-                        header.Cell().Element(CellStyle).Text("Date");
-                        header.Cell().Element(CellStyle).Text("Client");
+                        header.Cell().Element(CellStyle).Text("Full Name");
+                        header.Cell().Element(CellStyle).Text("Email");
+                        header.Cell().Element(CellStyle).Text("Phone");
                         header.Cell().Element(CellStyle).Text("Status");
-                        header.Cell().Element(CellStyle).Text("Total");
 
                         static IContainer CellStyle(IContainer container)
                         {
@@ -112,13 +112,13 @@ namespace InventorySystem.Reports
                         }
                     });
 
-                    foreach (var sale in _sales.OrderByDescending(s => s.SaleDate))
+                    foreach (var client in _clients.OrderBy(c => c.LastName))
                     {
-                        table.Cell().Element(ItemStyle).Text(sale.Id.ToString());
-                        table.Cell().Element(ItemStyle).Text(sale.SaleDate.ToString("MM/dd/yyyy HH:mm"));
-                        table.Cell().Element(ItemStyle).Text(sale.Client?.FullName ?? "Walk-in Customer");
-                        table.Cell().Element(ItemStyle).Text("Completed");
-                        table.Cell().Element(ItemStyle).Text($"${sale.TotalAmount:N2}");
+                        table.Cell().Element(ItemStyle).Text(client.Id.ToString());
+                        table.Cell().Element(ItemStyle).Text(client.FullName);
+                        table.Cell().Element(ItemStyle).Text(client.Email);
+                        table.Cell().Element(ItemStyle).Text(client.PhoneNumber);
+                        table.Cell().Element(ItemStyle).Text(client.IsActive ? "Active" : "Inactive");
 
                         static IContainer ItemStyle(IContainer container)
                         {

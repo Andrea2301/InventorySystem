@@ -25,7 +25,7 @@ namespace InventorySystem.Services
             _mappings.Add(typeof(ViewModel.SupplierFormViewModel), typeof(Views.SupplierFormView));
             _mappings.Add(typeof(Models.Sale), typeof(Views.SaleDetailView));
             _mappings.Add(typeof(ViewModel.ImportFileViewModel), typeof(Views.ImportFileView));
-            // Add more as needed
+            
         }
 
         public void ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : class
@@ -45,6 +45,29 @@ namespace InventorySystem.Services
             }
 
             view.ShowDialog();
+        }
+        
+        public string OpenFile(string filter, string title = "Select File")
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = filter,
+                Title = title
+            };
+            
+            return dialog.ShowDialog() == true ? dialog.FileName : string.Empty;
+        }
+
+        public string SaveFile(string filter, string defaultFileName = "", string title = "Save File")
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = filter,
+                FileName = defaultFileName,
+                Title = title
+            };
+            
+            return dialog.ShowDialog() == true ? dialog.FileName : string.Empty;
         }
     }
 }

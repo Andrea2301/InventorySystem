@@ -15,7 +15,8 @@
                 <ControlTemplate TargetType="RadioButton">
                     <Border Background="{TemplateBinding Background}"
                             BorderThickness="4,0,0,0"
-                            BorderBrush="{TemplateBinding BorderBrush}">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="0,5,5,0">
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -27,23 +28,102 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Margin" Value="0,0,0,5"/>
                 <Setter Property="Background" Value="#5d7dd4"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+            
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#2F3E9F"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="#818CF8"/>
             </Trigger>
         </Style.Triggers>
 
     </Style>
 
+    <!-- Menu Expander Style -->
+    <Style x:Key="MenuExpander" TargetType="Expander">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#C7D2FE"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Name="ContentRow" Height="0"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- The ToggleButton is what actually handles the click to expand/collapse -->
+                        <ToggleButton Name="HeaderSite"
+                                      IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      Content="{TemplateBinding Header}"
+                                      Cursor="Hand"
+                                      Height="50"
+                                      Margin="-5,0,0,0">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Name="HeaderBorder"
+                                            Background="Transparent"
+                                            BorderThickness="4,0,0,0"
+                                            BorderBrush="Transparent"
+                                            CornerRadius="0,5,5,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter Grid.Column="0" ContentSource="Content" RecognizesAccessKey="True" VerticalAlignment="Center"/>
+                                            <fa:IconImage Name="Arrow" Grid.Column="1" Icon="ChevronRight" Foreground="#818CF8" Width="10" Margin="0,0,25,0" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="HeaderBorder" Property="Background" Value="#5d7dd4"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}" Value="True">
+                                            <Setter TargetName="Arrow" Property="Icon" Value="ChevronDown"/>
+                                            <!-- Highlight header if expanded -->
+                                            <Setter TargetName="HeaderBorder" Property="Background" Value="#1AFFFFFF"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <ContentPresenter Name="PART_Content" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ContentRow" Property="Height" Value="Auto"/>
+                            <Setter TargetName="PART_Content" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Menu section header text (inside expander) -->
+    <Style x:Key="ExpanderHeaderText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="35,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
     <!--Menu button icons-->
 
     <Style x:Key="MenuButtonIcon" TargetType="fa:IconImage">
-        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
-        <Setter Property="Width" Value="22"/>
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="Margin" Value="35,0,20,0"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="45,0,15,0"/>
     </Style>
     
     <!-- Menu Button text-->
@@ -51,8 +131,8 @@
         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
         <Setter Property="FontFamily" Value="Montserrat"/>
         <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="FontSize" Value="13.5"/>
-        <Setter Property="Margin" Value="10,5,50,0"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 

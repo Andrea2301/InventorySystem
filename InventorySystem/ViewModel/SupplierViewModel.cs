@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using InventorySystem.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace InventorySystem.ViewModel
 {

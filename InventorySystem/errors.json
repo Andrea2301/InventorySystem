@@ -1,0 +1,3858 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador de Microsoft (R) Visual C#",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.26064.1 (450493a9)",
+        "semanticVersion": "4.14.0",
+        "language": "es-ES"
+      },
+      "results": [
+        {
+          "ruleId": "CS0105",
+          "level": "warning",
+          "message": "La directiva using para 'System.Windows.Input' aparece previamente en este espacio de nombres",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 7,
+                  "endLine": 10,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS8612",
+          "level": "warning",
+          "message": "La nulabilidad de los tipos de referencia del tipo de \"event PropertyChangedEventHandler ViewModelBase.PropertyChanged\" no coincide con el miembro \"event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged\" implementado de forma implícita.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 50,
+                  "endLine": 26,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8767",
+          "level": "warning",
+          "message": "La nulabilidad de los tipos de referencia del tipo de parámetro\"propertyName\" de \"IEnumerable ViewModelBase.GetErrors(string propertyName)\" no coincide con el miembro \"IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)\" implementado de forma implícita (posiblemente debido a los atributos de nulabilidad).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 47,
+                  "endLine": 31,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8612",
+          "level": "warning",
+          "message": "La nulabilidad de los tipos de referencia del tipo de \"event EventHandler<DataErrorsChangedEventArgs> ViewModelBase.ErrorsChanged\" no coincide con el miembro \"event EventHandler<DataErrorsChangedEventArgs>? INotifyDataErrorInfo.ErrorsChanged\" implementado de forma implícita.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 63,
+                  "endLine": 27,
+                  "endColumn": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "No se puede convertir un literal NULL en un tipo de referencia que no acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 83,
+                  "endLine": 36,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8612",
+          "level": "warning",
+          "message": "La nulabilidad de los tipos de referencia del tipo de \"event EventHandler ViewModelCommand.CanExecuteChanged\" no coincide con el miembro \"event EventHandler? ICommand.CanExecuteChanged\" implementado de forma implícita.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 35,
+                  "endLine": 38,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"ServiceProvider\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/App.xaml.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 40,
+                  "endLine": 16,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/App.xaml.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 40,
+                  "endLine": 16,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Products\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 31,
+                  "endLine": 13,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 31,
+                  "endLine": 13,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Clients\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 30,
+                  "endLine": 14,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 30,
+                  "endLine": 14,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Sales\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 28,
+                  "endLine": 15,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 28,
+                  "endLine": 15,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"SaleDetails\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 34,
+                  "endLine": 16,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 34,
+                  "endLine": 16,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Suppliers\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 32,
+                  "endLine": 17,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Data/AppDbContext.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 32,
+                  "endLine": 17,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Views/ClientView.xaml.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 31,
+                  "endLine": 31,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Desreferencia de una referencia posiblemente NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Views/ClientView.xaml.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 17,
+                  "endLine": 35,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "No se puede convertir un literal NULL en un tipo de referencia que no acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 33,
+                  "endLine": 27,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_canExecuteAction\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 16,
+                  "endLine": 23,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 44,
+                  "endLine": 20,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Posible argumento de referencia nulo para el parámetro \"obj\" en \"bool Predicate<object>.Invoke(object obj)\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 73,
+                  "endLine": 50,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Posible argumento de referencia nulo para el parámetro \"obj\" en \"void Action<object>.Invoke(object obj)\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ViewModelCommand.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 28,
+                  "endLine": 56,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_suppliers\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierViewModel.cs",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 16,
+                  "endLine": 49,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 48,
+                  "endLine": 20,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_searchText\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierViewModel.cs",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 16,
+                  "endLine": 49,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 24,
+                  "endLine": 21,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Sale\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/SaleDetail.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 21,
+                  "endLine": 13,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/SaleDetail.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 21,
+                  "endLine": 13,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Product\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/SaleDetail.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/SaleDetail.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Client\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/Sale.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Models/Sale.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8622",
+          "level": "warning",
+          "message": "La nulabilidad de los tipos de referencia del tipo de parámetro\"sender\" de \"void SplashScreen.worker_DoWork(object sender, DoWorkEventArgs e)\" no coincide con el delegado de destino \"DoWorkEventHandler\" (posiblemente debido a los atributos de nulabilidad).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Shell/SplashScreen.xaml.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 30,
+                  "endLine": 35,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 28,
+                  "endLine": 85,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 28,
+                  "endLine": 86,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 29,
+                  "endLine": 87,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_documentNumber\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_firstName\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 24,
+                  "endLine": 16,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_lastName\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 24,
+                  "endLine": 17,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_companyName\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 24,
+                  "endLine": 18,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_email\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 24,
+                  "endLine": 19,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_phoneNumber\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 24,
+                  "endLine": 20,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_website\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 24,
+                  "endLine": 21,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_address\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 24,
+                  "endLine": 22,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_category\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 24,
+                  "endLine": 23,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_title\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 24,
+                  "endLine": 26,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento evento \"RequestClose\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el evento como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 16,
+                  "endLine": 67,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 35,
+                  "endLine": 65,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 29,
+                  "endLine": 102,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/DatabaseService.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 30,
+                  "endLine": 27,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Posible argumento de referencia nulo para el parámetro \"path\" en \"DirectoryInfo Directory.CreateDirectory(string path)\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/DatabaseService.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 71,
+                  "endLine": 28,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 28,
+                  "endLine": 83,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_firstName\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_lastName\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 24,
+                  "endLine": 16,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_email\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 24,
+                  "endLine": 17,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_phoneNumber\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 24,
+                  "endLine": 18,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_documentNumber\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 24,
+                  "endLine": 19,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_address\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 24,
+                  "endLine": 20,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento evento \"RequestClose\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el evento como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 16,
+                  "endLine": 65,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 35,
+                  "endLine": 63,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 29,
+                  "endLine": 97,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "El argumento de tipo \"Dictionary<string, List<string>>\" no se puede usar para el parámetro \"dictionary\" de tipo \"IReadOnlyDictionary<string, List<string>?>\" en \"List<string>? CollectionExtensions.GetValueOrDefault<string, List<string>?>(IReadOnlyDictionary<string, List<string>?> dictionary, string key, List<string>? defaultValue)\" debido a las diferencias en la nulabilidad de los tipos de referencia.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 20,
+                  "endLine": 33,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Posible tipo de valor devuelto de referencia nulo.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 20,
+                  "endLine": 33,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_clients\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 16,
+                  "endLine": 61,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 46,
+                  "endLine": 21,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_clientsView\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 16,
+                  "endLine": 61,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 33,
+                  "endLine": 22,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_searchText\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 16,
+                  "endLine": 61,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 24,
+                  "endLine": 23,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_selectedClient\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 16,
+                  "endLine": 61,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientViewModel.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 24,
+                  "endLine": 24,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_selectedFilePath\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ImportFileViewModel.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 16,
+                  "endLine": 39,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ImportFileViewModel.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 24,
+                  "endLine": 11,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento evento \"PropertyChanged\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el evento como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 50,
+                  "endLine": 26,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 50,
+                  "endLine": 26,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento evento \"ErrorsChanged\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el evento como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 63,
+                  "endLine": 27,
+                  "endColumn": 76
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 63,
+                  "endLine": 27,
+                  "endColumn": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_products\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 16,
+                  "endLine": 71,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 85,
+                  "endLine": 19,
+                  "endColumn": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_cart\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 16,
+                  "endLine": 71,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 88,
+                  "endLine": 20,
+                  "endColumn": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_clients\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 16,
+                  "endLine": 71,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 84,
+                  "endLine": 21,
+                  "endColumn": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_selectedClient\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 16,
+                  "endLine": 71,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 31,
+                  "endLine": 22,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_searchText\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 16,
+                  "endLine": 71,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SaleViewModel.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 24,
+                  "endLine": 23,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_totalSalesToday\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 24,
+                  "endLine": 19,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_newClientsToday\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 24,
+                  "endLine": 20,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_totalStock\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 24,
+                  "endLine": 21,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_totalStockValue\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 24,
+                  "endLine": 22,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_criticalStockCount\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 24,
+                  "endLine": 23,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_salesTrend\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 24,
+                  "endLine": 24,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_saleSeries\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 34,
+                  "endLine": 25,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_categorySeries\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 34,
+                  "endLine": 26,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_criticalItems\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 47,
+                  "endLine": 27,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_topProducts\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 16,
+                  "endLine": 100,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/HomeViewModel.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 54,
+                  "endLine": 28,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0246",
+          "level": "error",
+          "message": "El nombre del tipo o del espacio de nombres 'RelayCommand' no se encontró (¿falta una directiva using o una referencia de ensamblado?)",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 33,
+                  "endLine": 46,
+                  "endColumn": 45
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS0246",
+          "level": "error",
+          "message": "El nombre del tipo o del espacio de nombres 'RelayCommand' no se encontró (¿falta una directiva using o una referencia de ensamblado?)",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 34,
+                  "endLine": 47,
+                  "endColumn": 46
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_databasePath\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 16,
+                  "endLine": 40,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_databaseSize\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 16,
+                  "endLine": 40,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 24,
+                  "endLine": 16,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1061",
+          "level": "error",
+          "message": "\"IDialogService\" no contiene una definición para \"SaveFile\" ni un método de extensión accesible \"SaveFile\" que acepte un primer argumento del tipo \"IDialogService\" (¿falta alguna directiva using o una referencia de ensamblado?)",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 42,
+                  "endLine": 62,
+                  "endColumn": 50
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "No se puede convertir un literal NULL en un tipo de referencia que no acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MainViewModel.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 40,
+                  "endLine": 88,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_currentChildView\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MainViewModel.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 16,
+                  "endLine": 64,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MainViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 31,
+                  "endLine": 20,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_caption\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MainViewModel.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 16,
+                  "endLine": 64,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MainViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 24,
+                  "endLine": 21,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1061",
+          "level": "error",
+          "message": "\"IDialogService\" no contiene una definición para \"OpenFile\" ni un método de extensión accesible \"OpenFile\" que acepte un primer argumento del tipo \"IDialogService\" (¿falta alguna directiva using o una referencia de ensamblado?)",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/MaintenanceViewModel.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 42,
+                  "endLine": 88,
+                  "endColumn": 50
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_products\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductsViewModel.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 16,
+                  "endLine": 32,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductsViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 47,
+                  "endLine": 21,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 69,
+                  "startColumn": 32,
+                  "endLine": 69,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 32,
+                  "endLine": 85,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 30,
+                  "endLine": 88,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Posible asignación de referencia nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 30,
+                  "endLine": 89,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_originalProduct\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 25,
+                  "endLine": 16,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_name\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 24,
+                  "endLine": 18,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_description\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 24,
+                  "endLine": 22,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_imagePath\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 24,
+                  "endLine": 24,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_imageData\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 24,
+                  "endLine": 25,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_previewImage\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 29,
+                  "endLine": 27,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_formTitle\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 24,
+                  "endLine": 28,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento evento \"RequestClose\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el evento como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 16,
+                  "endLine": 66,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ProductFormViewModel.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 35,
+                  "endLine": 64,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_sales\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 16,
+                  "endLine": 50,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 44,
+                  "endLine": 20,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_selectedSale\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 16,
+                  "endLine": 50,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 22,
+                  "endLine": 21,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento campo \"_searchText\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el campo como un valor que acepta valores NULL.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 16,
+                  "endLine": 50,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SalesHistoryViewModel.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 24,
+                  "endLine": 22,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "El miembro \"ConfigureServices\" no tiene acceso a los datos de la instancia y se puede marcar como static.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/App.xaml.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 22,
+                  "endLine": 46,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' para generar la implementación de expresiones regulares en tiempo de compilación.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Helpers/TextBoxBehavior.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 44,
+                  "endLine": 75,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' para generar la implementación de expresiones regulares en tiempo de compilación.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Helpers/TextBoxBehavior.cs",
+                "region": {
+                  "startLine": 76,
+                  "startColumn": 44,
+                  "endLine": 76,
+                  "endColumn": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' para generar la implementación de expresiones regulares en tiempo de compilación.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Helpers/TextBoxBehavior.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 42,
+                  "endLine": 77,
+                  "endColumn": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1401",
+          "level": "note",
+          "message": "El método P/Invoke \"SendMessage\" no debe ser visible",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Shell/MainWindow.xaml.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 37,
+                  "endLine": 23,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SupplierService.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 29,
+                  "endLine": 33,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SupplierService.cs",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 29,
+                  "endLine": 34,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SupplierService.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 29,
+                  "endLine": 35,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SupplierService.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 52,
+                  "endLine": 36,
+                  "endColumn": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' para generar la implementación de expresiones regulares en tiempo de compilación.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/SupplierFormViewModel.cs",
+                "region": {
+                  "startLine": 113,
+                  "startColumn": 64,
+                  "endLine": 113,
+                  "endColumn": 147
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' para generar la implementación de expresiones regulares en tiempo de compilación.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/ClientFormViewModel.cs",
+                "region": {
+                  "startLine": 111,
+                  "startColumn": 64,
+                  "endLine": 111,
+                  "endColumn": 147
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "El miembro \"ComposeSummaryCard\" no tiene acceso a los datos de la instancia y se puede marcar como static.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Reports/SalesReportDocument.cs",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 22,
+                  "endLine": 117,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Es preferible comparar \"Count\" con 0 en lugar de usar \"Any()\", tanto por claridad como por rendimiento.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 34,
+                  "endLine": 29,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1853",
+          "level": "note",
+          "message": "No restrinja 'Dictionary.Remove(key)' con 'Dictionary.ContainsKey(key)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 17,
+                  "endLine": 75,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 13,
+                  "endLine": 79,
+                  "endColumn": 14
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 17,
+                  "endLine": 77,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1054",
+          "level": "note",
+          "message": "Marque el método “SendMessage” con “LibraryImportAttribute” en lugar de “DllImportAttribute” para generar código de serialización P/Invoke en el tiempo de compilación",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Shell/MainWindow.xaml.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 37,
+                  "endLine": 23,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "CharSet": "None",
+              "ExactSpelling": "False",
+              "MayRequireAdditionalWork": "False"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1854",
+          "level": "note",
+          "message": "Preferir una llamada \"TryGetValue\" en lugar de un acceso al indexador del diccionario protegido por una comprobación \"ContainsKey\" para evitar la doble búsqueda",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 18,
+                  "endLine": 48,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 18,
+                  "endLine": 53,
+                  "endColumn": 47
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 17,
+                  "endLine": 55,
+                  "endColumn": 46
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 17,
+                  "endLine": 50,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1854",
+          "level": "note",
+          "message": "Preferir una llamada \"TryGetValue\" en lugar de un acceso al indexador del diccionario protegido por una comprobación \"ContainsKey\" para evitar la doble búsqueda",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 17,
+                  "endLine": 62,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 62,
+                  "endLine": 62,
+                  "endColumn": 91
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/ViewModel/Base/ViewModelBase.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 17,
+                  "endLine": 64,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SaleService.cs",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 47,
+                  "endLine": 34,
+                  "endColumn": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SaleService.cs",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 101,
+                  "endLine": 34,
+                  "endColumn": 150
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SaleService.cs",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 67,
+                  "endLine": 38,
+                  "endColumn": 117
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefiera la sobrecarga de método de comparación de cadenas de \"string.Contains(string)\" que toma un valor de enumeración \"StringComparison\" para realizar una comparación sin distinción de mayúsculas y minúsculas, pero tenga en cuenta que esto puede provocar cambios sutiles en el comportamiento, por lo que asegúrese de realizar pruebas exhaustivas después de aplicar la sugerencia, o si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/Users/camil/source/repos/Andrea2301/InventorySystem/InventorySystem/Services/SaleService.cs",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 121,
+                  "endLine": 38,
+                  "endColumn": 170
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": null
+            }
+          }
+        }
+      ],
+      "rules": {
+        "CA1401": {
+          "id": "CA1401",
+          "shortDescription": "Los elementos P/Invoke no deben estar visibles",
+          "fullDescription": "Un método público o protegido en un tipo público tiene el atributo System.Runtime.InteropServices.DllImportAttribute (también se implementa por la palabra clave Declare en Visual Basic). Estos métodos no deben exponerse.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1401",
+          "properties": {
+            "category": "Interoperability",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1822": {
+          "id": "CA1822",
+          "shortDescription": "Marcar miembros como static",
+          "fullDescription": "Los miembros que no tienen acceso a datos de instancia o que llaman a métodos de instancia se pueden marcar como static. Después de marcar los métodos como static, el compilador emitirá los sitios de llamada no virtuales para estos miembros. Esto puede proporcionar una mejora apreciable del rendimiento del código sensible al rendimiento.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1822",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1853": {
+          "id": "CA1853",
+          "shortDescription": "Llamada innecesaria a 'Dictionary.ContainsKey(key)'",
+          "fullDescription": "No restrinja 'Dictionary.Remove(key)' con 'Dictionary.ContainsKey(key)'. El primero ya comprueba si la clave existe y no se iniciará si no existe.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1853",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1854": {
+          "id": "CA1854",
+          "shortDescription": "Preferir el método \"IDictionary.TryGetValue(TKey, out TValue)\"",
+          "fullDescription": "Preferir una llamada \"TryGetValue\" a un acceso al indexador del diccionario protegido por una comprobación \"ContainsKey\". Tanto \"ContainsKey\" como el indexador buscarían de forma exhaustiva, por lo que el uso de \"TryGetValue\" elimina la búsqueda adicional.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1854",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1860": {
+          "id": "CA1860",
+          "shortDescription": "Evitar usar el método de extensión \"Enumerable.Any()\"",
+          "fullDescription": "Es preferible usar las propiedades \"IsEmpty\", \"Count\" o \"Length\", si hay alguna disponible, en lugar de llamar a \"Enumerable.Any()\". La intención es más clara y tiene un mejor rendimiento que usar el método de extensión \"Enumerable.Any()\".",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1860",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1862": {
+          "id": "CA1862",
+          "shortDescription": "Use las sobrecargas del método \"StringComparison\" para realizar comparaciones de cadenas sin distinción de mayúsculas y minúsculas",
+          "fullDescription": "Evite llamar a \"ToLower\", \"ToUpper\", \"ToLowerInvariant\" y \"ToUpperInvariant\" para realizar comparaciones de cadenas sin distinción de mayúsculas y minúsculas, porque dan lugar a una asignación. En su lugar, es preferible llamar a las sobrecargas de método de \"Contains\", \"IndexOf\" y \"StartsWith\" que toman un valor de enumeración \"StringComparison\" para realizar comparaciones que no distinguen mayúsculas de minúsculas. Si cambia a una sobrecarga que toma una \"StringComparison\", es posible que se produzcan cambios sutiles en el comportamiento, por lo que es importante realizar pruebas exhaustivas después de aplicar la sugerencia. Además, si no se requiere una comparación culturalmente confidencial, considere la posibilidad de usar \"StringComparison.OrdinalIgnoreCase\".",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1862",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS0105": {
+          "id": "CS0105",
+          "shortDescription": "La directiva using apareció anteriormente en este espacio de nombre",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0105)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS0246": {
+          "id": "CS0246",
+          "defaultLevel": "error",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0246)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry",
+              "NotConfigurable"
+            ]
+          }
+        },
+        "CS1061": {
+          "id": "CS1061",
+          "defaultLevel": "error",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1061)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry",
+              "NotConfigurable"
+            ]
+          }
+        },
+        "CS8600": {
+          "id": "CS8600",
+          "shortDescription": "Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8600)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8601": {
+          "id": "CS8601",
+          "shortDescription": "Posible asignación de referencia nula",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8601)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8602": {
+          "id": "CS8602",
+          "shortDescription": "Desreferencia de una referencia posiblemente NULL.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8602)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8603": {
+          "id": "CS8603",
+          "shortDescription": "Posible tipo de valor devuelto de referencia nulo",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8603)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8604": {
+          "id": "CS8604",
+          "shortDescription": "Posible argumento de referencia nulo",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8604)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8612": {
+          "id": "CS8612",
+          "shortDescription": "La nulabilidad de los tipos de referencia del tipo no coincide con el miembro implementado de forma implícita",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8612)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required\" o declararlo como un valor que acepta valores NULL.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8620": {
+          "id": "CS8620",
+          "shortDescription": "El argumento no se puede usar para el parámetro debido a las diferencias en la nulabilidad de los tipos de referencia.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8620)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8622": {
+          "id": "CS8622",
+          "shortDescription": "La nulabilidad de los tipos de referencia del tipo de parámetro no coincide con el delegado de destino (posiblemente debido a los atributos de nulabilidad).",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8622)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8625": {
+          "id": "CS8625",
+          "shortDescription": "No se puede convertir un literal NULL en un tipo de referencia que no acepta valores NULL.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8625)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8767": {
+          "id": "CS8767",
+          "shortDescription": "La nulabilidad de los tipos de referencia del tipo de parámetro no coincide con el miembro implementado de forma implícita (posiblemente debido a los atributos de nulabilidad).",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8767)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "SYSLIB1045": {
+          "id": "SYSLIB1045",
+          "shortDescription": "Convertir en 'GeneratedRegexAttribute'.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/syslib-diagnostics/syslib1045",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true
+          }
+        },
+        "SYSLIB1054": {
+          "id": "SYSLIB1054",
+          "shortDescription": "Use “LibraryImportAttribute” en lugar de “DllImportAttribute” para generar código de serialización P/Invoke en el tiempo de compilación",
+          "fullDescription": "Use “LibraryImportAttribute” en lugar de “DllImportAttribute” para generar código de serialización P/Invoke en el tiempo de compilación",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/syslib-diagnostics/syslib1054",
+          "properties": {
+            "category": "Interoperability",
+            "isEnabledByDefault": true
+          }
+        }
+      }
+    }
+  ]
+}

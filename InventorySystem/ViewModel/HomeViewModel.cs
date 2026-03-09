@@ -11,6 +11,7 @@ using System.Linq;
 using InventorySystem.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using InventorySystem.Helpers;
 
 namespace InventorySystem.ViewModel
 {
@@ -108,7 +109,7 @@ namespace InventorySystem.ViewModel
             
             RefreshCommand = new ViewModelCommand(_ => LoadDashboardData());
             SeedDataCommand = new ViewModelCommand(_ => ExecuteSeedDataCommandSync());
-            ShowDatabaseStatsCommand = new ViewModelCommand(_ => Helpers.DatabaseDiagnostics.ShowDatabaseStats(_db));
+            ShowDatabaseStatsCommand = new ViewModelCommand(_ => DatabaseDiagnostics.ShowDatabaseStats(_db));
             TestCommand = new ViewModelCommand(_ => _messageService.ShowInfo("Test button works!"));
             
             LoadDashboardData();
