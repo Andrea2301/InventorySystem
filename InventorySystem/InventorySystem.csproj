@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\Img\modelado.ico</ApplicationIcon>
     <AssemblyName>InventorySystem</AssemblyName>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Authors>Andrea2301</Authors>
     <Company>Andrea2301</Company>
     <Product>Inventory Management System</Product>
