@@ -67,5 +67,11 @@ namespace InventorySystem.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task AddRangeAsync(List<Supplier> suppliersToImport)
+        {
+            await _context.Suppliers.AddRangeAsync(suppliersToImport);
+            await _context.SaveChangesAsync();
+        }
     }
 }

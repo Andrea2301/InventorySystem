@@ -59,5 +59,11 @@ namespace InventorySystem.Services
                 .OrderBy(p => p.Quantity)
                 .ToListAsync();
         }
+
+        public async Task AddRangeAsync(List<Product> productsToImport)
+        {
+            await _context.Products.AddRangeAsync(productsToImport);
+            await _context.SaveChangesAsync();
+        }
     }
 }

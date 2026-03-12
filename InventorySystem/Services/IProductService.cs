@@ -12,5 +12,6 @@ namespace InventorySystem.Services
         Task UpdateAsync(Product product);
         Task DeleteAsync(int id);
         Task<IEnumerable<Product>> GetLowStockAsync(int threshold);
+        Task AddRangeAsync(List<Product> productsToImport);
     }
 }

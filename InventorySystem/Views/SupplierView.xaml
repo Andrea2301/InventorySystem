@@ -166,7 +166,8 @@
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Padding="10,8"
-                                        HorizontalContentAlignment="Left"/>
+                                        HorizontalContentAlignment="Left"
+                                        Command="{Binding OpenImportExcelCommand}"/>
                             </StackPanel>
                         </Border>
                     </Popup>

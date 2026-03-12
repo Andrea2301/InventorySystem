@@ -1,10 +1,13 @@
-﻿using InventorySystem.ViewModel.Base;
-using InventorySystem.Services;
-using InventorySystem.Models;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System;
+using InventorySystem.Models;
+using InventorySystem.Services;
+using InventorySystem.ViewModel.Base;
+using InventorySystem.Views;
 
 namespace InventorySystem.ViewModel
 {
@@ -17,6 +20,7 @@ namespace InventorySystem.ViewModel
         public ICommand OpenProductFormCommand { get; }
         public ICommand EditProductCommand { get; }
         public ICommand DeleteProductCommand { get; }
+        public ICommand OpenImportExcelCommand { get; }
 
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products
@@ -38,7 +42,92 @@ namespace InventorySystem.ViewModel
             OpenProductFormCommand = new ViewModelCommand(ExecuteOpenProductFormCommand);
             EditProductCommand = new ViewModelCommand(ExecuteEditProductCommand);
             DeleteProductCommand = new ViewModelCommand(ExecuteDeleteProductCommand);
+            OpenImportExcelCommand = new ViewModelCommand(ExecuteOpenImportExcelCommand);
             _ = LoadProductsAsync();
+        }
+
+        private void ExecuteOpenImportExcelCommand(object obj)
+        {
+            var viewModel = new ImportFileViewModel();
+            var view = new ImportFileView { DataContext = viewModel };
+
+            if (view.ShowDialog() == true)
+            {
+                _ = ImportProducts(viewModel.SelectedFilePath);
+            }
+        }
+
+        private async Task ImportProducts(string filePath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    _messageService.ShowWarning("No file selected.");
+                    return;
+                }
+
+                IsLoading = true;
+                var rows = MiniExcelLibs.MiniExcel.Query(filePath, useHeaderRow: true)
+                            .Cast<IDictionary<string, object>>()
+                            .ToList();
+
+                if (rows == null || rows.Count == 0)
+                {
+                    _messageService.ShowWarning("The file is empty or could not be read.");
+                    return;
+                }
+
+                var productsToImport = new List<Product>();
+                foreach (var row in rows)
+                {
+                    string GetValue(params string[] possibleAliases)
+                    {
+                        foreach (var alias in possibleAliases)
+                        {
+                            var matchingKey = row.Keys.FirstOrDefault(k => k.Trim().Equals(alias, StringComparison.OrdinalIgnoreCase));
+                            if (matchingKey != null) return row[matchingKey]?.ToString() ?? "";
+                        }
+                        return "";
+                    }
+
+                    var name = GetValue("Name", "Nombre", "Producto");
+                    if (string.IsNullOrWhiteSpace(name)) continue;
+
+                    decimal.TryParse(GetValue("Price", "Precio", "Costo"), out decimal price);
+                    int.TryParse(GetValue("Quantity", "Stock", "Cantidad"), out int quantity);
+
+                    productsToImport.Add(new Product
+                    {
+                        Name = name,
+                        Description = GetValue("Description", "Descripción", "Detalle"),
+                        Category = GetValue("Category", "Categoría", "Rubro") ?? "General",
+                        Price = price,
+                        Quantity = quantity,
+                        IsActive = true,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+
+                if (productsToImport.Count > 0)
+                {
+                    await _productService.AddRangeAsync(productsToImport);
+                    await LoadProductsAsync();
+                    _messageService.ShowInfo($"{productsToImport.Count} products imported successfully.");
+                }
+                else
+                {
+                    _messageService.ShowWarning("No valid data found in the file to import.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"Error importing file: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void ExecuteEditProductCommand(object obj)

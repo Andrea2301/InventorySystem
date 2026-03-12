@@ -12,5 +12,6 @@ namespace InventorySystem.Services
         Task AddAsync(Supplier supplier);
         Task UpdateAsync(Supplier supplier);
         Task DeleteAsync(int id);
+        Task AddRangeAsync(List<Supplier> suppliersToImport);
     }
 }
