@@ -55,13 +55,14 @@
                             <Border Width="60" Height="60" CornerRadius="30" Background="#EEF2FF" Margin="0,0,0,15">
                                 <fa:IconImage Icon="CloudDownloadAlt" Foreground="#4F46E5" Width="26"/>
                             </Border>
-                            <TextBlock Text="Backup" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBlock Text="Create a backup of all your data in a secure location." 
+                            <TextBlock Text="Local Backup" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <TextBlock Text="Create a secure copy of your database to prevent data loss." 
                                        TextAlignment="Center" Foreground="#6B7280" Margin="0,0,0,20" TextWrapping="Wrap"/>
                             
-                            <Button Content="Create Backup" 
+                            <Button Content="Generate Backup" 
                                     Style="{StaticResource Pop}"
                                     Command="{Binding BackupCommand}"
+                                    ToolTip="Save a copy of your current database"
                                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}, FallbackValue=True}"
                                     Height="40" Padding="20,0"/>
                         </StackPanel>
@@ -74,14 +75,15 @@
                                 <fa:IconImage Icon="History" Foreground="#DC2626" Width="26"/>
                             </Border>
                             <TextBlock Text="Restore Data" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBlock Text="Recover information from a previously saved copy." 
+                            <TextBlock Text="Recover your system state from a previously saved backup file." 
                                        TextAlignment="Center" Foreground="#6B7280" Margin="0,0,0,20" TextWrapping="Wrap"/>
 
-                            <Button Content="Restore Copy" 
+                            <Button Content="Restore Database" 
                                     Style="{StaticResource btnDelete}"
                                     Command="{Binding RestoreCommand}"
+                                    ToolTip="Replace current data with a backup file"
                                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}, FallbackValue=True}"
-                                    Height="40" Padding="20,0"/>
+                                    Height="40" Width="290" Padding="20,0"/>
                         </StackPanel>
                     </Border>
                 </Grid>

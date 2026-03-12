@@ -95,12 +95,16 @@ namespace InventorySystem.ViewModel
 
             if (success)
             {
-                _messageService.ShowInfo("The database has been restored successfully. It is recommended to restart the application to see the changes.", "Restoration Successful");
+                _messageService.ShowInfo(
+                    "Database successfully restored.\n\nIMPORTANT: The application must be restarted to apply these changes correctly.", 
+                    "Restoration Success");
                 LoadInfo();
             }
             else
             {
-                _messageService.ShowError("An error occurred while restoring the database. The file may be in use or invalid.", "Restoration Error");
+                _messageService.ShowError(
+                    "Database restoration failed.\n\nThis could be because the file is not a valid backup or it is currently being used by another process.", 
+                    "Restoration Error");
             }
         }
     }

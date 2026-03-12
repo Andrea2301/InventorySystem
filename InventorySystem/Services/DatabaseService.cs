@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using InventorySystem.Data;
+using Microsoft.Data.Sqlite;
+using System.Linq;
 
 namespace InventorySystem.Services
 {
@@ -25,7 +27,8 @@ namespace InventorySystem.Services
             {
                 // Ensure the directory exists
                 string dir = Path.GetDirectoryName(destinationPath);
-                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir)) 
+                    Directory.CreateDirectory(dir);
 
                 // Use File.Copy with overwrite
                 await Task.Run(() => File.Copy(_dbPath, destinationPath, true));
@@ -43,12 +46,20 @@ namespace InventorySystem.Services
             {
                 if (!File.Exists(sourcePath)) return false;
 
-                // Restoring is more dangerous because the file might be in use
-                // In a more complex app, we'd need to close all DB connections first.
-                // For this simple SQLite app, we'll try to copy over it.
-                // If it fails due to locks, we recommend the user to restart the app.
-                
+                // 1. Basic validation: Check if it's a valid SQLite file (Header check)
+                if (!await IsValidSqliteFile(sourcePath)) return false;
+
+                // 2. Connection Management: Clear all pools to release locks
+                // This is crucial to avoid "The process cannot access the file because it is being used by another process"
+                SqliteConnection.ClearAllPools();
+
+                // 3. Forced GC to ensure any pending handles are cleaned up
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                // 4. Perform the restore
                 await Task.Run(() => File.Copy(sourcePath, _dbPath, true));
+                
                 return true;
             }
             catch (Exception)
@@ -64,6 +75,26 @@ namespace InventorySystem.Services
                 return new FileInfo(_dbPath).Length;
             }
             return 0;
+        }
+
+        private async Task<bool> IsValidSqliteFile(string filePath)
+        {
+            try
+            {
+                byte[] header = new byte[16];
+                using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    await fs.ReadAsync(header.AsMemory(0, 16));
+                }
+                
+                // SQLite files always start with this exact string
+                string headerString = System.Text.Encoding.ASCII.GetString(header, 0, 15);
+                return headerString.Contains("SQLite format 3");
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
