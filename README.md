@@ -1,383 +1,181 @@
-# 📦 Inventory Management System
+<div align="center">
 
-> A modern, Desktop Inventory and Point of Sale (POS) system built with WPF and .NET 8
+# Inventory Management System
+
+**A  Desktop Inventory and Point of Sale (POS) solution built with WPF and .NET 8**
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![WPF](https://img.shields.io/badge/WPF-Desktop-0078D4?logo=windows)](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/)
 [![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite)](https://www.sqlite.org/)
 [![Version](https://img.shields.io/badge/Version-1.0.3-blue.svg)](https://github.com/Andrea2301/InventorySystem/releases)
-[![Status](https://img.shields.io/badge/Status-Active%20Development-success.svg)](https://github.com/Andrea2301/InventorySystem)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/Andrea2301/InventorySystem)
 [![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)](https://github.com/Andrea2301/InventorySystem/graphs/commit-activity)
 
-
-
----
-
-## Project Overview
-
-A comprehensive inventory management solution designed for small to medium-sized businesses. Built with modern software architecture patterns including **MVVM**, **Dependency Injection**, and **Repository Pattern** to ensure maintainability, scalability, and testability.
-
-### Key Highlights
-
-- 📊 **Real-time Analytics Dashboard** with interactive charts
-- 🛒 **Complete POS System** with transaction management
-- 📄 **Professional PDF Invoicing** with QuestPDF
-- 💾 **Robust Data Management** with Entity Framework Core
-- 🎨 **Modern UI/UX** with design aesthetics implemented using WPF
-- ✅ **Input Validation** with real-time feedback
-- 🔄 **Active/Inactive Status Management** for all entities
+</div>
 
 ---
 
-## Why a Desktop Application?
+## Contents
 
-While many systems today are cloud-based, this project intentionally focuses on a **desktop-first approach** to ensure:
-- Full offline operation
-- Local data ownership
-- Immediate responsiveness
-- Business continuity during service outages
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+- [Usage Guide](#usage-guide)
+- [User Experience & Design](#user-experience--design)
+- [Development & Quality](#development--quality)
+- [Author](#author)
 
-This system is designed to later integrate with a cloud service via a synchronization bridge.
+---
 
+## Overview
 
-##  Screenshot
+This project provides a comprehensive inventory management system tailored for small to medium-sized enterprises. The application is built using modern software engineering patterns, including MVVM (Model-View-ViewModel), Dependency Injection, and the Repository Pattern, to ensure a robust, maintainable, and scalable codebase.
 
-### Dashboard
-> Real-time KPIs, revenue charts, and critical stock alerts
+The system emphasizes a desktop-first approach, prioritizing:
+- **Offline Reliability**: Uninterrupted operation without cloud dependency.
+- **Data Sovereignty**: Local storage using SQLite for full control over business data.
+- **Performance**: High-speed, responsive local interface.
+
+---
+
+## Interface
+
+### Dashboard Preview
+The dashboard provides a high-level view of business operations, including real-time KPIs and critical inventory status.
 
 ![Dashboard](./InventorySystem/Assets/Screenshots/Dashboard.png)
-*Main dashboard showing sales analytics, inventory value, and top-selling products*
+*Figure 1: Main dashboard with sales analytics and stock monitoring.*
 
 ---
 
-##  Features
+## Key Features
 
-###  Inventory Management
-- ✅ Real-time stock tracking with automatic deduction on sales
-- ✅ Product catalog with categories, prices, and descriptions
-- ✅ Visual status indicators (In Stock, Out of Stock, Inactive)
-- ✅ Low stock alerts with critical item notifications
-- ✅ Bulk operations and filtering
+### Inventory and Catalog Management
+- Real-time stock tracking with automated deduction during sales.
+- Categorized product management with support for active/inactive status.
+- Visual alerts for critical stock levels based on configurable thresholds.
+- Bulk filtering and search capabilities.
 
-###  Customer Management
-- ✅ Comprehensive customer profiles with contact details
-- ✅ Excel/CSV import using MiniExcel for bulk data entry
-- ✅ Active/Inactive status management
-- ✅ Transaction history per customer
-- ✅ Support for anonymous "General Public" sales
+### Customer and Supplier Management
+- Detailed profiles for customers and suppliers.
+- Integration with MiniExcel for bulk customer data import (Excel/CSV).
+- Complete transaction history tracking per entity.
+- Support for anonymous sales (General Public) to streamline operations.
 
-###  Supplier Management
-- ✅ Full CRUD operations for supplier records
-- ✅ Company details and contact information
-- ✅ Category-based organization
-- ✅ Active/Inactive status tracking
+### Point of Sale (POS)
+- Dynamic shopping cart system with real-time tax and total calculations.
+- Integrated product search for rapid item selection.
+- Atomic transaction processing to maintain data integrity.
+- Immediate inventory synchronization upon sale finalization.
 
-###  Point of Sale (POS)
-- ✅ Dynamic shopping cart with real-time calculations
-- ✅ Product search and quick selection
-- ✅ Customer assignment (registered or anonymous)
-- ✅ Atomic transactions ensuring data integrity
-- ✅ Instant stock updates upon sale completion
-
-###  Analytics Dashboard
-- ✅ Daily sales revenue with trend analysis
-- ✅ Total inventory value calculation
-- ✅ Critical stock alerts (items below threshold)
-- ✅ New customer tracking
-- ✅ Top-selling products visualization
-- ✅ Interactive revenue performance charts
-- ✅ Sample data generation for demonstrations
-
-###  Sales History & Reporting
-- ✅ Complete transaction history browser
-- ✅ Detailed order views with line items
-- ✅ Professional PDF invoice generation
-- ✅ Real-time financial summaries
-- ✅ Export capabilities
-
-###  User Experience
-- ✅ implemented using WPF styles, resource dictionaries, and MVVM bindings
-- ✅ Input validation with real-time visual feedback
-- ✅ Smooth animations and transitions
-- ✅ Responsive layout design
-- ✅ Intuitive navigation with FontAwesome icons
+### Analytics and Reporting
+- Revenue performance tracking with interactive charts.
+- Real-time calculation of total inventory value.
+- Professional invoice generation in PDF format via QuestPDF.
+- Data-driven summaries for business decision-making.
 
 ---
 
-##  Technology Stack
+## Technology Stack
 
-### Core Technologies
+### Core Frameworks
 - **Framework**: .NET 8 (WPF)
 - **Language**: C# 12
-- **Architecture**: MVVM Pattern
-- **Database**: SQLite with Entity Framework Core 8
-- **Dependency Injection**: Microsoft.Extensions.DependencyInjection
+- **Persistence**: SQLite with Entity Framework Core 8
+- **DI Container**: Microsoft.Extensions.DependencyInjection
 
-### Libraries & Packages
-- **UI Components**: 
-  - FontAwesome.Sharp (Icons)
-  - LiveCharts.Wpf (Data Visualization)
-  - HandyControl (Modern Controls)
-- **PDF Generation**: QuestPDF
+### External Dependencies
+- **Data Visualization**: LiveCharts.Wpf
+- **UI Components**: HandyControl, FontAwesome.Sharp
+- **Document Generation**: QuestPDF
 - **Data Processing**: MiniExcel
-- **ORM**: Entity Framework Core
 
 ### Design Patterns
-- ✅ Model-View-ViewModel (MVVM)
-- ✅ Repository Pattern
-- ✅ Dependency Injection
-- ✅ Command Pattern
-- ✅ Observer Pattern (INotifyPropertyChanged)
-- ✅ Service Layer Architecture
+- Model-View-ViewModel (MVVM)
+- Repository Pattern
+- Dependency Injection
+- Command & Observer Patterns
+- Service-Oriented Architecture
 
 ---
 
-##  Project Architecture
+## Project Structure
 
-```
+```text
 InventorySystem/
-├── 📁 Models/              # Domain entities (Product, Client, Sale, etc.)
-├── 📁 ViewModels/          # MVVM ViewModels with business logic
-├── 📁 Views/               # XAML UI components
-├── 📁 Services/            # Business logic and data access layer
+├── Models/                 # Domain entities and core data structures
+├── ViewModels/             # Business logic and presentation state
+├── Views/                  # XAML UI definitions
+├── Services/               # Business logic and cross-cutting concerns
 │   ├── ProductService.cs
 │   ├── ClientService.cs
 │   ├── SaleService.cs
-│   ├── SeedDataService.cs
-│   └── Export/
-│       └── PdfService.cs
-├── 📁 Data/                # Database context and configurations
-│   └── AppDbContext.cs
-├── 📁 Commands/            # ICommand implementations
-├── 📁 Converters/          # Value converters for data binding
-├── 📁 Helpers/             # Utility classes and behaviors
-├── 📁 Assets/              # Images, icons, and styles
-│   └── Styles/             # XAML resource dictionaries
-└── 📁 Shell/               # Main window and splash screen
-```
-
-### Layered Architecture
-
-```
-┌─────────────────────────────────────┐
-│         Presentation Layer          │
-│    (Views + ViewModels + XAML)      │
-├─────────────────────────────────────┤
-│         Business Logic Layer        │
-│      (Services + Commands)          │
-├─────────────────────────────────────┤
-│         Data Access Layer           │
-│   (Repositories + EF Core Context)  │
-├─────────────────────────────────────┤
-│           Database Layer            │
-│         (SQLite Database)           │
-└─────────────────────────────────────┘
+│   └── Export/             # PDF and reporting services
+├── Data/                   # EF Core Context and migrations
+├── Commands/               # Reusable ICommand implementations
+├── Converters/             # Data-binding value converters
+├── Helpers/                # Utility classes and behaviors
+├── Assets/                 # Resources, styles, and static files
+└── Shell/                  # Main application window and entry logic
 ```
 
 ---
 
-##  Getting Started
+## Getting Started
 
-###  Download & Install (Recommended)
+### For End Users
 
-**For End Users - No Development Tools Required:**
+1. **Download**: Obtain the latest package from the [Releases](https://github.com/Andrea2301/InventorySystem/releases) page.
+2. **Setup**:
+   - Extract the `InventorySystem-v1.0.3-win-x64.zip` archive.
+   - Run the `install.ps1` script (PowerShell) to create a desktop shortcut.
+3. **Run**: Launch `InventorySystem.exe`. All required dependencies are bundled with the application.
 
-1. **Download the latest release**
-   - Go to [Releases](https://github.com/yourusername/InventorySystem/releases)
-   - Download `InventorySystem-v1.0.0-win-x64.zip`
+### For Developers
 
-2. **Extract the ZIP file**
-   - Right-click → Extract All
-   - Choose a location (e.g., `C:\InventorySystem`)
+**Prerequisites**:
+- .NET 8 SDK
+- Visual Studio 2022 or VS Code with C# Dev Kit
 
-3. **Install (Easy Method)**
-   - Right-click on `install.ps1`
-   - Select "Run with PowerShell"
-   - Follow the prompts
-   - Launch from Desktop shortcut
-
-   **OR Manual Method:**
-   - Simply run `InventorySystem.exe`
-
-> **Note**: No .NET installation required! Everything is included.
+**Build Steps**:
+1. Clone the repository: `git clone https://github.com/Andrea2301/InventorySystem.git`
+2. Restore packages: `dotnet restore`
+3. Build the solution: `dotnet build --configuration Release`
+4. Run the project: `dotnet run --project InventorySystem`
 
 ---
 
-###  Build from Source (For Developers)
+## User Experience & Design
 
-**Prerequisites:**
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
-- Visual Studio 2022 (recommended) or Visual Studio Code
-- Windows 10/11
-
-**Steps:**
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/InventorySystem.git
-   cd InventorySystem
-   ```
-
-2. **Restore dependencies**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Build the project**
-   ```bash
-   dotnet build --configuration Release
-   ```
-
-4. **Run the application**
-   ```bash
-   dotnet run --project InventorySystem
-   ```
-
-   Or open `InventorySystem.sln` in Visual Studio and press F5.
+The application implements high-end design principles to provide a premium feel:
+- **Visual Depth**: Subtle use of transparency and consistent depth through shadows and layers.
+- **Interactive Feedback**: Real-time input validation with clear visual status indicators.
+- **Navigation**: Structured sidebar navigation with modern iconography.
+- **Performance**: Asynchronous data operations to maintain UI responsiveness.
 
 ---
 
-### 📦 Create Release Package (For Maintainers)
+## Development & Quality
 
-To create a distributable package for GitHub Releases:
-
-```powershell
-.\create-release.ps1 -Version "1.0.0"
-```
-
-This will:
-- Build the project in Release mode
-- Create a self-contained package
-- Generate a ZIP file in `releases/`
-- Create release notes
-
-Upload the generated ZIP to GitHub Releases.
+This project adheres to rigorous development standards:
+- **SOLID Principles**: Ensuring clean, decoupled, and testable code.
+- **Async Programming**: Utilizing `async/await` throughout the service and viewmodel layers.
+- **Error Handling**: Comprehensive exception management with user-facing notifications.
+- **Data Integrity**: Enforced via Entity Framework constraints and business layer validation.
 
 ---
 
-### First Run
+## Author
 
-On the first launch, the application will:
-- ✅ Automatically create the SQLite database (`inventory.db`)
-- ✅ Apply all Entity Framework migrations
-- ✅ Initialize the database schema
-
-**Optional**: Use the "Generate Sample Data" button (magic wand icon) on the dashboard to populate the database with demo data for testing.
-
----
-
-##  Usage Guide
-
-### Adding Products
-1. Navigate to **Products** from the sidebar
-2. Click **Add Product** button
-3. Fill in product details (name, category, price, stock)
-4. Optionally add a product image
-5. Set initial status (Active/Inactive)
-6. Click **Save**
-
-### Making a Sale
-1. Go to **Sales** view
-2. Select a customer or use "General Public"
-3. Search and add products to cart
-4. Review cart items and total
-5. Click **Complete Sale**
-6. Generate PDF invoice if needed
-
-### Viewing Analytics
-1. Open **Dashboard** (default view)
-2. View real-time KPIs at the top
-3. Analyze revenue trends in the chart
-4. Check critical stock alerts on the right
-5. Use **Refresh** button to update data
-6. Use **Database Stats** to verify record counts
-
-### Importing Customers
-1. Navigate to **Clients** view
-2. Click **Import** button
-3. Select Excel/CSV file with customer data
-4. Review imported records
-5. Confirm import
-
----
-
-##  UI/UX Features
-
-### Modern Design Elements
-- **Glassmorphism Effects**: Subtle transparency and blur for depth
-- **Smooth Animations**: Transitions between views and state changes
-- **Color-Coded Status**: Visual indicators for stock levels and entity states
-- **Responsive Layout**: Adapts to different window sizes
-- **Premium Typography**: Clean, modern fonts for readability
-
-### Input Validation
-- **Real-time Feedback**: Instant validation as you type
-- **Visual Indicators**: Red borders and error messages for invalid input
-- **Type Restrictions**: Numeric-only fields, letter-only fields, phone format
-- **Required Field Enforcement**: Prevents submission with missing data
-
-### Interactive Charts
-- **Revenue Performance**: Line chart showing sales trends over time
-- **Top Products**: Visual representation of best-sellers
-- **Stock Alerts**: Color-coded warnings for low inventory
-
----
-
-##  Configuration
-
-### Database Connection
-The application uses SQLite by default. Connection string is configured in `AppDbContext.cs`:
-
-```csharp
-options.UseSqlite("Data Source=inventory.db");
-```
-
-### Customization
-- **Styles**: Modify XAML resource dictionaries in `Assets/Styles/`
-- **Colors**: Update color schemes in style files
-- **Business Rules**: Adjust validation logic in ViewModels and Services
-
----
-
-##  Code Quality
-
-### Best Practices Implemented
-- ✅ **SOLID Principles**: Single Responsibility, Open/Closed, Dependency Inversion
-- ✅ **Async/Await**: Non-blocking UI operations
-- ✅ **Error Handling**: Try-catch blocks with user-friendly messages
-- ✅ **Data Validation**: Both client-side and model-level validation
-- ✅ **Separation of Concerns**: Clear boundaries between layers
-- ✅ **Dependency Injection**: Loose coupling and testability
-
-### Code Structure
-- **ViewModels**: Implement `INotifyPropertyChanged` for data binding
-- **Services**: Interface-based for easy mocking and testing
-- **Commands**: Reusable `ICommand` implementations
-- **Converters**: Custom value converters for complex bindings
-
----
-
-
-##  Author
-- GitHub: [@Andrea2301](https://github.com/Andrea2301)
-
----
-
-##  Acknowledgments
-
-- FontAwesome for the comprehensive icon library
-- LiveCharts for beautiful data visualization
-- QuestPDF for professional PDF generation
-- The .NET community for excellent documentation and support
-
----
-
-##  Contact
-
-For questions or feedback, please reach out via [andreaospino323@gmail.com](mailto:andreaospino323@gmail.com)
+**Andrea Ospino** - [github.com/Andrea2301](https://github.com/Andrea2301)  
+For inquiries or support, please contact: [andreaospino323@gmail.com](mailto:andreaospino323@gmail.com)
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ using .NET 8 and WPF</p>
+
+Built with .NET 8 and Windows Presentation Foundation
+
 </div>
