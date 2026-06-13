@@ -1,8 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventorySystem.Models
 {
@@ -14,6 +12,12 @@ namespace InventorySystem.Models
 
         public DateTime SaleDate { get; set; } = DateTime.Now;
         public decimal TotalAmount { get; set; }
+
+        // Auditoría: qué usuario realizó esta venta
+        public int? CreatedByUserId { get; set; }
+
+        [ForeignKey(nameof(CreatedByUserId))]
+        public User? CreatedBy { get; set; }
 
         public virtual ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
     }

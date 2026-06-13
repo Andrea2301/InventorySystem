@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -24,23 +24,27 @@ namespace InventorySystem
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            // Initialize Database
+            // Initialize Database & Ensure Default Admin
             using (var scope = ServiceProvider.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 try
                 {
                     context.Database.EnsureCreated();
+                    
+                    // Initialize Default Admin User
+                    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+                    authService.EnsureDefaultAdminAsync().GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error initializing database: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error initializing database or admin user: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
-            // Show Splash Screen first
-            var splashScreen = new InventorySystem.Shell.SplashScreen();
-            splashScreen.Show();
+            // Show Login Window first
+            var loginWindow = ServiceProvider.GetRequiredService<LoginWindow>();
+            loginWindow.Show();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -58,6 +62,8 @@ namespace InventorySystem
             services.AddScoped<IDialogService, DialogService>();
             services.AddSingleton<IMessageService, MessageService>();
             services.AddSingleton<IDatabaseService, DatabaseService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
@@ -72,9 +78,12 @@ namespace InventorySystem
             services.AddTransient<SupplierFormViewModel>();
             services.AddTransient<MaintenanceViewModel>();
             services.AddTransient<ReportsViewModel>();
+            services.AddTransient<LoginViewModel>();
 
-            // Views
+            // Views / Windows
             services.AddTransient<MainWindow>();
+            services.AddTransient<LoginWindow>();
+            services.AddTransient<Shell.SplashScreen>();
         }
     }
 }
