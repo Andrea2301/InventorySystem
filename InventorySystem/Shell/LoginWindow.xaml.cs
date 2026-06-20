@@ -22,8 +22,8 @@ namespace InventorySystem.Shell
 
         private void OnLoginSuccess()
         {
-            var splash = App.ServiceProvider.GetRequiredService<SplashScreen>();
-            splash.Show();
+            var mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
             Close();
         }
 

@@ -42,9 +42,9 @@ namespace InventorySystem
                 }
             }
 
-            // Show Login Window first
-            var loginWindow = ServiceProvider.GetRequiredService<LoginWindow>();
-            loginWindow.Show();
+            // Show Splash Screen first
+            var splashScreen = ServiceProvider.GetRequiredService<Shell.SplashScreen>();
+            splashScreen.Show();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -79,11 +79,13 @@ namespace InventorySystem
             services.AddTransient<MaintenanceViewModel>();
             services.AddTransient<ReportsViewModel>();
             services.AddTransient<LoginViewModel>();
-
+            services.AddTransient<CheckoutViewModel>();
+ 
             // Views / Windows
             services.AddTransient<MainWindow>();
             services.AddTransient<LoginWindow>();
             services.AddTransient<Shell.SplashScreen>();
+            services.AddTransient<Views.CheckoutWindow>();
         }
     }
 }

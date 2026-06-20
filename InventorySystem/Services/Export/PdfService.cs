@@ -1,4 +1,4 @@
-﻿using InventorySystem.Models;
+using InventorySystem.Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -83,8 +83,8 @@ namespace InventorySystem.Services.Export
                                 {
                                     table.Cell().Element(ItemStyle).Text(detail.Product?.Name ?? "Producto Desconocido");
                                     table.Cell().Element(ItemStyle).AlignRight().Text(detail.Quantity.ToString());
-                                    table.Cell().Element(ItemStyle).AlignRight().Text($"{detail.UnitPrice:C2}");
-                                    table.Cell().Element(ItemStyle).AlignRight().Text($"{detail.TotalPrice:C2}");
+                                    table.Cell().Element(ItemStyle).AlignRight().Text(FormatPrice(detail.UnitPrice, sale.Currency));
+                                    table.Cell().Element(ItemStyle).AlignRight().Text(FormatPrice(detail.TotalPrice, sale.Currency));
 
                                     static IContainer ItemStyle(IContainer container)
                                     {
@@ -98,7 +98,7 @@ namespace InventorySystem.Services.Export
                             // Summary
                             col.Item().AlignRight().PaddingTop(20).Column(sumCol =>
                             {
-                                sumCol.Item().Text($"TOTAL: {sale.TotalAmount:C2}").FontSize(14).SemiBold();
+                                sumCol.Item().Text($"TOTAL: {FormatPrice(sale.TotalAmount, sale.Currency)}").FontSize(14).SemiBold();
                             });
                         });
 
@@ -113,6 +113,23 @@ namespace InventorySystem.Services.Export
                 })
                 .GeneratePdf(filePath);
             });
+        }
+
+        private static string FormatPrice(decimal amount, string currency)
+        {
+            string symbol = currency switch
+            {
+                "USD" => "$",
+                "EUR" => "€",
+                "COP" => "$",
+                _ => "$"
+            };
+            // Default currency if null/empty
+            if (string.IsNullOrEmpty(currency))
+            {
+                currency = "COP";
+            }
+            return $"{symbol} {amount:N2} {currency}";
         }
     }
 }

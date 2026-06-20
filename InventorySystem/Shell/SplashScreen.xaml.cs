@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -41,11 +41,11 @@ namespace InventorySystem.Shell
         {
             Progressbar.Value = e.ProgressPercentage;
 
-            if (Progressbar.Value == 70)
+            if (Progressbar.Value == 100)
             {
-                var mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
+                var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
                 Close();  // Cierra la ventana actual (SplashScreen)
-                mainWindow.Show();  // Muestra la nueva ventana (MainWindow)
+                loginWindow.Show();  // Muestra la ventana de Login (LoginWindow)
             }
         }
 

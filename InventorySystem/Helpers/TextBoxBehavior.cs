@@ -72,7 +72,7 @@ namespace InventorySystem.Helpers
         {
             return restriction switch
             {
-                RestrictionType.Numeric => Regex.IsMatch(text, @"^[0-9.]+$"),
+                RestrictionType.Numeric => Regex.IsMatch(text, @"^[0-9.,]+$"),
                 RestrictionType.Letters => Regex.IsMatch(text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s-]+$"),
                 RestrictionType.Phone => Regex.IsMatch(text, @"^[0-9+\s-()]+$"),
                 _ => true

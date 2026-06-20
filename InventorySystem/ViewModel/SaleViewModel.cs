@@ -185,12 +185,24 @@ namespace InventorySystem.ViewModel
         {
             try
             {
+                var checkoutVm = new CheckoutViewModel(Total, SelectedClient, _messageService);
+                _dialogService.ShowDialog(checkoutVm);
+
+                if (!checkoutVm.IsPaymentSuccessful)
+                {
+                    return; // Cobro cancelado
+                }
+
                 IsLoading = true;
                 var sale = new Models.Sale
                 {
                     SaleDate = DateTime.Now,
                     TotalAmount = Total,
-                    ClientId = SelectedClient?.Id ?? 0 // Use selected client or let service handle default
+                    ClientId = SelectedClient?.Id ?? 0,
+                    PaymentMethod = checkoutVm.PaymentMethod,
+                    AmountPaid = checkoutVm.PaymentMethod == "Efectivo" ? checkoutVm.CashReceived : Total,
+                    ChangeDue = checkoutVm.PaymentMethod == "Efectivo" ? checkoutVm.ChangeDue : 0,
+                    Currency = checkoutVm.SelectedCurrency
                 };
 
                 foreach (var item in Cart)

@@ -19,6 +19,11 @@ namespace InventorySystem.Models
         [ForeignKey(nameof(CreatedByUserId))]
         public User? CreatedBy { get; set; }
 
+        public string PaymentMethod { get; set; } = "Efectivo";
+        public decimal AmountPaid { get; set; }
+        public decimal ChangeDue { get; set; }
+        public string Currency { get; set; } = "COP";
+
         public virtual ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
     }
 }

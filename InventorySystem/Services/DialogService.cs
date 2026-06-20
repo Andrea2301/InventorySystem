@@ -25,6 +25,7 @@ namespace InventorySystem.Services
             _mappings.Add(typeof(ViewModel.SupplierFormViewModel), typeof(Views.SupplierFormView));
             _mappings.Add(typeof(Models.Sale), typeof(Views.SaleDetailView));
             _mappings.Add(typeof(ViewModel.ImportFileViewModel), typeof(Views.ImportFileView));
+            _mappings.Add(typeof(ViewModel.CheckoutViewModel), typeof(Views.CheckoutWindow));
             
         }
 
