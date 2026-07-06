@@ -1,4 +1,4 @@
-﻿<Window x:Class="InventorySystem.Shell.MainWindow"
+<Window x:Class="InventorySystem.Shell.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -99,7 +99,7 @@
 
                     <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
                         <Expander.Header>
-                            <TextBlock Text="General" Style="{StaticResource ExpanderHeaderText}"/>
+                            <TextBlock Text="{DynamicResource HeaderGeneral}" Style="{StaticResource ExpanderHeaderText}"/>
                         </Expander.Header>
                         <StackPanel>
                             <RadioButton Style="{StaticResource MenuBottons}"
@@ -108,7 +108,7 @@
                                          Command="{Binding ShowHomeViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Home" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuHome}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -116,7 +116,7 @@
 
                     <Expander Style="{StaticResource MenuExpander}">
                         <Expander.Header>
-                            <TextBlock Text="Management" Style="{StaticResource ExpanderHeaderText}"/>
+                            <TextBlock Text="{DynamicResource HeaderManagement}" Style="{StaticResource ExpanderHeaderText}"/>
                         </Expander.Header>
                         <StackPanel>
                             <RadioButton Style="{StaticResource MenuBottons}"
@@ -124,7 +124,7 @@
                                          Command="{Binding ShowClientViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Clients" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuClients}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -133,7 +133,7 @@
                                          Command="{Binding ShowProductsViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Boxes" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Products" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuProducts}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -142,7 +142,7 @@
                                          Command="{Binding ShowSupplierViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuSuppliers}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -150,7 +150,7 @@
 
                     <Expander Style="{StaticResource MenuExpander}">
                         <Expander.Header>
-                            <TextBlock Text="Sales" Style="{StaticResource ExpanderHeaderText}"/>
+                            <TextBlock Text="{DynamicResource HeaderSales}" Style="{StaticResource ExpanderHeaderText}"/>
                         </Expander.Header>
                         <StackPanel>
                             <RadioButton Style="{StaticResource MenuBottons}"
@@ -158,7 +158,7 @@
                                          Command="{Binding ShowSaleViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="FileInvoiceDollar" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="New Sale" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuSales}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -167,7 +167,7 @@
                                          Command="{Binding ShowSalesHistoryViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="History" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="History" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuHistory}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -175,7 +175,7 @@
 
                     <Expander Style="{StaticResource MenuExpander}">
                         <Expander.Header>
-                            <TextBlock Text="System" Style="{StaticResource ExpanderHeaderText}"/>
+                            <TextBlock Text="{DynamicResource HeaderSystem}" Style="{StaticResource ExpanderHeaderText}"/>
                         </Expander.Header>
                         <StackPanel>
                             <RadioButton Style="{StaticResource MenuBottons}"
@@ -183,7 +183,7 @@
                                          Command="{Binding ShowReportsViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Reports" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuReports}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -192,7 +192,7 @@
                                          Command="{Binding ShowMaintenanceViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Database" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Maintenance" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuMaintenance}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>

@@ -18,7 +18,13 @@ namespace InventorySystem.ViewModel
         public bool IsLoading
         {
             get => _isLoading;
-            set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+                // Re-evaluate CanExecute so the button enables/disables correctly
+                ViewModelCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string Username

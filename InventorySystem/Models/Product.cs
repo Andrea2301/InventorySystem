@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -38,6 +38,11 @@ namespace InventorySystem.Models
 
         public string? ImagePath { get; set; }
 
+        [NotMapped]
+        public string? ImageSourceUri => string.IsNullOrEmpty(ImagePath) 
+            ? null 
+            : System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImagePath);
+ 
         // Optional: Helper property for UI binding
         [NotMapped]
         public string Status => IsActive ? (Quantity > 0 ? "In Stock" : "Out of Stock") : "Inactive";

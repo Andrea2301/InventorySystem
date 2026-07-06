@@ -31,7 +31,8 @@ namespace InventorySystem.Services
             if (user == null)
                 return null;
 
-            bool isValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+            // BCrypt.Verify is CPU-intensive — run on background thread to avoid freezing the UI
+            bool isValid = await Task.Run(() => BCrypt.Net.BCrypt.Verify(password, user.PasswordHash));
             if (!isValid)
                 return null;
 
@@ -61,7 +62,8 @@ namespace InventorySystem.Services
 
         public async Task<User> CreateUserAsync(string username, string password, string fullName, UserRole role)
         {
-            string hash = BCrypt.Net.BCrypt.HashPassword(password, workFactor: 12);
+            // BCrypt.HashPassword is CPU-intensive — run on background thread
+            string hash = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(password, workFactor: 12));
 
             var user = new User
             {
@@ -83,10 +85,10 @@ namespace InventorySystem.Services
             var user = await _db.Users.FindAsync(userId);
             if (user == null) return false;
 
-            bool isValid = BCrypt.Net.BCrypt.Verify(currentPassword, user.PasswordHash);
+            bool isValid = await Task.Run(() => BCrypt.Net.BCrypt.Verify(currentPassword, user.PasswordHash));
             if (!isValid) return false;
 
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor: 12);
+            user.PasswordHash = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor: 12));
             await _db.SaveChangesAsync();
             await LogAuditAsync("CHANGE_PASSWORD", $"User '{user.Username}' changed their password.");
             return true;

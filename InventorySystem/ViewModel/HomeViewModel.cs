@@ -1,17 +1,17 @@
-﻿using InventorySystem.Data;
+using InventorySystem.Data;
 using InventorySystem.Models;
 using InventorySystem.ViewModel.Base;
-using LiveCharts;
-using LiveCharts.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using InventorySystem.Services;
+using InventorySystem.Services.Export;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using InventorySystem.Helpers;
+using System.IO;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InventorySystem.ViewModel
 {
@@ -23,10 +23,9 @@ namespace InventorySystem.ViewModel
         private string _totalStockValue;
         private string _criticalStockCount;
         private string _salesTrend;
-        private SeriesCollection _saleSeries;
-        private SeriesCollection _categorySeries;
         private ObservableCollection<Product> _criticalItems;
         private ObservableCollection<TopProductInfo> _topProducts;
+        private ObservableCollection<Sale> _recentSales;
 
         public string TotalSalesToday
         {
@@ -64,18 +63,6 @@ namespace InventorySystem.ViewModel
             set { _salesTrend = value; OnPropertyChanged(nameof(SalesTrend)); }
         }
 
-        public SeriesCollection SaleSeries
-        {
-            get => _saleSeries;
-            set { _saleSeries = value; OnPropertyChanged(nameof(SaleSeries)); }
-        }
-
-        public SeriesCollection CategorySeries
-        {
-            get => _categorySeries;
-            set { _categorySeries = value; OnPropertyChanged(nameof(CategorySeries)); }
-        }
-
         public ObservableCollection<Product> CriticalItems
         {
             get => _criticalItems;
@@ -88,36 +75,52 @@ namespace InventorySystem.ViewModel
             set { _topProducts = value; OnPropertyChanged(nameof(TopProducts)); }
         }
 
-        public Func<double, string> Formatter { get; set; }
+        public ObservableCollection<Sale> RecentSales
+        {
+            get => _recentSales;
+            set { _recentSales = value; OnPropertyChanged(nameof(RecentSales)); }
+        }
+
         public ICommand RefreshCommand { get; }
         public ICommand SeedDataCommand { get; }
         public ICommand ShowDatabaseStatsCommand { get; }
-        public ICommand TestCommand { get; }
+        public ICommand NavigateToSaleCommand { get; }
+        public ICommand NavigateToProductsCommand { get; }
+        public ICommand NavigateToClientsCommand { get; }
+        public ICommand NavigateToHistoryCommand { get; }
+        public ICommand OpenReceiptCommand { get; }
 
-        private readonly AppDbContext _db;
-        private readonly ISeedDataService _seedService;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMessageService _messageService;
 
-        public HomeViewModel(AppDbContext db, ISeedDataService seedService, IMessageService messageService)
+        public HomeViewModel(
+            IServiceProvider serviceProvider,
+            IMessageService messageService)
         {
-            _db = db;
-            _seedService = seedService;
+            _serviceProvider = serviceProvider;
             _messageService = messageService;
-            Formatter = value => value.ToString("C0");
+
             CriticalItems = new ObservableCollection<Product>();
             TopProducts = new ObservableCollection<TopProductInfo>();
+            RecentSales = new ObservableCollection<Sale>();
             
-            RefreshCommand = new ViewModelCommand(_ => LoadDashboardData());
+            RefreshCommand = new ViewModelCommand(_ => _ = LoadDashboardDataAsync());
             SeedDataCommand = new ViewModelCommand(_ => ExecuteSeedDataCommandSync());
-            ShowDatabaseStatsCommand = new ViewModelCommand(_ => DatabaseDiagnostics.ShowDatabaseStats(_db));
-            TestCommand = new ViewModelCommand(_ => _messageService.ShowInfo("Test button works!"));
-            
-            LoadDashboardData();
+            ShowDatabaseStatsCommand = new ViewModelCommand(_ => { });
+
+            // Navigation commands calling MainViewModel commands (resolved lazily to break circular dependency)
+            NavigateToSaleCommand = new ViewModelCommand(_ => _serviceProvider.GetRequiredService<MainViewModel>().ShowSaleViewCommand.Execute(null));
+            NavigateToProductsCommand = new ViewModelCommand(_ => _serviceProvider.GetRequiredService<MainViewModel>().ShowProductsViewCommand.Execute(null));
+            NavigateToClientsCommand = new ViewModelCommand(_ => _serviceProvider.GetRequiredService<MainViewModel>().ShowClientViewCommand.Execute(null));
+            NavigateToHistoryCommand = new ViewModelCommand(_ => _serviceProvider.GetRequiredService<MainViewModel>().ShowSalesHistoryViewCommand.Execute(null));
+            OpenReceiptCommand = new ViewModelCommand(async (obj) => await ExecuteOpenReceipt(obj));
+
+            // Load dashboard data asynchronously so the window appears immediately
+            _ = LoadDashboardDataAsync();
         }
 
         private void ExecuteSeedDataCommandSync()
         {
-            // Fire and forget pattern for async operation
             _ = ExecuteSeedDataCommand();
         }
 
@@ -126,8 +129,10 @@ namespace InventorySystem.ViewModel
             try
             {
                 IsLoading = true;
-                await _seedService.SeedAsync();
-                LoadDashboardData();
+                using var scope = _serviceProvider.CreateScope();
+                var seedService = scope.ServiceProvider.GetRequiredService<ISeedDataService>();
+                await seedService.SeedAsync();
+                await LoadDashboardDataAsync();
                 _messageService.ShowInfo("Sample data generated successfully! Dashboard refreshed.");
             }
             catch (Exception ex)
@@ -147,122 +152,147 @@ namespace InventorySystem.ViewModel
             public string Category { get; set; } = string.Empty;
         }
 
-        private void LoadDashboardData()
+        private async Task LoadDashboardDataAsync()
         {
             try
             {
-                var today = DateTime.Today;
-                var yesterday = today.AddDays(-1);
+                IsLoading = true;
 
-                // 1. Core KPIs
-                var salesTodayList = _db.Sales.Where(s => s.SaleDate >= today).ToList();
-                var salesTotalToday = salesTodayList.Sum(s => s.TotalAmount);
-                TotalSalesToday = $"${salesTotalToday:N2}";
-
-                var salesYesterday = _db.Sales
-                    .Where(s => s.SaleDate >= yesterday && s.SaleDate < today)
-                    .ToList()
-                    .Sum(s => s.TotalAmount);
-
-                if (salesYesterday > 0)
+                // Run all DB queries on a background thread to keep UI responsive
+                var data = await Task.Run(() =>
                 {
-                    var trend = ((salesTotalToday - salesYesterday) / salesYesterday) * 100;
-                    SalesTrend = $"{(trend >= 0 ? "+" : "")}{trend:F1}% vs yesterday";
+                    using var scope = _serviceProvider.CreateScope();
+                    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                    var today = DateTime.Today;
+                    var yesterday = today.AddDays(-1);
+
+                    var salesTodayList = db.Sales.Where(s => s.SaleDate >= today).ToList();
+                    var salesTotalToday = salesTodayList.Sum(s => s.TotalAmount);
+
+                    var salesYesterday = db.Sales
+                        .Where(s => s.SaleDate >= yesterday && s.SaleDate < today)
+                        .Sum(s => s.TotalAmount);
+
+                    var newClients = db.Clients.Count(c => c.CreatedAt >= today);
+                    var allProducts = db.Products.Where(p => p.IsActive).ToList();
+
+                    var lowStock = allProducts
+                        .Where(p => p.Quantity < 5)
+                        .OrderBy(p => p.Quantity)
+                        .Take(5)
+                        .ToList();
+
+                    var topSelling = db.SaleDetails
+                        .GroupBy(d => d.ProductId)
+                        .Select(g => new { ProductId = g.Key, TotalQty = g.Sum(d => d.Quantity) })
+                        .OrderByDescending(x => x.TotalQty)
+                        .Take(5)
+                        .ToList();
+
+                    var recentList = db.Sales
+                        .Include(s => s.Client)
+                        .OrderByDescending(s => s.SaleDate)
+                        .Take(5)
+                        .ToList();
+
+                    return new
+                    {
+                        SalesTotalToday = salesTotalToday,
+                        SalesYesterday = salesYesterday,
+                        NewClients = newClients,
+                        AllProducts = allProducts,
+                        LowStock = lowStock,
+                        TopSelling = topSelling,
+                        RecentList = recentList
+                    };
+                });
+
+                // Update UI properties back on the UI thread
+                TotalSalesToday = $"${data.SalesTotalToday:N2}";
+
+                if (data.SalesYesterday > 0)
+                {
+                    var trend = ((data.SalesTotalToday - data.SalesYesterday) / data.SalesYesterday) * 100;
+                    SalesTrend = $"{(trend >= 0 ? "+" : "")}{trend:F1}% vs ayer";
                 }
                 else
                 {
-                    SalesTrend = "No data from yesterday";
+                    SalesTrend = "Sin datos de ayer";
                 }
 
-                NewClientsToday = _db.Clients.Count(c => c.CreatedAt >= today).ToString();
-                
-                var allProducts = _db.Products.ToList();
-                TotalStock = allProducts.Sum(p => p.Quantity).ToString();
-                TotalStockValue = $"${allProducts.Sum(p => p.Price * p.Quantity):N0}";
+                NewClientsToday = data.NewClients.ToString();
+                TotalStock = data.AllProducts.Sum(p => p.Quantity).ToString();
+                TotalStockValue = $"${data.AllProducts.Sum(p => p.Price * p.Quantity):N0}";
 
-                // Debug: Log counts
-                System.Diagnostics.Debug.WriteLine($"Dashboard Load - Products: {allProducts.Count}, Sales Today: {salesTodayList.Count}, Clients: {_db.Clients.Count()}");
-
-                // 2. Critical Stock (Quantity < 5)
-                var lowStock = allProducts.Where(p => p.Quantity < 5 && p.IsActive).OrderBy(p => p.Quantity).Take(5).ToList();
                 CriticalItems.Clear();
-                foreach (var item in lowStock) CriticalItems.Add(item);
-                CriticalStockCount = lowStock.Count.ToString();
-
-                // 3. Top Products (Sales-based)
-                var topSelling = _db.SaleDetails
-                    .GroupBy(d => d.ProductId)
-                    .Select(g => new { ProductId = g.Key, TotalQty = g.Sum(d => d.Quantity) })
-                    .OrderByDescending(x => x.TotalQty)
-                    .Take(5)
-                    .ToList();
+                foreach (var item in data.LowStock) CriticalItems.Add(item);
+                CriticalStockCount = data.LowStock.Count.ToString();
 
                 TopProducts.Clear();
-                foreach (var tsp in topSelling)
+                foreach (var tsp in data.TopSelling)
                 {
-                    var prod = allProducts.FirstOrDefault(p => p.Id == tsp.ProductId);
+                    var prod = data.AllProducts.FirstOrDefault(p => p.Id == tsp.ProductId);
                     if (prod != null)
-                    {
                         TopProducts.Add(new TopProductInfo { Name = prod.Name, Quantity = tsp.TotalQty, Category = prod.Category });
-                    }
                 }
 
-                // 4. Sales History Chart
-                var sixMonthsAgo = today.AddMonths(-5);
-                var historicalSales = _db.Sales
-                    .Where(s => s.SaleDate >= sixMonthsAgo)
-                    .ToList()
-                    .GroupBy(s => new { s.SaleDate.Year, s.SaleDate.Month })
-                    .Select(g => new { Date = g.Key, Amount = g.Sum(s => s.TotalAmount) })
-                    .OrderBy(g => g.Date.Year).ThenBy(g => g.Date.Month)
-                    .ToList();
-
-                if (historicalSales.Count == 0)
-                {
-                    SaleSeries = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Sample Revenue",
-                            Values = new ChartValues<decimal> { 1200, 1500, 1100, 1800, 2100, 1900 },
-                            PointGeometry = DefaultGeometries.Circle,
-                            Stroke = System.Windows.Media.Brushes.DodgerBlue,
-                            Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.LightBlue, System.Windows.Media.Colors.Transparent, 90)
-                        }
-                    };
-                }
-                else
-                {
-                    SaleSeries = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Revenue",
-                            Values = new ChartValues<decimal>(historicalSales.Select(x => x.Amount)),
-                            Stroke = System.Windows.Media.Brushes.Indigo,
-                            Fill = new System.Windows.Media.LinearGradientBrush(System.Windows.Media.Colors.Indigo, System.Windows.Media.Colors.Transparent, 90)
-                        }
-                    };
-                }
+                RecentSales.Clear();
+                foreach (var sale in data.RecentList) RecentSales.Add(sale);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TotalSalesToday = "$0.00";
                 TotalStock = "0";
                 TotalStockValue = "$0.00";
                 CriticalStockCount = "0";
-                SalesTrend = "Error loading data";
-                
-                // Fallback chart on error
-                SaleSeries = new SeriesCollection
+                SalesTrend = "Error al cargar";
+                System.Diagnostics.Debug.WriteLine($"Error loading dashboard: {ex}\n{ex.StackTrace}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        private async Task ExecuteOpenReceipt(object obj)
+        {
+            if (obj is Sale sale)
+            {
+                try
                 {
-                    new LineSeries
+                    IsLoading = true;
+                    using var scope = _serviceProvider.CreateScope();
+                    var saleService = scope.ServiceProvider.GetRequiredService<ISaleService>();
+                    var pdfService = scope.ServiceProvider.GetRequiredService<IPdfService>();
+
+                    var fullSale = await saleService.GetSaleByIdAsync(sale.Id);
+                    if (fullSale == null)
                     {
-                        Title = "Sample Data",
-                        Values = new ChartValues<decimal> { 10, 20, 15, 25, 30 },
-                        Stroke = System.Windows.Media.Brushes.Gray
+                        _messageService.ShowError("No se pudo cargar los detalles de la venta seleccionada.");
+                        return;
                     }
-                };
+
+                    string ticketsDir = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "InventorySystem", "Tickets");
+                    Directory.CreateDirectory(ticketsDir);
+
+                    string fileName = $"Ticket_{fullSale.Id:D6}_{fullSale.SaleDate:yyyyMMdd_HHmmss}.pdf";
+                    string filePath = Path.Combine(ticketsDir, fileName);
+
+                    await pdfService.GenerateInvoiceAsync(fullSale, filePath);
+
+                    Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    _messageService.ShowError($"Error al abrir el ticket PDF: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
             }
         }
     }

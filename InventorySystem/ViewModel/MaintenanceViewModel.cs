@@ -34,6 +34,33 @@ namespace InventorySystem.ViewModel
             set { _isBusy = value; OnPropertyChanged(); }
         }
 
+        public class LanguageItem
+        {
+            public string Code { get; set; } = string.Empty;
+            public string Name { get; set; } = string.Empty;
+        }
+
+        public System.Collections.Generic.List<LanguageItem> LanguagesList { get; } = new System.Collections.Generic.List<LanguageItem>
+        {
+            new LanguageItem { Code = "es", Name = "Español" },
+            new LanguageItem { Code = "en", Name = "English" }
+        };
+
+        private LanguageItem _selectedLanguage;
+        public LanguageItem SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (_selectedLanguage != value && value != null)
+                {
+                    _selectedLanguage = value;
+                    OnPropertyChanged(nameof(SelectedLanguage));
+                    App.ChangeLanguage(value.Code);
+                }
+            }
+        }
+
         public ICommand BackupCommand { get; }
         public ICommand RestoreCommand { get; }
 
@@ -42,6 +69,8 @@ namespace InventorySystem.ViewModel
             _databaseService = databaseService;
             _dialogService = dialogService;
             _messageService = messageService;
+
+            _selectedLanguage = LanguagesList.Find(l => l.Code == App.CurrentLanguage) ?? LanguagesList[0];
 
             BackupCommand = new ViewModelCommand(async _ => await ExecuteBackup());
             RestoreCommand = new ViewModelCommand(async _ => await ExecuteRestore());
@@ -54,6 +83,15 @@ namespace InventorySystem.ViewModel
             DatabasePath = _databaseService.GetDatabasePath();
             long bytes = _databaseService.GetDatabaseSize();
             DatabaseSize = $"{(bytes / 1024.0 / 1024.0):F2} MB";
+        }
+
+        private string GetStringResource(string key, string fallback)
+        {
+            if (System.Windows.Application.Current?.TryFindResource(key) is string resource)
+            {
+                return resource;
+            }
+            return fallback;
         }
 
         private async Task ExecuteBackup()
@@ -69,19 +107,23 @@ namespace InventorySystem.ViewModel
 
             if (success)
             {
-                _messageService.ShowInfo("The backup has been created successfully.", "Backup Successful");
+                _messageService.ShowInfo(
+                    GetStringResource("MaintBackupSuccess", "The backup has been created successfully."),
+                    GetStringResource("TitleInformation", "Backup Successful"));
             }
             else
             {
-                _messageService.ShowError("An error occurred while creating the backup. Make sure the location is accessible.", "Backup Error");
+                _messageService.ShowError(
+                    GetStringResource("MaintBackupError", "An error occurred while creating the backup. Make sure the location is accessible."),
+                    GetStringResource("TitleError", "Backup Error"));
             }
         }
 
         private async Task ExecuteRestore()
         {
             bool confirm = _messageService.ShowConfirmation(
-                "WARNING: Restoring a backup will replace all current data. This action cannot be undone.\n\nDo you want to continue?", 
-                "Confirm Restoration");
+                GetStringResource("MaintRestoreWarning", "WARNING: Restoring a backup will replace all current data. This action cannot be undone.\n\nDo you want to continue?"),
+                GetStringResource("TitleConfirm", "Confirm Restoration"));
 
             if (!confirm) return;
 
@@ -96,15 +138,15 @@ namespace InventorySystem.ViewModel
             if (success)
             {
                 _messageService.ShowInfo(
-                    "Database successfully restored.\n\nIMPORTANT: The application must be restarted to apply these changes correctly.", 
-                    "Restoration Success");
+                    GetStringResource("MaintRestoreSuccess", "Database successfully restored.\n\nIMPORTANT: The application must be restarted to apply these changes correctly."),
+                    GetStringResource("TitleInformation", "Restoration Success"));
                 LoadInfo();
             }
             else
             {
                 _messageService.ShowError(
-                    "Database restoration failed.\n\nThis could be because the file is not a valid backup or it is currently being used by another process.", 
-                    "Restoration Error");
+                    GetStringResource("MaintRestoreError", "Database restoration failed.\n\nThis could be because the file is not a valid backup or it is currently being used by another process."),
+                    GetStringResource("TitleError", "Restoration Error"));
             }
         }
     }

@@ -23,6 +23,7 @@ namespace InventorySystem.ViewModel
         private DateTime _createdAt;
         private string _imagePath;
         private byte[] _imageData;
+        private string? _selectedAbsoluteImagePath;
 
         private BitmapImage _previewImage;
         private string _formTitle;
@@ -115,7 +116,13 @@ namespace InventorySystem.ViewModel
                     string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _imagePath);
                     if (File.Exists(fullPath))
                     {
-                        PreviewImage = new BitmapImage(new Uri(fullPath));
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(fullPath);
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+                        bitmap.Freeze();
+                        PreviewImage = bitmap;
                     }
                 }
                 catch { }
@@ -159,8 +166,14 @@ namespace InventorySystem.ViewModel
             var openFileDialog = new OpenFileDialog { Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg" };
             if (openFileDialog.ShowDialog() == true)
             {
-                _imagePath = openFileDialog.FileName;
-                PreviewImage = new BitmapImage(new Uri(_imagePath));
+                _selectedAbsoluteImagePath = openFileDialog.FileName;
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(_selectedAbsoluteImagePath);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                PreviewImage = bitmap;
             }
         }
 
@@ -171,6 +184,38 @@ namespace InventorySystem.ViewModel
 
             try
             {
+                if (!string.IsNullOrEmpty(_selectedAbsoluteImagePath))
+                {
+                    string extension = Path.GetExtension(_selectedAbsoluteImagePath);
+                    string imagesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
+                    if (!Directory.Exists(imagesDir))
+                    {
+                        Directory.CreateDirectory(imagesDir);
+                    }
+
+                    string relativePath = $"images/product_{Guid.NewGuid()}{extension}";
+                    string absoluteTargetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+
+                    // Copy the file locally
+                    File.Copy(_selectedAbsoluteImagePath, absoluteTargetPath, true);
+
+                    // Delete the old image file if it exists to avoid bloating the disk
+                    if (!string.IsNullOrEmpty(_imagePath))
+                    {
+                        try
+                        {
+                            string oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _imagePath);
+                            if (File.Exists(oldPath))
+                            {
+                                File.Delete(oldPath);
+                            }
+                        }
+                        catch { }
+                    }
+
+                    _imagePath = relativePath;
+                }
+
                 var product = new Product
                 {
                     Id = _id,

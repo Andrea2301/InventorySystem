@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title -->
-            <TextBlock Text="Clients" 
+            <TextBlock Text="{DynamicResource ClientTitle}" 
                        Grid.Column="0"
                        FontSize="28" 
                        FontWeight="SemiBold" 
@@ -66,7 +66,7 @@
                         
                         <!-- Input with Placeholder -->
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Search..."
+                            <TextBlock Text="{DynamicResource ClientSearchPlaceholder}"
                                        Foreground="#9CA3AF"
                                        FontSize="14"
                                        VerticalAlignment="Center"
@@ -157,14 +157,14 @@
                                 <DropShadowEffect BlurRadius="15" Color="#E5E7EB" Opacity="0.5" ShadowDepth="5"/>
                             </Border.Effect>
                             <StackPanel Margin="5">
-                                <Button Content="New Client Form"
+                                <Button Content="{DynamicResource ClientMenuNewClient}"
                                         Background="Transparent"
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Padding="10,8"
                                         HorizontalContentAlignment="Left"
                                         Command="{Binding OpenClientFormCommand}"/>
-                                <Button Content="Import from Excel"
+                                <Button Content="{DynamicResource ClientMenuImportExcel}"
                                         Background="Transparent"
                                         BorderThickness="0"
                                         Cursor="Hand"
@@ -249,11 +249,11 @@
                                     <TextBlock FontWeight="SemiBold" FontSize="12">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="Inactive"/>
+                                                <Setter Property="Text" Value="{DynamicResource ClientStatusInactive}"/>
                                                 <Setter Property="Foreground" Value="#C62828"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                        <Setter Property="Text" Value="Active"/>
+                                                        <Setter Property="Text" Value="{DynamicResource ClientStatusActive}"/>
                                                         <Setter Property="Foreground" Value="#2E7D32"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -299,7 +299,7 @@
         <Grid Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource LoadingOverlay}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
-                <TextBlock Text="Loading clients..." Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="{DynamicResource ClientLoadingOverlay}" Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
             </StackPanel>
         </Grid>
 

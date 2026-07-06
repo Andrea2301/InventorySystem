@@ -1,4 +1,4 @@
-﻿<Application x:Class="InventorySystem.App"
+<Application x:Class="InventorySystem.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InventorySystem"
@@ -15,11 +15,13 @@
                 <ResourceDictionary Source="Assets/Styles/ValidationStyles.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/ToggleStyles.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/SharedStyles.xaml"/>
+                <ResourceDictionary Source="Assets/Languages/Strings.es.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <converters:BooleanToStatusConverter x:Key="BooleanToStatusConverter"/>
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converters:ImagePathToImageSourceConverter x:Key="ImagePathToImageSourceConverter"/>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>

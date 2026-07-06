@@ -117,22 +117,22 @@
 
                         <TextBlock Text="INVST" Foreground="White" FontSize="32" FontWeight="Bold"
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="Inventory Management" Foreground="#A5B4FC" FontSize="13"
+                        <TextBlock Text="{DynamicResource LoginBrandSubtext}" Foreground="#A5B4FC" FontSize="13"
                                    HorizontalAlignment="Center" Margin="0,4,0,32"/>
 
                         <Rectangle Height="1" Fill="#FFFFFF" Opacity="0.15" Margin="0,0,0,28"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
                             <fa:IconImage Icon="ShieldAlt" Foreground="#6EE7B7" Width="16" Margin="0,0,8,0"/>
-                            <TextBlock Text="Secure Access Control" Foreground="#A5B4FC" FontSize="12"/>
+                            <TextBlock Text="{DynamicResource LoginFeatureSecure}" Foreground="#A5B4FC" FontSize="12"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
                             <fa:IconImage Icon="ChartLine" Foreground="#6EE7B7" Width="16" Margin="0,0,8,0"/>
-                            <TextBlock Text="Real-Time Analytics" Foreground="#A5B4FC" FontSize="12"/>
+                            <TextBlock Text="{DynamicResource LoginFeatureAnalytics}" Foreground="#A5B4FC" FontSize="12"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <fa:IconImage Icon="FileInvoiceDollar" Foreground="#6EE7B7" Width="16" Margin="0,0,8,0"/>
-                            <TextBlock Text="Point of Sale &amp; Invoicing" Foreground="#A5B4FC" FontSize="12"/>
+                            <TextBlock Text="{DynamicResource LoginFeaturePOS}" Foreground="#A5B4FC" FontSize="12"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -150,13 +150,13 @@
                     </Button>
 
                     <StackPanel VerticalAlignment="Center" Margin="50,0,50,0">
-                        <TextBlock Text="Welcome back" Foreground="White" FontSize="26" FontWeight="Bold"
+                        <TextBlock Text="{DynamicResource LoginWelcomeBack}" Foreground="White" FontSize="26" FontWeight="Bold"
                                    Margin="0,0,0,4"/>
-                        <TextBlock Text="Sign in to your account to continue" Foreground="#64748B"
+                        <TextBlock Text="{DynamicResource LoginSignInSubtitle}" Foreground="#64748B"
                                    FontSize="13" Margin="0,0,0,40"/>
 
                         <!-- Username field -->
-                        <TextBlock Text="USERNAME" Foreground="#64748B" FontSize="11" FontWeight="SemiBold"
+                        <TextBlock Text="{DynamicResource LoginLabelUsername}" Foreground="#64748B" FontSize="11" FontWeight="SemiBold"
                                    Margin="0,0,0,8"/>
                         <Border Background="#1E293B" CornerRadius="10" Height="48" Margin="0,0,0,20"
                                 x:Name="UsernameBorder">
@@ -172,7 +172,7 @@
                         </Border>
 
                         <!-- Password field -->
-                        <TextBlock Text="PASSWORD" Foreground="#64748B" FontSize="11" FontWeight="SemiBold"
+                        <TextBlock Text="{DynamicResource LoginLabelPassword}" Foreground="#64748B" FontSize="11" FontWeight="SemiBold"
                                    Margin="0,0,0,8"/>
                         <Border Background="#1E293B" CornerRadius="10" Height="48" Margin="0,0,0,8"
                                 x:Name="PasswordBorder">
@@ -212,12 +212,12 @@
                         <Button x:Name="BtnLogin"
                                 Style="{StaticResource LoginBtn}"
                                 Height="48"
-                                Content="Sign In"
+                                Content="{DynamicResource LoginButtonText}"
                                 Command="{Binding LoginCommand}"
                                 Margin="0,16,0,0"/>
 
                         <!-- Version tag -->
-                        <TextBlock Text="v1.1.0 — Secure Login" Foreground="#1E293B"
+                        <TextBlock Text="{DynamicResource LoginVersionTag}" Foreground="#1E293B"
                                    FontSize="11" HorizontalAlignment="Center" Margin="0,28,0,0"/>
                     </StackPanel>
                 </Grid>

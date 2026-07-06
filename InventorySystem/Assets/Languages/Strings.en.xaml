@@ -1,0 +1,125 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Common / General -->
+    <sys:String x:Key="HeaderGeneral">General</sys:String>
+    <sys:String x:Key="HeaderManagement">Management</sys:String>
+    <sys:String x:Key="HeaderSales">Sales</sys:String>
+    <sys:String x:Key="HeaderSystem">System</sys:String>
+    <sys:String x:Key="LangSpanish">Spanish</sys:String>
+    <sys:String x:Key="LangEnglish">English</sys:String>
+    <sys:String x:Key="TitleInformation">Information</sys:String>
+    <sys:String x:Key="TitleWarning">Warning</sys:String>
+    <sys:String x:Key="TitleError">Error</sys:String>
+    <sys:String x:Key="TitleConfirm">Confirm</sys:String>
+    <sys:String x:Key="BtnSave">Save</sys:String>
+    <sys:String x:Key="BtnCancel">Cancel</sys:String>
+    <sys:String x:Key="BtnClose">Close</sys:String>
+    <sys:String x:Key="MsgLoading">Loading...</sys:String>
+
+    <!-- Login -->
+    <sys:String x:Key="LoginTitle">LOGIN</sys:String>
+    <sys:String x:Key="LoginUsernamePlaceholder">Username</sys:String>
+    <sys:String x:Key="LoginPasswordPlaceholder">Password</sys:String>
+    <sys:String x:Key="LoginButton">Login</sys:String>
+    <sys:String x:Key="LoginErrorEmpty">Please enter your username and password.</sys:String>
+    <sys:String x:Key="LoginErrorInvalid">Invalid credentials. Please try again.</sys:String>
+    <sys:String x:Key="LoginErrorConnection">Connection error: {0}</sys:String>
+    <sys:String x:Key="LoginBrandSubtext">Inventory Management</sys:String>
+    <sys:String x:Key="LoginFeatureSecure">Secure Access Control</sys:String>
+    <sys:String x:Key="LoginFeatureAnalytics">Real-Time Analytics</sys:String>
+    <sys:String x:Key="LoginFeaturePOS">Point of Sale &amp; Invoicing</sys:String>
+    <sys:String x:Key="LoginWelcomeBack">Welcome back</sys:String>
+    <sys:String x:Key="LoginSignInSubtitle">Sign in to your account to continue</sys:String>
+    <sys:String x:Key="LoginLabelUsername">USERNAME</sys:String>
+    <sys:String x:Key="LoginLabelPassword">PASSWORD</sys:String>
+    <sys:String x:Key="LoginButtonText">Sign In</sys:String>
+    <sys:String x:Key="LoginVersionTag">v1.1.0 — Secure Login</sys:String>
+
+    <!-- Main Shell -->
+    <sys:String x:Key="MenuHome">Dashboard</sys:String>
+    <sys:String x:Key="MenuSales">Sales (POS)</sys:String>
+    <sys:String x:Key="MenuHistory">Sales History</sys:String>
+    <sys:String x:Key="MenuProducts">Products</sys:String>
+    <sys:String x:Key="MenuClients">Clients</sys:String>
+    <sys:String x:Key="MenuSuppliers">Suppliers</sys:String>
+    <sys:String x:Key="MenuReports">Reports</sys:String>
+    <sys:String x:Key="MenuMaintenance">Maintenance</sys:String>
+    <sys:String x:Key="MenuLogout">Logout</sys:String>
+
+    <!-- Dashboard (Home) -->
+    <sys:String x:Key="DashTotalRevenue">Today's Revenue</sys:String>
+    <sys:String x:Key="DashInventoryValue">Inventory Value</sys:String>
+    <sys:String x:Key="DashCriticalStock">Critical Stock</sys:String>
+    <sys:String x:Key="DashNewClients">New Clients</sys:String>
+    <sys:String x:Key="DashRecentSales">Recent Sales</sys:String>
+    <sys:String x:Key="DashTopSelling">Top Selling Products</sys:String>
+    <sys:String x:Key="DashQuickActions">Quick Actions</sys:String>
+    <sys:String x:Key="DashCriticalStockAlerts">Critical Stock Alerts</sys:String>
+    <sys:String x:Key="DashBtnNewSale">New Sale</sys:String>
+    <sys:String x:Key="DashBtnProducts">Products</sys:String>
+    <sys:String x:Key="DashBtnClients">Clients</sys:String>
+    <sys:String x:Key="DashBtnHistory">History</sys:String>
+    <sys:String x:Key="DashAssetsDescription">Total value of assets</sys:String>
+    <sys:String x:Key="DashItemsRestock">Items need restocking</sys:String>
+    <sys:String x:Key="DashRegisteredToday">Registered today</sys:String>
+    <sys:String x:Key="DashUpdating">Updating dashboard...</sys:String>
+    <sys:String x:Key="DashYesterdayNoData">No data from yesterday</sys:String>
+    <sys:String x:Key="DashYesterdayCompare">{0} vs yesterday</sys:String>
+
+    <!-- Maintenance -->
+    <sys:String x:Key="MaintTitle">Database &amp; Maintenance</sys:String>
+    <sys:String x:Key="MaintSubtitle">Protect your information and manage backups.</sys:String>
+    <sys:String x:Key="MaintDbLocation">Current location:</sys:String>
+    <sys:String x:Key="MaintDbSize">Data size:</sys:String>
+    <sys:String x:Key="MaintLocalBackup">Local Backup</sys:String>
+    <sys:String x:Key="MaintBackupDesc">Create a secure copy of your database to prevent data loss.</sys:String>
+    <sys:String x:Key="MaintBtnBackup">Generate Backup</sys:String>
+    <sys:String x:Key="MaintRestoreData">Restore Data</sys:String>
+    <sys:String x:Key="MaintRestoreDesc">Recover your system state from a previously saved backup file.</sys:String>
+    <sys:String x:Key="MaintBtnRestore">Restore Database</sys:String>
+    <sys:String x:Key="MaintLanguageTitle">System Language</sys:String>
+    <sys:String x:Key="MaintLanguageDesc">Select the language you want to display the interface in.</sys:String>
+    <sys:String x:Key="MaintProcessing">Processing files...</sys:String>
+    <sys:String x:Key="MaintBackupSuccess">The backup has been created successfully.</sys:String>
+    <sys:String x:Key="MaintBackupError">An error occurred while creating the backup. Make sure the location is accessible.</sys:String>
+    <sys:String x:Key="MaintRestoreWarning">WARNING: Restoring a backup will replace all current data. This action cannot be undone.\n\nDo you want to continue?</sys:String>
+    <sys:String x:Key="MaintRestoreSuccess">Database successfully restored.\n\nIMPORTANT: The application must be restarted to apply these changes correctly.</sys:String>
+    <sys:String x:Key="MaintRestoreError">Database restoration failed.\n\nThis could be because the file is not a valid backup or it is currently being used by another process.</sys:String>
+
+    <!-- Sale / POS -->
+    <sys:String x:Key="SaleCatalogTitle">Store Catalog</sys:String>
+    <sys:String x:Key="SaleCurrentOrder">Current Order</sys:String>
+    <sys:String x:Key="SaleCustomer">Customer</sys:String>
+    <sys:String x:Key="SaleSubtotal">Subtotal</sys:String>
+    <sys:String x:Key="SaleTax">Tax (0%)</sys:String>
+    <sys:String x:Key="SaleTotal">TOTAL</sys:String>
+    <sys:String x:Key="SaleFinalizeBtn">Finalize Transaction</sys:String>
+    <sys:String x:Key="SaleLoadingOverlay">Processing sale...</sys:String>
+
+    <!-- Products -->
+    <sys:String x:Key="ProdTitle">Products</sys:String>
+    <sys:String x:Key="ProdSearchPlaceholder">Search products...</sys:String>
+    <sys:String x:Key="ProdMenuNewProduct">New Product</sys:String>
+    <sys:String x:Key="ProdMenuImportExcel">Import from Excel</sys:String>
+    <sys:String x:Key="ProdLoadingOverlay">Loading products...</sys:String>
+
+    <!-- Clients -->
+    <sys:String x:Key="ClientTitle">Clients</sys:String>
+    <sys:String x:Key="ClientSearchPlaceholder">Search...</sys:String>
+    <sys:String x:Key="ClientMenuNewClient">New Client Form</sys:String>
+    <sys:String x:Key="ClientMenuImportExcel">Import from Excel</sys:String>
+    <sys:String x:Key="ClientColId">ID</sys:String>
+    <sys:String x:Key="ClientColName">Name</sys:String>
+    <sys:String x:Key="ClientColLastName">Last Name</sys:String>
+    <sys:String x:Key="ClientColPhone">Phone</sys:String>
+    <sys:String x:Key="ClientColEmail">E-mail</sys:String>
+    <sys:String x:Key="ClientColDateAdded">Date Added</sys:String>
+    <sys:String x:Key="ClientColStatus">Status</sys:String>
+    <sys:String x:Key="ClientStatusActive">Active</sys:String>
+    <sys:String x:Key="ClientStatusInactive">Inactive</sys:String>
+    <sys:String x:Key="ClientLoadingOverlay">Loading clients...</sys:String>
+
+</ResourceDictionary>
+

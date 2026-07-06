@@ -15,13 +15,13 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
                     <fa:IconImage Icon="Database" Foreground="#4F46E5" Width="32" Margin="0,0,15,0"/>
                     <StackPanel>
-                        <TextBlock Text="Database &amp; Maintenance" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
-                        <TextBlock Text="Protect your information and manage backups." Foreground="#6B7280" FontSize="14"/>
+                        <TextBlock Text="{DynamicResource MaintTitle}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
+                        <TextBlock Text="{DynamicResource MaintSubtitle}" Foreground="#6B7280" FontSize="14"/>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Info Section -->
-                <Border Background="#F9FAFB" CornerRadius="12" Padding="20" Margin="0,0,0,30" BorderBrush="#E5E7EB" BorderThickness="1">
+                <Border Background="#F9FAFB" CornerRadius="12" Padding="20" Margin="0,0,0,20" BorderBrush="#E5E7EB" BorderThickness="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -33,11 +33,35 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Current location:" FontWeight="SemiBold" Foreground="#374151" Grid.Row="0" Grid.Column="0"/>
+                        <TextBlock Text="{DynamicResource MaintDbLocation}" FontWeight="SemiBold" Foreground="#374151" Grid.Row="0" Grid.Column="0"/>
                         <TextBlock Text="{Binding DatabasePath}" Foreground="#6B7280" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
 
-                        <TextBlock Text="Data size:" FontWeight="SemiBold" Foreground="#374151" Grid.Row="2" Grid.Column="0"/>
+                        <TextBlock Text="{DynamicResource MaintDbSize}" FontWeight="SemiBold" Foreground="#374151" Grid.Row="2" Grid.Column="0"/>
                         <TextBlock Text="{Binding DatabaseSize}" Foreground="#6B7280" Grid.Row="2" Grid.Column="1" Margin="10,0,0,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- Language Section -->
+                <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="15" Padding="25" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="{DynamicResource MaintLanguageTitle}" FontSize="18" FontWeight="Bold" Foreground="#111827" Margin="0,0,0,5"/>
+                            <TextBlock Text="{DynamicResource MaintLanguageDesc}" Foreground="#6B7280" FontSize="13" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <ComboBox Grid.Column="1" 
+                                  Width="180" 
+                                  Height="40" 
+                                  VerticalContentAlignment="Center"
+                                  ItemsSource="{Binding LanguagesList}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  DisplayMemberPath="Name"
+                                  Padding="10,0"
+                                  FontSize="13"
+                                  FontWeight="SemiBold"/>
                     </Grid>
                 </Border>
 
@@ -55,11 +79,11 @@
                             <Border Width="60" Height="60" CornerRadius="30" Background="#EEF2FF" Margin="0,0,0,15">
                                 <fa:IconImage Icon="CloudDownloadAlt" Foreground="#4F46E5" Width="26"/>
                             </Border>
-                            <TextBlock Text="Local Backup" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBlock Text="Create a secure copy of your database to prevent data loss." 
+                            <TextBlock Text="{DynamicResource MaintLocalBackup}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <TextBlock Text="{DynamicResource MaintBackupDesc}" 
                                        TextAlignment="Center" Foreground="#6B7280" Margin="0,0,0,20" TextWrapping="Wrap"/>
                             
-                            <Button Content="Generate Backup" 
+                            <Button Content="{DynamicResource MaintBtnBackup}" 
                                     Style="{StaticResource Pop}"
                                     Command="{Binding BackupCommand}"
                                     ToolTip="Save a copy of your current database"
@@ -74,11 +98,11 @@
                             <Border Width="60" Height="60" CornerRadius="30" Background="#FEF2F2" Margin="0,0,0,15">
                                 <fa:IconImage Icon="History" Foreground="#DC2626" Width="26"/>
                             </Border>
-                            <TextBlock Text="Restore Data" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBlock Text="Recover your system state from a previously saved backup file." 
+                            <TextBlock Text="{DynamicResource MaintRestoreData}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <TextBlock Text="{DynamicResource MaintRestoreDesc}" 
                                        TextAlignment="Center" Foreground="#6B7280" Margin="0,0,0,20" TextWrapping="Wrap"/>
 
-                            <Button Content="Restore Database" 
+                            <Button Content="{DynamicResource MaintBtnRestore}" 
                                     Style="{StaticResource btnDelete}"
                                     Command="{Binding RestoreCommand}"
                                     ToolTip="Replace current data with a backup file"
@@ -92,7 +116,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0" 
                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Control Style="{StaticResource LoadingSpinner}" Width="20" Height="20" Margin="0,0,10,0"/>
-                    <TextBlock Text="Processing files..." Foreground="#4F46E5" FontWeight="SemiBold"/>
+                    <TextBlock Text="{DynamicResource MaintProcessing}" Foreground="#4F46E5" FontWeight="SemiBold"/>
                 </StackPanel>
 
             </StackPanel>

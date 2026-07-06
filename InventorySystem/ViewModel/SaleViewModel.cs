@@ -1,7 +1,10 @@
 using InventorySystem.Services;
+using InventorySystem.Services.Export;
 using InventorySystem.ViewModel.Base;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,7 @@ namespace InventorySystem.ViewModel
         private readonly IClientService _clientService;
         private readonly IDialogService _dialogService;
         private readonly IMessageService _messageService;
+        private readonly IPdfService _pdfService;
         private System.Collections.ObjectModel.ObservableCollection<Models.Product> _products;
         private System.Collections.ObjectModel.ObservableCollection<CartItemViewModel> _cart;
         private System.Collections.ObjectModel.ObservableCollection<Models.Client> _clients;
@@ -68,13 +72,14 @@ namespace InventorySystem.ViewModel
         public ICommand RemoveFromCartCommand { get; }
         public ICommand CheckoutCommand { get; }
 
-        public SaleViewModel(ISaleService saleService, IProductService productService, IClientService clientService, IDialogService dialogService, IMessageService messageService)
+        public SaleViewModel(ISaleService saleService, IProductService productService, IClientService clientService, IDialogService dialogService, IMessageService messageService, IPdfService pdfService)
         {
             _saleService = saleService;
             _productService = productService;
             _clientService = clientService;
             _dialogService = dialogService;
             _messageService = messageService;
+            _pdfService = pdfService;
             Products = new System.Collections.ObjectModel.ObservableCollection<Models.Product>();
             Cart = new System.Collections.ObjectModel.ObservableCollection<CartItemViewModel>();
             Clients = new System.Collections.ObjectModel.ObservableCollection<Models.Client>();
@@ -219,7 +224,12 @@ namespace InventorySystem.ViewModel
 
                 await _saleService.CreateSaleAsync(sale);
 
-                _messageService.ShowInfo("¡Venta finalizada con éxito!");
+                bool openPdf = _messageService.ShowConfirmation("¡Venta finalizada con éxito!\n\n¿Desea abrir o imprimir el ticket PDF de la venta?", "Venta Exitosa");
+                if (openPdf)
+                {
+                    await GenerateAndOpenReceiptAsync(sale);
+                }
+
                 Cart.Clear();
                 await LoadProductsAsync();
             }
@@ -230,6 +240,33 @@ namespace InventorySystem.ViewModel
             finally
             {
                 IsLoading = false;
+            }
+        }
+        private async Task GenerateAndOpenReceiptAsync(Models.Sale sale)
+        {
+            try
+            {
+                // Recargar la venta con sus relaciones (cliente, detalles y productos) para el PDF
+                var fullSale = await _saleService.GetSaleByIdAsync(sale.Id);
+                if (fullSale == null) return;
+
+                // Carpeta Tickets en el directorio local de la app
+                string ticketsDir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "InventorySystem", "Tickets");
+                Directory.CreateDirectory(ticketsDir);
+
+                string fileName = $"Ticket_{fullSale.Id:D6}_{fullSale.SaleDate:yyyyMMdd_HHmmss}.pdf";
+                string filePath = Path.Combine(ticketsDir, fileName);
+
+                await _pdfService.GenerateInvoiceAsync(fullSale, filePath);
+
+                // Abrir con el visor PDF predeterminado del sistema
+                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"No se pudo generar el ticket PDF: {ex.Message}");
             }
         }
     }
