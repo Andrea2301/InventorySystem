@@ -172,6 +172,7 @@ namespace InventorySystem.ViewModel
 
                     var salesYesterday = db.Sales
                         .Where(s => s.SaleDate >= yesterday && s.SaleDate < today)
+                        .ToList()
                         .Sum(s => s.TotalAmount);
 
                     var newClients = db.Clients.Count(c => c.CreatedAt >= today);
