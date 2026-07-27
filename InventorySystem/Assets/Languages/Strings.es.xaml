@@ -121,4 +121,18 @@
     <sys:String x:Key="ClientStatusInactive">Inactivo</sys:String>
     <sys:String x:Key="ClientLoadingOverlay">Cargando clientes...</sys:String>
 
+    <!-- Business Settings -->
+    <sys:String x:Key="MaintBusinessSettingsTitle">Datos del Negocio (Ticket de Compra)</sys:String>
+    <sys:String x:Key="MaintLabelCompany">Nombre de la Empresa</sys:String>
+    <sys:String x:Key="MaintLabelTaxId">RUT / Identificación Fiscal</sys:String>
+    <sys:String x:Key="MaintLabelAddress">Dirección Comercial</sys:String>
+    <sys:String x:Key="MaintLabelPhone">Teléfono de Contacto</sys:String>
+    <sys:String x:Key="MaintLabelEmail">Correo Electrónico</sys:String>
+    <sys:String x:Key="MaintLabelTaxPercentage">Impuesto General (%)</sys:String>
+    <sys:String x:Key="MaintLabelCurrencySymbol">Símbolo de Moneda</sys:String>
+    <sys:String x:Key="MaintBtnSaveSettings">Guardar Configuración</sys:String>
+    <sys:String x:Key="MaintSettingsSaveSuccess">La configuración del negocio se guardó correctamente.</sys:String>
+    <sys:String x:Key="MaintSettingsSaveError">No se pudo guardar la configuración.</sys:String>
+    <sys:String x:Key="MaintSettingsCompanyNameRequired">El nombre de la empresa es obligatorio.</sys:String>
+
 </ResourceDictionary>

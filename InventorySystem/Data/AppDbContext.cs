@@ -17,6 +17,7 @@ namespace InventorySystem.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<BusinessSetting> BusinessSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

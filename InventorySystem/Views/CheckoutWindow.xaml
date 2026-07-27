@@ -90,7 +90,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" CornerRadius="15,15,0,0" Background="#002966">
+            <Border Grid.Row="0" CornerRadius="15,15,0,0" Background="#002966" Margin="0,0,0,10">
                 <Grid Margin="20,0">
                     <TextBlock Text="Procesar Pago" 
                                FontSize="20" 
@@ -240,7 +240,8 @@
                 </ScrollViewer>
 
                 <!-- Vertical Separator -->
-                <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,10" Foreground="#E5E7EB"/>
+                <Separator Grid.Column="1" 
+Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,-25,5,-21" Background="#002966"/>
 
                 <!-- Right Column Panel Container -->
                 <Grid Grid.Column="2">

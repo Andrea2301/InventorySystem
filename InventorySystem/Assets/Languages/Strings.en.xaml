@@ -121,5 +121,19 @@
     <sys:String x:Key="ClientStatusInactive">Inactive</sys:String>
     <sys:String x:Key="ClientLoadingOverlay">Loading clients...</sys:String>
 
+    <!-- Business Settings -->
+    <sys:String x:Key="MaintBusinessSettingsTitle">Business Details (Purchase Ticket)</sys:String>
+    <sys:String x:Key="MaintLabelCompany">Company Name</sys:String>
+    <sys:String x:Key="MaintLabelTaxId">Tax ID / VAT Registration</sys:String>
+    <sys:String x:Key="MaintLabelAddress">Business Address</sys:String>
+    <sys:String x:Key="MaintLabelPhone">Contact Phone</sys:String>
+    <sys:String x:Key="MaintLabelEmail">Email Address</sys:String>
+    <sys:String x:Key="MaintLabelTaxPercentage">General Tax Percentage (%)</sys:String>
+    <sys:String x:Key="MaintLabelCurrencySymbol">Currency Symbol</sys:String>
+    <sys:String x:Key="MaintBtnSaveSettings">Save Settings</sys:String>
+    <sys:String x:Key="MaintSettingsSaveSuccess">Business settings saved successfully.</sys:String>
+    <sys:String x:Key="MaintSettingsSaveError">Failed to save business settings.</sys:String>
+    <sys:String x:Key="MaintSettingsCompanyNameRequired">Company Name is required.</sys:String>
+
 </ResourceDictionary>
 

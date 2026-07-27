@@ -8,6 +8,7 @@ using InventorySystem.ViewModel;
 using InventorySystem.Shell;
 using System;
 using InventorySystem.Services.Export;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventorySystem
 {
@@ -72,6 +73,21 @@ namespace InventorySystem
                 {
                     context.Database.EnsureCreated();
                     
+                    // Safe-patch: Ensure BusinessSettings table exists without dropping DB or failing migrations
+                    context.Database.ExecuteSqlRaw(@"
+                        CREATE TABLE IF NOT EXISTS ""BusinessSettings"" (
+                            ""Id"" INTEGER NOT NULL CONSTRAINT ""PK_BusinessSettings"" PRIMARY KEY AUTOINCREMENT,
+                            ""CompanyName"" TEXT NOT NULL,
+                            ""TaxId"" TEXT NOT NULL,
+                            ""Address"" TEXT NOT NULL,
+                            ""Phone"" TEXT NOT NULL,
+                            ""Email"" TEXT NOT NULL,
+                            ""TaxPercentage"" TEXT NOT NULL,
+                            ""CurrencySymbol"" TEXT NOT NULL
+                        );
+                    ");
+
+                    
                     // Initialize Default Admin User
                     var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
                     authService.EnsureDefaultAdminAsync().GetAwaiter().GetResult();
@@ -104,6 +120,7 @@ namespace InventorySystem
             services.AddSingleton<IDatabaseService, DatabaseService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBusinessSettingService, BusinessSettingService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
