@@ -119,6 +119,7 @@ namespace InventorySystem.ViewModel
         public ICommand BackupCommand { get; }
         public ICommand RestoreCommand { get; }
         public ICommand SaveSettingsCommand { get; }
+        public ICommand OpenFolderCommand { get; }
 
         public MaintenanceViewModel(
             IDatabaseService databaseService, 
@@ -136,6 +137,7 @@ namespace InventorySystem.ViewModel
             BackupCommand = new ViewModelCommand(async _ => await ExecuteBackup());
             RestoreCommand = new ViewModelCommand(async _ => await ExecuteRestore());
             SaveSettingsCommand = new ViewModelCommand(async _ => await ExecuteSaveSettings());
+            OpenFolderCommand = new ViewModelCommand(_ => ExecuteOpenFolder());
 
             LoadInfo();
             _ = LoadSettingsAsync();
@@ -146,6 +148,26 @@ namespace InventorySystem.ViewModel
             DatabasePath = _databaseService.GetDatabasePath();
             long bytes = _databaseService.GetDatabaseSize();
             DatabaseSize = $"{(bytes / 1024.0 / 1024.0):F2} MB";
+        }
+
+        private void ExecuteOpenFolder()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(DatabasePath) && System.IO.File.Exists(DatabasePath))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "explorer.exe",
+                        Arguments = $"/select,\"{DatabasePath}\"",
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"Could not open folder: {ex.Message}", "Error");
+            }
         }
 
         private async Task LoadSettingsAsync()

@@ -24,7 +24,8 @@ namespace InventorySystem.Data
             // Use BaseDirectory to ensure the DB is created in the app folder, not System32 or elsewhere
             string dbName = "inventory.db";
             string dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbName);
-            options.UseSqlite($"Data Source={dbPath}");
+            // Added Password for SQLCipher encryption (Option A)
+            options.UseSqlite($"Data Source={dbPath};Password=AntiGravitySecure123!");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

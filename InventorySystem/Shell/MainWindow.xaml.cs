@@ -1,4 +1,4 @@
-﻿using InventorySystem.ViewModel;
+using InventorySystem.ViewModel;
 using System;
 using System.Diagnostics.Eventing.Reader;
 using System.Runtime.InteropServices;
@@ -17,6 +17,7 @@ namespace InventorySystem.Shell
         {
             InitializeComponent();
             DataContext = viewModel;
+            Closed += (s, e) => Application.Current.Shutdown();
         }
 
         [DllImport("user32.dll")]

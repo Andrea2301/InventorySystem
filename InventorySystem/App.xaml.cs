@@ -56,51 +56,60 @@ namespace InventorySystem
             }
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            DispatcherUnhandledException += (s, args) =>
+            {
+                MessageBox.Show($"Ocurrió un error inesperado:\n\n{args.Exception.Message}", "Error Inesperado", MessageBoxButton.OK, MessageBoxImage.Error);
+                args.Handled = true;
+            };
+
+            // Use OnExplicitShutdown so closing SplashScreen does not terminate the WPF application
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            // Initialize SQLite native libraries
+            SQLitePCL.Batteries_V2.Init();
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            // Initialize Database & Ensure Default Admin
-            using (var scope = ServiceProvider.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                try
-                {
-                    context.Database.EnsureCreated();
-                    
-                    // Safe-patch: Ensure BusinessSettings table exists without dropping DB or failing migrations
-                    context.Database.ExecuteSqlRaw(@"
-                        CREATE TABLE IF NOT EXISTS ""BusinessSettings"" (
-                            ""Id"" INTEGER NOT NULL CONSTRAINT ""PK_BusinessSettings"" PRIMARY KEY AUTOINCREMENT,
-                            ""CompanyName"" TEXT NOT NULL,
-                            ""TaxId"" TEXT NOT NULL,
-                            ""Address"" TEXT NOT NULL,
-                            ""Phone"" TEXT NOT NULL,
-                            ""Email"" TEXT NOT NULL,
-                            ""TaxPercentage"" TEXT NOT NULL,
-                            ""CurrencySymbol"" TEXT NOT NULL
-                        );
-                    ");
-
-                    
-                    // Initialize Default Admin User
-                    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
-                    authService.EnsureDefaultAdminAsync().GetAwaiter().GetResult();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error initializing database or admin user: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-
             // Show Splash Screen first
             var splashScreen = ServiceProvider.GetRequiredService<Shell.SplashScreen>();
             splashScreen.Show();
+
+            // Initialize Database & Ensure Default Admin asynchronously without blocking UI thread
+            try
+            {
+                using var scope = ServiceProvider.CreateScope();
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                await context.Database.EnsureCreatedAsync();
+
+                // Safe-patch: Ensure BusinessSettings table exists without dropping DB or failing migrations
+                await context.Database.ExecuteSqlRawAsync(@"
+                    CREATE TABLE IF NOT EXISTS ""BusinessSettings"" (
+                        ""Id"" INTEGER NOT NULL CONSTRAINT ""PK_BusinessSettings"" PRIMARY KEY AUTOINCREMENT,
+                        ""CompanyName"" TEXT NOT NULL,
+                        ""TaxId"" TEXT NOT NULL,
+                        ""Address"" TEXT NOT NULL,
+                        ""Phone"" TEXT NOT NULL,
+                        ""Email"" TEXT NOT NULL,
+                        ""TaxPercentage"" TEXT NOT NULL,
+                        ""CurrencySymbol"" TEXT NOT NULL
+                    );
+                ");
+
+                // Initialize Default Admin User
+                var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+                await authService.EnsureDefaultAdminAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing database or admin user: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ConfigureServices(IServiceCollection services)

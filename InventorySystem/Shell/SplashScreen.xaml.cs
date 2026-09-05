@@ -43,9 +43,17 @@ namespace InventorySystem.Shell
 
             if (Progressbar.Value == 100)
             {
-                var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
-                Close();  // Cierra la ventana actual (SplashScreen)
-                loginWindow.Show();  // Muestra la ventana de Login (LoginWindow)
+                try
+                {
+                    var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
+                    App.Current.MainWindow = loginWindow;
+                    loginWindow.Show();  // Muestra la ventana de Login primero
+                    Close();             // Cierra el SplashScreen una vez que el Login ya es visible
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error Opening LoginWindow");
+                }
             }
         }
 

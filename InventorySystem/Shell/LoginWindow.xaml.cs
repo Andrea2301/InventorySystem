@@ -8,6 +8,7 @@ namespace InventorySystem.Shell
     public partial class LoginWindow : Window
     {
         private readonly LoginViewModel _viewModel;
+        private bool _isLoggedIn;
 
         public LoginWindow(LoginViewModel viewModel)
         {
@@ -18,11 +19,20 @@ namespace InventorySystem.Shell
             _viewModel.OnLoginSuccess = OnLoginSuccess;
 
             Loaded += (s, e) => TxtUsername.Focus();
+            Closed += (s, e) =>
+            {
+                if (!_isLoggedIn)
+                {
+                    Application.Current.Shutdown();
+                }
+            };
         }
 
         private void OnLoginSuccess()
         {
+            _isLoggedIn = true;
             var mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
+            App.Current.MainWindow = mainWindow;
             mainWindow.Show();
             Close();
         }
