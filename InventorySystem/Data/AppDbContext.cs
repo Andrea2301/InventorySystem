@@ -24,8 +24,37 @@ namespace InventorySystem.Data
             // Use BaseDirectory to ensure the DB is created in the app folder, not System32 or elsewhere
             string dbName = "inventory.db";
             string dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbName);
-            // Added Password for SQLCipher encryption (Option A) with 30s timeout
-            options.UseSqlite($"Data Source={dbPath};Password=AntiGravitySecure123!;Default Timeout=30;");
+
+            // Detect if existing DB is standard unencrypted SQLite (starts with 'SQLite format 3')
+            bool isUnencrypted = false;
+            if (System.IO.File.Exists(dbPath))
+            {
+                try
+                {
+                    using var fs = new System.IO.FileStream(dbPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                    byte[] header = new byte[16];
+                    int bytesRead = fs.Read(header, 0, 16);
+                    if (bytesRead >= 15 && System.Text.Encoding.ASCII.GetString(header, 0, 15).StartsWith("SQLite format 3"))
+                    {
+                        isUnencrypted = true;
+                    }
+                }
+                catch
+                {
+                    // Fallback to default
+                }
+            }
+
+            if (isUnencrypted)
+            {
+                // Open unencrypted existing database without password to preserve all existing data!
+                options.UseSqlite($"Data Source={dbPath};Default Timeout=30;");
+            }
+            else
+            {
+                // Open with SQLCipher encryption password
+                options.UseSqlite($"Data Source={dbPath};Password=AntiGravitySecure123!;Default Timeout=30;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

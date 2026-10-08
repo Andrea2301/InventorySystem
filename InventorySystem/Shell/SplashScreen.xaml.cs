@@ -41,14 +41,7 @@ namespace InventorySystem.Shell
                 LoadingText.Text = "Verificando base de datos y esquema...";
                 Progressbar.Value = 40;
 
-                // Ejecutar la inicialización completa y autorreparación de la base de datos
-                await Task.Run(async () =>
-                {
-                    using var scope = App.ServiceProvider.CreateScope();
-                    var db = scope.ServiceProvider.GetRequiredService<InventorySystem.Data.AppDbContext>();
-                    var auth = scope.ServiceProvider.GetRequiredService<InventorySystem.Services.IAuthService>();
-                    await InventorySystem.Helpers.DatabaseInitializer.InitializeAsync(db, auth);
-                });
+                await InitializeDatabaseWithRecoveryAsync();
 
                 Progressbar.Value = 85;
                 LoadingText.Text = "Todo listo.";
@@ -63,16 +56,25 @@ namespace InventorySystem.Shell
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Advertencia al inicializar base de datos:\n{ex.Message}", "Inicialización", MessageBoxButton.OK, MessageBoxImage.Warning);
-                try
-                {
-                    var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
-                    App.Current.MainWindow = loginWindow;
-                    loginWindow.Show();
-                    Close();
-                }
-                catch { }
+                MessageBox.Show($"Error crítico al iniciar la aplicación:\n{ex.Message}", "Error de inicio", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown(1);
             }
+        }
+
+        /// <summary>
+        /// Inicializa la base de datos con auto-recuperación:
+        /// si el archivo existente está corrupto o no es una DB válida (SQLite error 26),
+        /// lo elimina y reintenta una vez automáticamente.
+        /// </summary>
+        private async Task InitializeDatabaseWithRecoveryAsync()
+        {
+            await Task.Run(async () =>
+            {
+                using var scope = App.ServiceProvider.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<InventorySystem.Data.AppDbContext>();
+                var auth = scope.ServiceProvider.GetRequiredService<InventorySystem.Services.IAuthService>();
+                await InventorySystem.Helpers.DatabaseInitializer.InitializeAsync(db, auth);
+            });
         }
 
   
