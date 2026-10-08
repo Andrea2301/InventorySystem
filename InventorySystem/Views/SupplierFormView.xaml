@@ -6,54 +6,55 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:helpers="clr-namespace:InventorySystem.Helpers"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="600" Width="450"
+        Title="{Binding Title}" Height="610" Width="460"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        FontFamily="Segoe UI"
         Background="Transparent">
 
-    <Border CornerRadius="15" Background="White" BorderBrush="#E0E0E0" BorderThickness="1">
+    <Border CornerRadius="14" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" ClipToBounds="True">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.3" Color="Gray"/>
+            <DropShadowEffect BlurRadius="25" ShadowDepth="4" Opacity="0.18" Color="#172033"/>
         </Border.Effect>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/> <!-- Header -->
+                <RowDefinition Height="56"/> <!-- Header -->
                 <RowDefinition Height="*"/>  <!-- Form -->
                 <RowDefinition Height="70"/> <!-- Footer -->
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" CornerRadius="15,15,0,0" Background="#3F51B5">
+            <Border Grid.Row="0" CornerRadius="14,14,0,0" Background="{StaticResource PrimaryBrandGradient}">
                 <Grid>
                     <TextBlock Text="{Binding Title}" 
                                Foreground="White" 
-                               FontSize="20" 
-                               FontWeight="SemiBold" 
+                               FontSize="19" 
+                               FontWeight="Bold" 
                                VerticalAlignment="Center" 
                                Margin="20,0"/>
 
                     <Button HorizontalAlignment="Right" 
                             VerticalAlignment="Center" 
-                            Margin="0,0,15,0"
+                            Margin="0,0,14,0"
                             Background="Transparent"
                             BorderThickness="0"
                             Cursor="Hand"
                             Command="{Binding CancelCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
-                        <fa:IconImage Icon="Times" Foreground="White" Width="18" Height="18"/>
+                        <fa:IconImage Icon="Xmark" Foreground="White" Width="16" Height="16"/>
                     </Button>
                 </Grid>
             </Border>
 
             <!-- Form Content -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="25,10">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="25,12">
                 <StackPanel>
                     
                     <!-- Status Toggle -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="Supplier Status:" VerticalAlignment="Center" Foreground="#3F51B5" Margin="0,0,15,0"/>
+                        <TextBlock Text="Estado del Proveedor:" VerticalAlignment="Center" Foreground="{StaticResource BrushTitleText}" FontWeight="SemiBold" Margin="0,0,15,0"/>
                         <CheckBox Style="{StaticResource ModernToggleSwitch}" 
                                   IsChecked="{Binding IsActive}" 
                                   Content="{Binding IsActive, Converter={StaticResource BooleanToStatusConverter}}"/>
@@ -133,16 +134,17 @@
             </ScrollViewer>
 
             <!-- Footer Actions -->
-            <Border Grid.Row="2" Background="#F9FAFB" CornerRadius="0,0,15,15">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,25,0">
-                    <Button Content="Cancel" 
-                            Width="110" Height="40" 
+            <Border Grid.Row="2" Background="{StaticResource BrushMainBg}" CornerRadius="0,0,14,14">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,22,0">
+                    <Button Content="Cancelar" 
+                            Width="110" Height="38" 
                             Margin="0,0,12,0"
-                            Background="White"
-                            Foreground="#4B5563"
-                            BorderBrush="#D1D5DB"
+                            Background="{StaticResource BrushSectionLilac}"
+                            Foreground="{StaticResource BrushTitleText}"
+                            BorderBrush="{StaticResource BrushBorderSubtle}"
                             BorderThickness="1"
                             Cursor="Hand"
+                            FontWeight="SemiBold"
                             Command="{Binding CancelCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                         <Button.Resources>
@@ -152,9 +154,9 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button Content="Save Supplier" 
-                            Width="130" Height="40"
-                            Background="#3F51B5"
+                    <Button Content="Guardar Proveedor" 
+                            Width="145" Height="38"
+                            Background="{StaticResource PrimaryBrandGradient}"
                             Foreground="White"
                             BorderThickness="0"
                             Cursor="Hand"

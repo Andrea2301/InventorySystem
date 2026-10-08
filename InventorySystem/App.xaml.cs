@@ -56,7 +56,7 @@ namespace InventorySystem
             }
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
@@ -77,39 +77,9 @@ namespace InventorySystem
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            // Show Splash Screen first
+            // Show Splash Screen (which initializes the database safely and opens LoginWindow upon completion)
             var splashScreen = ServiceProvider.GetRequiredService<Shell.SplashScreen>();
             splashScreen.Show();
-
-            // Initialize Database & Ensure Default Admin asynchronously without blocking UI thread
-            try
-            {
-                using var scope = ServiceProvider.CreateScope();
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                await context.Database.EnsureCreatedAsync();
-
-                // Safe-patch: Ensure BusinessSettings table exists without dropping DB or failing migrations
-                await context.Database.ExecuteSqlRawAsync(@"
-                    CREATE TABLE IF NOT EXISTS ""BusinessSettings"" (
-                        ""Id"" INTEGER NOT NULL CONSTRAINT ""PK_BusinessSettings"" PRIMARY KEY AUTOINCREMENT,
-                        ""CompanyName"" TEXT NOT NULL,
-                        ""TaxId"" TEXT NOT NULL,
-                        ""Address"" TEXT NOT NULL,
-                        ""Phone"" TEXT NOT NULL,
-                        ""Email"" TEXT NOT NULL,
-                        ""TaxPercentage"" TEXT NOT NULL,
-                        ""CurrencySymbol"" TEXT NOT NULL
-                    );
-                ");
-
-                // Initialize Default Admin User
-                var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
-                await authService.EnsureDefaultAdminAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error initializing database or admin user: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void ConfigureServices(IServiceCollection services)

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="#F3F4F6">
+    <Grid Background="{StaticResource BrushMainBg}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -28,7 +28,7 @@
                        Grid.Column="0"
                        FontSize="28" 
                        FontWeight="SemiBold" 
-                       Foreground="#1F2937" 
+                       Foreground="{StaticResource BrushTitleText}" 
                        VerticalAlignment="Center"/>
 
             <!-- Right Actions Group -->
@@ -122,9 +122,9 @@
                                   Style="{StaticResource AddButton}">
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
-                                <Border CornerRadius="20" Background="#4F46E5">
+                                <Border CornerRadius="20" Background="{StaticResource PrimaryBrandGradient}">
                                     <Border.Effect>
-                                        <DropShadowEffect Color="#C7D2FE" BlurRadius="10" ShadowDepth="4" Opacity="0.8"/>
+                                        <DropShadowEffect Color="#4359A8" BlurRadius="10" ShadowDepth="3" Opacity="0.35"/>
                                     </Border.Effect>
                                     <fa:IconImage Icon="Plus" Foreground="White" Width="16" Height="16"/>
                                 </Border>

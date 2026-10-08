@@ -12,12 +12,12 @@
         WindowStyle="None"
         Background="Transparent">
     
-    <Border Background="White" CornerRadius="15" Margin="10">
+    <Border Background="{StaticResource BrushCardWhite}" CornerRadius="18" Margin="10" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" TextElement.FontFamily="Segoe UI">
         <Border.Effect>
-            <DropShadowEffect Color="#000" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
+            <DropShadowEffect Color="#202C47" BlurRadius="28" ShadowDepth="6" Opacity="0.18"/>
         </Border.Effect>
         
-        <Grid Margin="20">
+        <Grid Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/> <!-- Title -->
                 <RowDefinition Height="Auto"/> <!-- Sale Info -->
@@ -29,15 +29,20 @@
             <!-- Title -->
             <StackPanel Grid.Row="0" Margin="0,0,0,20">
                 <Grid>
-                    <TextBlock Text="Sale Transaction Breakdown" FontSize="20" FontWeight="Bold" Foreground="#1F2937"/>
-                    <Button Click="Close_Click" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
-                        <fa:IconImage Icon="Times" Width="16" Foreground="#9CA3AF"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="38" Height="38" CornerRadius="10" Background="{StaticResource BrushSectionLilac}" Margin="0,0,12,0">
+                            <fa:IconImage Icon="Receipt" Foreground="{StaticResource BrushPrimaryBlue}" Width="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Sale Transaction Breakdown" FontSize="20" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Click="Close_Click" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Cursor="Hand" Padding="6">
+                        <fa:IconImage Icon="Times" Width="16" Foreground="{StaticResource BrushSecondaryBlue}"/>
                     </Button>
                 </Grid>
             </StackPanel>
 
             <!-- Sale Info -->
-            <Border Grid.Row="1" Background="#F9FAFB" CornerRadius="10" Padding="15" Margin="0,0,0,20">
+            <Border Grid.Row="1" Background="{StaticResource BrushSectionLilac}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,20">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -45,13 +50,13 @@
                     </Grid.ColumnDefinitions>
                     
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="ORDER NUMBER" Foreground="#9CA3AF" FontSize="10" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Id, StringFormat='#{0}'}" FontSize="16" FontWeight="Bold" Foreground="#1F2937"/>
+                        <TextBlock Text="ORDER NUMBER" Foreground="{StaticResource BrushSecondaryBlue}" FontSize="11" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Id, StringFormat='#{0}'}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" Margin="0,2,0,0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                        <TextBlock Text="SALE DATE" Foreground="#9CA3AF" FontSize="10" FontWeight="Bold" HorizontalAlignment="Right"/>
-                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" FontSize="14" Foreground="#374151" HorizontalAlignment="Right"/>
+                        <TextBlock Text="SALE DATE" Foreground="{StaticResource BrushSecondaryBlue}" FontSize="11" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" FontSize="14" Foreground="{StaticResource BrushTextPrimary}" HorizontalAlignment="Right" Margin="0,2,0,0"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -63,14 +68,29 @@
                       IsReadOnly="True"
                       Background="Transparent"
                       BorderThickness="0"
+                      GridLinesVisibility="None"
+                      RowHeight="38"
                       HeadersVisibility="Column">
                 
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="#6B7280"/>
+                        <Setter Property="Background" Value="{StaticResource BrushSectionLilac}"/>
+                        <Setter Property="Foreground" Value="{StaticResource BrushTitleText}"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Setter Property="Padding" Value="0,5"/>
+                        <Setter Property="Padding" Value="10,8"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+                    </Style>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Padding" Value="10,0"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
                     </Style>
                 </DataGrid.Resources>
 
@@ -82,6 +102,7 @@
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="{StaticResource BrushPrimaryBlue}"/>
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
@@ -91,18 +112,26 @@
 
             <!-- Summary -->
             <StackPanel Grid.Row="3" Margin="0,15,0,0">
-                <Separator Background="#F3F4F6" Margin="0,0,0,15"/>
+                <Separator Background="{StaticResource BrushBorderSubtle}" Margin="0,0,0,15"/>
                 <Grid>
-                    <TextBlock Text="Total Amount" FontSize="18" FontWeight="Bold" Foreground="#1F2937"/>
-                    <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontSize="18" FontWeight="ExtraBold" Foreground="#4F46E5" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Total Amount" FontSize="18" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                    <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontSize="20" FontWeight="Bold" Foreground="{StaticResource BrushPrimaryBlue}" HorizontalAlignment="Right"/>
                 </Grid>
             </StackPanel>
 
             <!-- Footer -->
             <Button Grid.Row="4" Content="Back to History" Click="Close_Click"
-                    Background="#374151" Foreground="White" 
-                    Height="40" Margin="0,20,0,0" 
-                    BorderThickness="0" FontWeight="Bold" Cursor="Hand"/>
+                    Background="{StaticResource PrimaryBrandGradient}" Foreground="White" 
+                    Height="42" Margin="0,20,0,0" 
+                    BorderThickness="0" FontWeight="SemiBold" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Border>
 </Window>

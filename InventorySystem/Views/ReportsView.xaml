@@ -9,7 +9,7 @@
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
 
-    <Grid Background="#F3F4F6">
+    <Grid Background="{StaticResource BrushMainBg}">
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition/>
@@ -20,7 +20,7 @@
             <TextBlock Text="Reports &amp; Analytics" 
                        FontSize="28" 
                        FontWeight="SemiBold" 
-                       Foreground="#1F2937" 
+                       Foreground="{StaticResource BrushTitleText}" 
                        VerticalAlignment="Center"/>
         </Grid>
 

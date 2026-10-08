@@ -1,24 +1,78 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    
-    <!--Color palett -->
-    <SolidColorBrush x:Key="Primary Color" Color="#002966"/>
-    
-    
-    <!--Color Buttons-->
-    <SolidColorBrush x:Key="Buttons" Color="WhiteSmoke"></SolidColorBrush>
+
+    <!-- Base Palette Colors -->
+    <Color x:Key="ColorMainBg">#F3F6F8</Color>
+    <Color x:Key="ColorTextPrimary">#172033</Color>
+    <Color x:Key="ColorTitleText">#202C47</Color>
+    <Color x:Key="ColorPrimaryBlue">#4359A8</Color>
+    <Color x:Key="ColorPrimaryBlueHover">#35498F</Color>
+    <Color x:Key="ColorPurpleAccent">#7C8EF3</Color>
+    <Color x:Key="ColorSecondaryBlue">#5368B5</Color>
+    <Color x:Key="ColorSectionLilac">#E9EDF8</Color>
+    <Color x:Key="ColorCardWhite">#FFFFFF</Color>
+
+    <!-- Base Solid Color Brushes -->
+    <SolidColorBrush x:Key="BrushMainBg" Color="{StaticResource ColorMainBg}"/>
+    <SolidColorBrush x:Key="BrushTextPrimary" Color="{StaticResource ColorTextPrimary}"/>
+    <SolidColorBrush x:Key="BrushTitleText" Color="{StaticResource ColorTitleText}"/>
+    <SolidColorBrush x:Key="BrushPrimaryBlue" Color="{StaticResource ColorPrimaryBlue}"/>
+    <SolidColorBrush x:Key="BrushPrimaryBlueHover" Color="{StaticResource ColorPrimaryBlueHover}"/>
+    <SolidColorBrush x:Key="BrushPurpleAccent" Color="{StaticResource ColorPurpleAccent}"/>
+    <SolidColorBrush x:Key="BrushSecondaryBlue" Color="{StaticResource ColorSecondaryBlue}"/>
+    <SolidColorBrush x:Key="BrushSectionLilac" Color="{StaticResource ColorSectionLilac}"/>
+    <SolidColorBrush x:Key="BrushCardWhite" Color="{StaticResource ColorCardWhite}"/>
+
+    <!-- Subtle Borders & Glass Accents -->
+    <SolidColorBrush x:Key="BrushBorderSubtle" Color="#D9E0EE"/>
+    <SolidColorBrush x:Key="BrushBorderGlassLight" Color="#80FFFFFF"/>
+    <SolidColorBrush x:Key="BrushGlassDarkSurface" Color="#1A202C47"/>
+    <SolidColorBrush x:Key="BrushGlassPillHover" Color="#157C8EF3"/>
+    <SolidColorBrush x:Key="BrushGlassPillActive" Color="#257C8EF3"/>
+    <SolidColorBrush x:Key="BrushTextMuted" Color="#5A6A85"/>
+
+    <!-- Backward Compatibility Aliases -->
+    <SolidColorBrush x:Key="Primary Color" Color="{StaticResource ColorPrimaryBlue}"/>
+    <SolidColorBrush x:Key="Buttons" Color="#FFFFFF"/>
+
+    <!-- Gradients -->
+    <LinearGradientBrush x:Key="PrimaryBrandGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#4359A8" Offset="0.0"/>
+        <GradientStop Color="#7C8EF3" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PrimaryBrandGradientHover" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#35498F" Offset="0.0"/>
+        <GradientStop Color="#6B7DE2" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SidebarBrandGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#202C47" Offset="0.0"/>
+        <GradientStop Color="#35498F" Offset="0.55"/>
+        <GradientStop Color="#4359A8" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SecondaryGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#5368B5" Offset="0.0"/>
+        <GradientStop Color="#7C8EF3" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="CardGlassGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FFFFFF" Offset="0.0"/>
+        <GradientStop Color="#F8FAFD" Offset="1.0"/>
+    </LinearGradientBrush>
 
     <!-- Modern Soft Palette for Actions -->
-    <SolidColorBrush x:Key="SoftEditBg" Color="#ECFDF5"/> <!-- Emerald 50 -->
-    <SolidColorBrush x:Key="SoftEditFg" Color="#059669"/> <!-- Emerald 600 -->
+    <SolidColorBrush x:Key="SoftEditBg" Color="#ECFDF5"/>
+    <SolidColorBrush x:Key="SoftEditFg" Color="#059669"/>
     <SolidColorBrush x:Key="SoftEditHover" Color="#D1FAE5"/>
 
-    <SolidColorBrush x:Key="SoftDeleteBg" Color="#FEF2F2"/> <!-- Red 50 -->
-    <SolidColorBrush x:Key="SoftDeleteFg" Color="#DC2626"/> <!-- Red 600 -->
+    <SolidColorBrush x:Key="SoftDeleteBg" Color="#FEF2F2"/>
+    <SolidColorBrush x:Key="SoftDeleteFg" Color="#DC2626"/>
     <SolidColorBrush x:Key="SoftDeleteHover" Color="#FEE2E2"/>
 
-    <SolidColorBrush x:Key="SoftInfoBg" Color="#EEF2FF"/> <!-- Indigo 50 -->
-    <SolidColorBrush x:Key="SoftInfoFg" Color="#4F46E5"/> <!-- Indigo 600 -->
-    <SolidColorBrush x:Key="SoftInfoHover" Color="#E0E7FF"/>
+    <SolidColorBrush x:Key="SoftInfoBg" Color="{StaticResource ColorSectionLilac}"/>
+    <SolidColorBrush x:Key="SoftInfoFg" Color="{StaticResource ColorPrimaryBlue}"/>
+    <SolidColorBrush x:Key="SoftInfoHover" Color="#D9E0F5"/>
+
 </ResourceDictionary>

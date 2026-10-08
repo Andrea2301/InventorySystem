@@ -8,16 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Loaded="UserControl_Loaded">
 
-    <Grid Background="#F3F4F6">
+    <Grid Background="{StaticResource BrushMainBg}" TextElement.FontFamily="Segoe UI">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
-        <Border Grid.Row="0" Background="White" Padding="30,22" Margin="20,20,20,0" CornerRadius="16">
+        <Border Grid.Row="0" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" Padding="30,22" Margin="20,20,20,0" CornerRadius="16">
             <Border.Effect>
-                <DropShadowEffect Color="#E5E7EB" BlurRadius="12" ShadowDepth="2" Opacity="0.4"/>
+                <DropShadowEffect Color="#202C47" BlurRadius="12" ShadowDepth="2" Opacity="0.06"/>
             </Border.Effect>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -25,12 +25,12 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
-                    <Border Width="52" Height="52" CornerRadius="14" Background="#EEF2FF" Margin="0,0,18,0">
-                        <fa:IconImage Icon="Database" Foreground="#4F46E5" Width="26" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Width="52" Height="52" CornerRadius="14" Background="{StaticResource BrushSectionLilac}" Margin="0,0,18,0">
+                        <fa:IconImage Icon="Database" Foreground="{StaticResource BrushPrimaryBlue}" Width="26" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="{DynamicResource MaintTitle}" FontSize="22" FontWeight="Bold" Foreground="#111827" TextWrapping="Wrap"/>
-                        <TextBlock Text="{DynamicResource MaintSubtitle}" Foreground="#6B7280" FontSize="13" Margin="0,2,0,0" TextWrapping="Wrap"/>
+                        <TextBlock Text="{DynamicResource MaintTitle}" FontSize="22" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{DynamicResource MaintSubtitle}" Foreground="{StaticResource BrushSecondaryBlue}" FontSize="13" Margin="0,2,0,0" TextWrapping="Wrap"/>
                     </StackPanel>
                 </StackPanel>
                 
@@ -38,23 +38,23 @@
                     <Button Command="{Binding OpenFolderCommand}" Cursor="Hand" Margin="0,5,10,5" Background="Transparent" BorderThickness="0" Padding="0">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="#F9FAFB" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Padding="14,8">
+                                <Border Background="{StaticResource BrushSectionLilac}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="10" Padding="14,8">
                                     <ContentPresenter/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="FolderOpen" Foreground="#6B7280" Width="13" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="{DynamicResource MaintDbLocation}" FontWeight="SemiBold" Foreground="#374151" FontSize="12" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding DatabasePath}" Foreground="#6B7280" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" MaxWidth="200" TextTrimming="CharacterEllipsis" ToolTip="{Binding DatabasePath}"/>
+                            <fa:IconImage Icon="FolderOpen" Foreground="{StaticResource BrushPrimaryBlue}" Width="13" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource MaintDbLocation}" FontWeight="SemiBold" Foreground="{StaticResource BrushTitleText}" FontSize="12" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding DatabasePath}" Foreground="{StaticResource BrushTextPrimary}" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" MaxWidth="200" TextTrimming="CharacterEllipsis" ToolTip="{Binding DatabasePath}"/>
                         </StackPanel>
                     </Button>
                     
-                    <Border Background="#F9FAFB" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Padding="14,8" Margin="0,5,0,5">
+                    <Border Background="{StaticResource BrushSectionLilac}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="10" Padding="14,8" Margin="0,5,0,5">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="HardDrive" Foreground="#6B7280" Width="13" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="{DynamicResource MaintDbSize}" FontWeight="SemiBold" Foreground="#374151" FontSize="12" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding DatabaseSize}" Foreground="#6B7280" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                            <fa:IconImage Icon="HardDrive" Foreground="{StaticResource BrushPrimaryBlue}" Width="13" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource MaintDbSize}" FontWeight="SemiBold" Foreground="{StaticResource BrushTitleText}" FontSize="12" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding DatabaseSize}" Foreground="{StaticResource BrushTextPrimary}" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </WrapPanel>
@@ -66,10 +66,10 @@
             <StackPanel>
 
                 <!-- Language Section -->
-                <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                <Border Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1"
                         CornerRadius="16" Padding="28,22" Margin="0,0,0,14">
                     <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="1" Opacity="0.3"/>
+                        <DropShadowEffect Color="#202C47" BlurRadius="10" ShadowDepth="1" Opacity="0.05"/>
                     </Border.Effect>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -78,16 +78,16 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" Width="48" Height="48" CornerRadius="12"
-                                Background="#F0FDF4" Margin="0,0,18,0">
-                            <fa:IconImage Icon="Language" Foreground="#16A34A" Width="22"
+                                Background="{StaticResource BrushSectionLilac}" Margin="0,0,18,0">
+                            <fa:IconImage Icon="Language" Foreground="{StaticResource BrushPrimaryBlue}" Width="22"
                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="{DynamicResource MaintLanguageTitle}" FontSize="16" FontWeight="Bold" Foreground="#111827"/>
-                            <TextBlock Text="{DynamicResource MaintLanguageDesc}" Foreground="#6B7280" FontSize="13" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource MaintLanguageTitle}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                            <TextBlock Text="{DynamicResource MaintLanguageDesc}" Foreground="{StaticResource BrushSecondaryBlue}" FontSize="13" Margin="0,3,0,0" TextWrapping="Wrap"/>
                         </StackPanel>
-                        <Border Grid.Column="2" BorderBrush="#E5E7EB" BorderThickness="1"
-                                CornerRadius="10" Background="#F9FAFB" Margin="20,0,0,0">
+                        <Border Grid.Column="2" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1"
+                                CornerRadius="10" Background="{StaticResource BrushSectionLilac}" Margin="20,0,0,0">
                             <ComboBox Width="200" Height="42"
                                       VerticalContentAlignment="Center"
                                       ItemsSource="{Binding LanguagesList}"
@@ -97,28 +97,29 @@
                                       FontSize="13"
                                       FontWeight="SemiBold"
                                       BorderThickness="0"
-                                      Background="Transparent"/>
+                                      Background="Transparent"
+                                      Foreground="{StaticResource BrushTextPrimary}"/>
                         </Border>
                     </Grid>
                 </Border>
 
                 <!-- Business Settings Section -->
-                <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                <Border Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1"
                         CornerRadius="16" Padding="28,22" Margin="0,0,0,14">
                     <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="1" Opacity="0.3"/>
+                        <DropShadowEffect Color="#202C47" BlurRadius="10" ShadowDepth="1" Opacity="0.05"/>
                     </Border.Effect>
                     <StackPanel>
                         <!-- Title header -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                             <Border Width="48" Height="48" CornerRadius="12"
-                                    Background="#EEF2FF" Margin="0,0,18,0">
-                                <fa:IconImage Icon="Building" Foreground="#4F46E5" Width="22"
+                                    Background="{StaticResource BrushSectionLilac}" Margin="0,0,18,0">
+                                <fa:IconImage Icon="Building" Foreground="{StaticResource BrushPrimaryBlue}" Width="22"
                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <StackPanel VerticalAlignment="Center">
-                                <TextBlock Text="{DynamicResource MaintBusinessSettingsTitle}" FontSize="16" FontWeight="Bold" Foreground="#111827"/>
-                                <TextBlock Text="Configure details that appear on printed receipts and PDF invoices." Foreground="#6B7280" FontSize="13" Margin="0,2,0,0"/>
+                                <TextBlock Text="{DynamicResource MaintBusinessSettingsTitle}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                                <TextBlock Text="Configure details that appear on printed receipts and PDF invoices." Foreground="{StaticResource BrushSecondaryBlue}" FontSize="13" Margin="0,2,0,0"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -138,21 +139,21 @@
 
                             <!-- Row 0: Company Name & Tax ID -->
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,12">
-                                <TextBlock Text="{DynamicResource MaintLabelCompany}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                <TextBlock Text="{DynamicResource MaintLabelCompany}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                 <TextBox Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,12">
-                                <TextBlock Text="{DynamicResource MaintLabelTaxId}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                <TextBlock Text="{DynamicResource MaintLabelTaxId}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                 <TextBox Text="{Binding TaxId, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                             </StackPanel>
 
                             <!-- Row 1: Address & Phone -->
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,12">
-                                <TextBlock Text="{DynamicResource MaintLabelAddress}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                <TextBlock Text="{DynamicResource MaintLabelAddress}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                 <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,12">
-                                <TextBlock Text="{DynamicResource MaintLabelPhone}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                <TextBlock Text="{DynamicResource MaintLabelPhone}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                 <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                             </StackPanel>
 
@@ -164,17 +165,17 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{DynamicResource MaintLabelEmail}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                    <TextBlock Text="{DynamicResource MaintLabelEmail}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                     <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="{DynamicResource MaintLabelTaxPercentage}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                    <TextBlock Text="{DynamicResource MaintLabelTaxPercentage}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                     <TextBox Text="{Binding TaxPercentage, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13"/>
                                 </StackPanel>
                             </Grid>
 
                             <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,20">
-                                <TextBlock Text="{DynamicResource MaintLabelCurrencySymbol}" Foreground="#4B5563" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                <TextBlock Text="{DynamicResource MaintLabelCurrencySymbol}" Foreground="{StaticResource BrushTitleText}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,6"/>
                                 <TextBox Text="{Binding CurrencySymbol, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ValidatingTextBox}" Height="38" Padding="10,0" VerticalContentAlignment="Center" FontSize="13" MaxLength="5"/>
                             </StackPanel>
 
@@ -197,9 +198,9 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Backup Card -->
-                    <Border Grid.Column="0" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="16" Padding="30">
+                    <Border Grid.Column="0" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="16" Padding="30">
                         <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="1" Opacity="0.3"/>
+                            <DropShadowEffect Color="#202C47" BlurRadius="10" ShadowDepth="1" Opacity="0.05"/>
                         </Border.Effect>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -208,16 +209,16 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,14">
-                                <Border Width="52" Height="52" CornerRadius="14" Background="#EEF2FF" Margin="0,0,16,0">
-                                    <fa:IconImage Icon="CloudDownloadAlt" Foreground="#4F46E5" Width="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Width="52" Height="52" CornerRadius="14" Background="{StaticResource BrushSectionLilac}" Margin="0,0,16,0">
+                                    <fa:IconImage Icon="CloudDownloadAlt" Foreground="{StaticResource BrushPrimaryBlue}" Width="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="{DynamicResource MaintLocalBackup}" FontSize="17" FontWeight="Bold" Foreground="#111827"/>
-                                    <TextBlock Text="Local · Seguro" Foreground="#6366F1" FontSize="11" FontWeight="SemiBold" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{DynamicResource MaintLocalBackup}" FontSize="17" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                                    <TextBlock Text="Local · Seguro" Foreground="{StaticResource BrushPurpleAccent}" FontSize="11" FontWeight="SemiBold" Margin="0,2,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                             <TextBlock Grid.Row="1" Text="{DynamicResource MaintBackupDesc}"
-                                       Foreground="#6B7280" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{StaticResource BrushTextPrimary}" FontSize="13" TextWrapping="Wrap"
                                        LineHeight="20" Margin="0,0,0,20"/>
                             <Button Grid.Row="2" Content="{DynamicResource MaintBtnBackup}"
                                     Style="{StaticResource Pop}"
@@ -228,9 +229,9 @@
                     </Border>
 
                     <!-- Restore Card -->
-                    <Border Grid.Column="2" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="16" Padding="30">
+                    <Border Grid.Column="2" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="16" Padding="30">
                         <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="1" Opacity="0.3"/>
+                            <DropShadowEffect Color="#202C47" BlurRadius="10" ShadowDepth="1" Opacity="0.05"/>
                         </Border.Effect>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -243,28 +244,28 @@
                                     <fa:IconImage Icon="History" Foreground="#DC2626" Width="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="{DynamicResource MaintRestoreData}" FontSize="17" FontWeight="Bold" Foreground="#111827"/>
+                                    <TextBlock Text="{DynamicResource MaintRestoreData}" FontSize="17" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
                                     <TextBlock Text="Acción irreversible" Foreground="#DC2626" FontSize="11" FontWeight="SemiBold" Margin="0,2,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                             <TextBlock Grid.Row="1" Text="{DynamicResource MaintRestoreDesc}"
-                                       Foreground="#6B7280" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{StaticResource BrushTextPrimary}" FontSize="13" TextWrapping="Wrap"
                                        LineHeight="20" Margin="0,0,0,20"/>
                             <Button Grid.Row="2" Content="{DynamicResource MaintBtnRestore}"
                                     Style="{StaticResource btnDelete}"
                                     Command="{Binding RestoreCommand}"
                                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}, FallbackValue=True}"
-                                    Height="44" Width="350" HorizontalAlignment="Stretch" Padding="20,0"/>
+                                    Height="44" Width="390" HorizontalAlignment="Stretch" Padding="20,0"/>
                         </Grid>
                     </Border>
                 </Grid>
 
                 <!-- Busy Indicator -->
-                <Border Background="White" CornerRadius="12" Padding="20,14"
+                <Border Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" CornerRadius="12" Padding="20,14"
                         Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Control Style="{StaticResource LoadingSpinner}" Width="20" Height="20" Margin="0,0,12,0"/>
-                        <TextBlock Text="{DynamicResource MaintProcessing}" Foreground="#4F46E5"
+                        <TextBlock Text="{DynamicResource MaintProcessing}" Foreground="{StaticResource BrushPrimaryBlue}"
                                    FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Border>

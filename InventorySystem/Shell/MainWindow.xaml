@@ -6,18 +6,21 @@
         xmlns:local="clr-namespace:InventorySystem"
         xmlns:viewModel="clr-namespace:InventorySystem.ViewModel"
         xmlns:Icons="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" xmlns:local1="clr-namespace:InventorySystem.Views"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:local1="clr-namespace:InventorySystem.Views"
         mc:Ignorable="d"
         Icon="../Assets/Img/modelado_multi.ico"
-        Title="Dashboard" Height="700" Width="1260"
+        Title="INVST - Inventory Management System" 
+        Height="720" Width="1280"
+        MinHeight="650" MinWidth="1050"
         WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" Background="Transparent"  AllowsTransparency="True"
+        WindowStyle="None" 
+        Background="Transparent"  
+        AllowsTransparency="True"
         UseLayoutRounding="True"
+        FontFamily="Segoe UI"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="ClearType">
-
-
-
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -52,228 +55,347 @@
             <local1:MaintenanceView/>
         </DataTemplate>
 
-
+        <!-- Close button specialized hover -->
+        <Style x:Key="CloseWindowButton" TargetType="Button" BasedOn="{StaticResource controlButton}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FEE2E2"/>
+                    <Setter Property="Foreground" Value="#DC2626"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Window.Style>
-        <Style/>
-    </Window.Style>
 
-
-    <Border CornerRadius="10"
-            BorderThickness="1">
-
+    <!-- Outer Window Border with Depth Shadow -->
+    <Border CornerRadius="16"
+            Background="{StaticResource BrushMainBg}"
+            BorderBrush="{StaticResource BrushBorderSubtle}"
+            BorderThickness="1"
+            ClipToBounds="True">
+        <Border.Effect>
+            <DropShadowEffect Color="#172033" BlurRadius="30" ShadowDepth="4" Opacity="0.18"/>
+        </Border.Effect>
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <!--Menu-->
-                <ColumnDefinition Width="250"/>
-                <!--Content-->
+                <!-- Navigation Sidebar -->
+                <ColumnDefinition Width="260"/>
+                <!-- Main Workspace -->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--Navigation menu-->
 
-            <Border CornerRadius="10,0,0,10"
-                    Grid.Column="0">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0"  EndPoint="1,0.7">
-                        <GradientStop Color="#3F51B5" Offset="0"/>
-                        <GradientStop Color="#5d7dd4" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                                Height="59"
-                                Margin="15,25,0,40">
-                        <Image Source="../Assets/img/logo.png" Height="55"/>
-                        <TextBlock Text="INVST"
-                               Foreground="#D5CFF5"
-                               FontSize="20"
-                               FontFamily="Monserrat"
-                               FontWeight="Medium" Width="60"
-                               VerticalAlignment="Center"
-                               Margin="10,10,0,0"/>
-                    </StackPanel>
-
-                    <!--Menu Bottons-->
-
-                    <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
-                        <Expander.Header>
-                            <TextBlock Text="{DynamicResource HeaderGeneral}" Style="{StaticResource ExpanderHeaderText}"/>
-                        </Expander.Header>
-                        <StackPanel>
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         IsChecked="True"
-                                         Command="{Binding ShowHomeViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="Home" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuHome}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-                        </StackPanel>
-                    </Expander>
-
-                    <Expander Style="{StaticResource MenuExpander}">
-                        <Expander.Header>
-                            <TextBlock Text="{DynamicResource HeaderManagement}" Style="{StaticResource ExpanderHeaderText}"/>
-                        </Expander.Header>
-                        <StackPanel>
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowClientViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuClients}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowProductsViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="Boxes" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuProducts}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowSupplierViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="Truck" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuSuppliers}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-                        </StackPanel>
-                    </Expander>
-
-                    <Expander Style="{StaticResource MenuExpander}">
-                        <Expander.Header>
-                            <TextBlock Text="{DynamicResource HeaderSales}" Style="{StaticResource ExpanderHeaderText}"/>
-                        </Expander.Header>
-                        <StackPanel>
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowSaleViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="FileInvoiceDollar" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuSales}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowSalesHistoryViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="History" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuHistory}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-                        </StackPanel>
-                    </Expander>
-
-                    <Expander Style="{StaticResource MenuExpander}">
-                        <Expander.Header>
-                            <TextBlock Text="{DynamicResource HeaderSystem}" Style="{StaticResource ExpanderHeaderText}"/>
-                        </Expander.Header>
-                        <StackPanel>
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowReportsViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuReports}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-
-                            <RadioButton Style="{StaticResource MenuBottons}"
-                                         GroupName="MainMenu"
-                                         Command="{Binding ShowMaintenanceViewCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa:IconImage Icon="Database" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="{DynamicResource MenuMaintenance}" Style="{StaticResource ButtonText}"/>
-                                </StackPanel>
-                            </RadioButton>
-                        </StackPanel>
-                    </Expander>
-                </StackPanel>
-            </Border>
-            <!--Main-->
-            <Border CornerRadius="0,10,10,0"
-                    Grid.Column="1">
-                <Border.Background>
-                    <LinearGradientBrush  StartPoint="1,1" EndPoint="0,0">
-                        <GradientStop Color=" #F5F5F5" Offset="0"/>
-                        <GradientStop Color="#F5F5F5" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-
+            <!-- ================= SIDEBAR ================= -->
+            <Border Grid.Column="0"
+                    CornerRadius="16,0,0,16"
+                    Background="{StaticResource SidebarBrandGradient}"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="#25FFFFFF">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <!--Control buttons-->
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="35"/>
+                        <!-- Brand Header -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Navigation Items (Scrollable) -->
+                        <RowDefinition Height="*"/>
+                        <!-- Footer / System Info -->
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Decorative ambient glow inside sidebar -->
+                    <Ellipse Grid.Row="0" Width="180" Height="180"
+                             HorizontalAlignment="Left" VerticalAlignment="Top"
+                             Margin="-60,-60,0,0" Opacity="0.12">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#7C8EF3" Offset="0"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <!-- BRAND / LOGO -->
+                    <StackPanel Grid.Row="0" Margin="18,22,18,12">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Glassmorphism Logo Badge -->
+                            <Border Width="42" Height="42"
+                                    CornerRadius="12"
+                                    Background="#22FFFFFF"
+                                    BorderBrush="#35FFFFFF"
+                                    BorderThickness="1">
+                                <Image Source="../Assets/img/logo.png" Height="26" Width="26"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="INVST"
+                                           Foreground="#FFFFFF"
+                                           FontSize="19"
+                                           FontWeight="Bold"/>
+                                <TextBlock Text="INVENTORY SYSTEM"
+                                           Foreground="{StaticResource BrushPurpleAccent}"
+                                           FontSize="9.5"
+                                           FontWeight="SemiBold"
+                                           Margin="0,1,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Sutil Separator -->
+                        <Rectangle Height="1" Fill="#1FFFFFFF" Margin="2,16,2,0"/>
+                    </StackPanel>
+
+                    <!-- NAVIGATION MENU ITEMS -->
+                    <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel Margin="6,6,6,10">
+
+                            <!-- General Section -->
+                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource HeaderGeneral}" Style="{StaticResource ExpanderHeaderText}"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 IsChecked="True"
+                                                 Command="{Binding ShowHomeViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="ChartLine" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuHome}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- Management Section -->
+                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource HeaderManagement}" Style="{StaticResource ExpanderHeaderText}"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowClientViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuClients}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowProductsViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="BoxesStacked" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuProducts}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowSupplierViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="TruckFast" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuSuppliers}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- Sales Section -->
+                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource HeaderSales}" Style="{StaticResource ExpanderHeaderText}"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowSaleViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="CashRegister" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuSales}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowSalesHistoryViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="ClockRotateLeft" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuHistory}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- System Section -->
+                            <Expander Style="{StaticResource MenuExpander}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource HeaderSystem}" Style="{StaticResource ExpanderHeaderText}"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowReportsViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuReports}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+
+                                    <RadioButton Style="{StaticResource MenuBottons}"
+                                                 GroupName="MainMenu"
+                                                 Command="{Binding ShowMaintenanceViewCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:IconImage Icon="Database" Style="{StaticResource MenuButtonIcon}"/>
+                                            <TextBlock Text="{DynamicResource MenuMaintenance}" Style="{StaticResource ButtonText}"/>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </Expander>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- SIDEBAR FOOTER (Glass Badge) -->
+                    <Border Grid.Row="2"
+                            Margin="14,10,14,16"
+                            Padding="12,10"
+                            CornerRadius="12"
+                            Background="#18FFFFFF"
+                            BorderBrush="#25FFFFFF"
+                            BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Width="30" Height="30"
+                                    CornerRadius="15"
+                                    Background="{StaticResource BrushPrimaryBlue}">
+                                <fa:IconImage Icon="Check" Foreground="White" Width="14" Height="14"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="Sistema Activo"
+                                           Foreground="#FFFFFF"
+                                           FontSize="12"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="v1.1.0 • Seguro"
+                                           Foreground="#A9B8DF"
+                                           FontSize="10.5"/>
+                            </StackPanel>
+
+                            <Ellipse Grid.Column="2" Width="8" Height="8"
+                                     Fill="#10B981"
+                                     VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ================= MAIN WORKSPACE ================= -->
+            <Border Grid.Column="1"
+                    CornerRadius="0,16,16,0"
+                    Background="{StaticResource BrushMainBg}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Top Draggable Bar & Window Controls -->
+                        <RowDefinition Height="42"/>
+                        <!-- Module Breadcrumb / Header Bar -->
+                        <RowDefinition Height="56"/>
+                        <!-- Active Module View Content -->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel x:Name="ControlBar"
-                                Grid.Row="0"
-                                Orientation="Horizontal"
-                                FlowDirection="RightToLeft"
-                                Background="Transparent"
-                                Margin="0,15,5,-10"
-                                MouseLeftButtonDown="ControlBar_MouseLeftButtonDown"
-                                MouseEnter="ControlBar_MouseEnter">
-
-                        <Button x:Name="Btn_Close"
-                                Style="{StaticResource controlButton}"
-                                Click="Btn_Close_Click">
-                            <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
-                        </Button>
-                        <Button x:Name="Btn_Maximize"
-                                Style="{StaticResource controlButton}"
-                                Click="Btn_Maximize_Click">
-                            <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
-
-                        </Button>
-                        <Button x:Name="Btn_Minimize"
-                                Style="{StaticResource controlButton}"
-                                Click="Btn_Minimize_Click">
-                            <fa:IconImage Icon="WindowMinimize" Style="{StaticResource controlButtonIcon}"/>
-                        </Button>
-                    </StackPanel>
-
-                    <!--Header title-->
-
-                    <Grid Grid.Row="1">
+                    <!-- TOP DRAGGABLE CONTROL BAR -->
+                    <Grid Grid.Row="0"
+                          x:Name="ControlBar"
+                          Background="Transparent"
+                          MouseLeftButtonDown="ControlBar_MouseLeftButtonDown"
+                          MouseEnter="ControlBar_MouseEnter">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition>
-                            </ColumnDefinition>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+
+                        <!-- Window Controls (Minimize, Maximize, Close) -->
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,12,0">
+                            <Button x:Name="Btn_Minimize"
+                                    Style="{StaticResource controlButton}"
+                                    ToolTip="Minimizar"
+                                    Click="Btn_Minimize_Click">
+                                <fa:IconImage Icon="WindowMinimize" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+
+                            <Button x:Name="Btn_Maximize"
+                                    Style="{StaticResource controlButton}"
+                                    ToolTip="Maximizar"
+                                    Click="Btn_Maximize_Click">
+                                <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+
+                            <Button x:Name="Btn_Close"
+                                    Style="{StaticResource CloseWindowButton}"
+                                    ToolTip="Cerrar"
+                                    Click="Btn_Close_Click">
+                                <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+                        </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Column="0"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Center">
 
-                        <fa:IconImage Icon="{Binding IconChar}"
-                                      Foreground="#3f51b5"
-                                      Height="20"
-                                      Width="20"
-                                      Margin="35,0,10,-15"/>
-                        <TextBlock Text="{Binding Caption}"
-                                   Foreground="DimGray"
-                                   FontSize="16"
-                                   FontWeight="DemiBold"
-                                   VerticalAlignment="Center"
-                                    Margin="10,0,10,-15"/>
-                    </StackPanel>
-                    <Grid Grid.Row="2">
-                        <ContentControl Content="{Binding CurrentChildView}"
-                            Margin="0,0,9,-22"
-                            Height="auto"
-                            Width="auto" Opacity="0.9"/>
+                    <!-- MODULE HEADER / BREADCRUMB BAR -->
+                    <Border Grid.Row="1"
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="{StaticResource BrushBorderSubtle}"
+                            Padding="28,0,28,0"
+                            VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- Current Module Title & Icon -->
+                            <StackPanel Grid.Column="0"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,0,8">
+                                <!-- Glassmorphic Icon Badge -->
+                                <Border Width="38" Height="38"
+                                        CornerRadius="10"
+                                        Background="{StaticResource BrushSectionLilac}"
+                                        BorderBrush="#D5DEF5"
+                                        BorderThickness="1">
+                                    <fa:IconImage Icon="{Binding IconChar}"
+                                                  Foreground="{StaticResource BrushPrimaryBlue}"
+                                                  Height="18"
+                                                  Width="18"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Caption}"
+                                               Foreground="{StaticResource BrushTitleText}"
+                                               FontSize="18"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="Panel de Administración y Control"
+                                               Foreground="{StaticResource BrushTextMuted}"
+                                               FontSize="11.5"
+                                               Margin="0,1,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- MODULE VIEW CONTAINER -->
+                    <Grid Grid.Row="2" Margin="14,10,14,14">
+                        <ContentControl Content="{Binding CurrentChildView}"/>
                     </Grid>
                 </Grid>
             </Border>

@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        FontFamily="Segoe UI"
         Background="Transparent">
 
     <Window.Resources>
@@ -38,8 +39,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="border" 
-                                Background="White" 
-                                BorderBrush="#E5E7EB" 
+                                Background="{StaticResource BrushCardWhite}" 
+                                BorderBrush="{StaticResource BrushBorderSubtle}" 
                                 BorderThickness="1.5" 
                                 CornerRadius="12" 
                                 Padding="15" 
@@ -52,7 +53,7 @@
                                 </Grid.ColumnDefinitions>
                                 <fa:IconImage x:Name="icon" 
                                               Icon="MoneyBillWave" 
-                                              Foreground="#9CA3AF" 
+                                              Foreground="{StaticResource BrushTextMuted}" 
                                               Width="24" 
                                               Height="24"
                                               Margin="0,0,12,0"/>
@@ -63,12 +64,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#4F46E5"/>
-                                <Setter TargetName="border" Property="Background" Value="#EEF2FF"/>
-                                <Setter TargetName="icon" Property="Foreground" Value="#4F46E5"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BrushPrimaryBlue}"/>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource BrushSectionLilac}"/>
+                                <Setter TargetName="icon" Property="Foreground" Value="{StaticResource BrushPrimaryBlue}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#F9FAFB"/>
+                                <Setter TargetName="border" Property="Background" Value="#F8FAFD"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -77,9 +78,9 @@
         </Style>
     </Window.Resources>
 
-    <Border CornerRadius="16" Background="White" BorderBrush="#E5E7EB" BorderThickness="1">
+    <Border CornerRadius="16" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" ClipToBounds="True">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.15" Color="Black"/>
+            <DropShadowEffect BlurRadius="25" ShadowDepth="4" Opacity="0.18" Color="#172033"/>
         </Border.Effect>
 
         <Grid>
@@ -90,7 +91,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" CornerRadius="15,15,0,0" Background="#002966" Margin="0,0,0,10">
+            <Border Grid.Row="0" CornerRadius="15,15,0,0" Background="{StaticResource PrimaryBrandGradient}" Margin="0,0,0,10">
                 <Grid Margin="20,0">
                     <TextBlock Text="Procesar Pago" 
                                FontSize="20" 
@@ -101,10 +102,10 @@
                     <Button Command="{Binding CancelCommand}"
                             HorizontalAlignment="Right" 
                             VerticalAlignment="Center" 
-                            Background="Transparent"
-                            BorderThickness="0"
+                            Background="Transparent" 
+                            BorderThickness="0" 
                             Cursor="Hand">
-                        <fa:IconImage Icon="Times" Foreground="White" Width="18" Height="18"/>
+                        <fa:IconImage Icon="Xmark" Foreground="White" Width="17" Height="17"/>
                     </Button>
                 </Grid>
             </Border>
@@ -352,16 +353,16 @@ Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,-25,5,-
             </Grid>
 
             <!-- Footer Action Buttons -->
-            <Border Grid.Row="2" Background="#F9FAFB" CornerRadius="0,0,15,15" BorderBrush="#E5E7EB" BorderThickness="0,1,0,0">
+            <Border Grid.Row="2" Background="{StaticResource BrushMainBg}" CornerRadius="0,0,15,15" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="0,1,0,0">
                 <Grid Margin="20,0">
                     <Button Command="{Binding CancelCommand}"
                             Content="Cancelar" 
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Center" 
                             Width="120" Height="40" 
-                            Background="White" 
-                            Foreground="#4B5563" 
-                            BorderBrush="#D1D5DB"
+                            Background="{StaticResource BrushSectionLilac}" 
+                            Foreground="{StaticResource BrushTitleText}" 
+                            BorderBrush="{StaticResource BrushBorderSubtle}"
                             BorderThickness="1"
                             Cursor="Hand">
                         <Button.Resources>

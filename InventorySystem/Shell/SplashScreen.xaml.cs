@@ -28,41 +28,50 @@ namespace InventorySystem.Shell
             InitializeComponent();
         }
 
-        private void Window_ContentRendered(object sender, EventArgs e)
+        private async void Window_ContentRendered(object sender, EventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.DoWork += worker_DoWork;
-            worker.ProgressChanged += worker_ProgressChanged;
-            worker.RunWorkerAsync();
-        }
-
-        private void worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
-        {
-            Progressbar.Value = e.ProgressPercentage;
-
-            if (Progressbar.Value == 100)
+            try
             {
+                LoadingText.Text = "Iniciando sistema...";
+                Progressbar.IsIndeterminate = false;
+                Progressbar.Value = 15;
+
+                await Task.Delay(150);
+
+                LoadingText.Text = "Verificando base de datos y esquema...";
+                Progressbar.Value = 40;
+
+                // Ejecutar la inicialización completa y autorreparación de la base de datos
+                await Task.Run(async () =>
+                {
+                    using var scope = App.ServiceProvider.CreateScope();
+                    var db = scope.ServiceProvider.GetRequiredService<InventorySystem.Data.AppDbContext>();
+                    var auth = scope.ServiceProvider.GetRequiredService<InventorySystem.Services.IAuthService>();
+                    await InventorySystem.Helpers.DatabaseInitializer.InitializeAsync(db, auth);
+                });
+
+                Progressbar.Value = 85;
+                LoadingText.Text = "Todo listo.";
+                await Task.Delay(250);
+
+                Progressbar.Value = 100;
+
+                var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
+                App.Current.MainWindow = loginWindow;
+                loginWindow.Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Advertencia al inicializar base de datos:\n{ex.Message}", "Inicialización", MessageBoxButton.OK, MessageBoxImage.Warning);
                 try
                 {
                     var loginWindow = App.ServiceProvider.GetRequiredService<LoginWindow>();
                     App.Current.MainWindow = loginWindow;
-                    loginWindow.Show();  // Muestra la ventana de Login primero
-                    Close();             // Cierra el SplashScreen una vez que el Login ya es visible
+                    loginWindow.Show();
+                    Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error Opening LoginWindow");
-                }
-            }
-        }
-
-        void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            for (int i = 0; i <= 100; i++)
-            {
-                (sender as BackgroundWorker)?.ReportProgress(i);
-                Thread.Sleep(65);
+                catch { }
             }
         }
 

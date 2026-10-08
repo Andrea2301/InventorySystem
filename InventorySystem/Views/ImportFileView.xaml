@@ -7,10 +7,11 @@
         xmlns:viewModel="clr-namespace:InventorySystem.ViewModel"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="Import File" Height="400" Width="500"
+        Title="Import File" Height="410" Width="510"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        FontFamily="Segoe UI"
         Background="Transparent">
 
     <Window.Resources>
@@ -26,36 +27,37 @@
         </Style>
     </Window.Resources>
 
-    <Border CornerRadius="10" Background="White" BorderBrush="#E0E0E0" BorderThickness="1">
+    <Border CornerRadius="14" Background="{StaticResource BrushCardWhite}" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1" ClipToBounds="True">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.3" Color="Gray"/>
+            <DropShadowEffect BlurRadius="25" ShadowDepth="4" Opacity="0.18" Color="#172033"/>
         </Border.Effect>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/> <!-- Header -->
+                <RowDefinition Height="52"/> <!-- Header -->
                 <RowDefinition Height="*"/>  <!-- Drop Zone -->
-                <RowDefinition Height="60"/> <!-- Footer -->
+                <RowDefinition Height="65"/> <!-- Footer -->
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" CornerRadius="10,10,0,0" Background="#3F51B5">
+            <Border Grid.Row="0" CornerRadius="14,14,0,0" Background="{StaticResource PrimaryBrandGradient}">
                 <Grid>
-                    <TextBlock Text="Import Excel File" 
+                    <TextBlock Text="Importar Archivo Excel" 
                                Foreground="White" 
-                               FontSize="18" 
-                               FontWeight="SemiBold" 
+                               FontSize="17.5" 
+                               FontWeight="Bold" 
                                VerticalAlignment="Center" 
                                Margin="20,0"/>
 
                     <Button HorizontalAlignment="Right" 
                             VerticalAlignment="Center" 
-                            Margin="0,0,10,0"
+                            Margin="0,0,14,0"
                             Background="Transparent"
                             BorderThickness="0"
+                            Cursor="Hand"
                             Command="{Binding CancelCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
-                        <fa:IconImage Icon="Times" Foreground="White" Width="15" Height="15"/>
+                        <fa:IconImage Icon="Xmark" Foreground="White" Width="15" Height="15"/>
                     </Button>
                 </Grid>
             </Border>
@@ -146,32 +148,36 @@
 
             <!-- Footer Actions -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-                <Button Content="Cancel" 
-                        Width="100" Height="35" 
+                <Button Content="Cancelar" 
+                        Width="105" Height="36" 
                         Margin="0,0,10,0"
-                        Background="White"
-                        Foreground="#3F51B5"
-                        BorderBrush="#3F51B5"
+                        Background="{StaticResource BrushSectionLilac}"
+                        Foreground="{StaticResource BrushTitleText}"
+                        BorderBrush="{StaticResource BrushBorderSubtle}"
                         BorderThickness="1"
+                        Cursor="Hand"
+                        FontWeight="SemiBold"
                         Command="{Binding CancelCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
 
-                <Button Content="Import" 
-                        Width="100" Height="35"
-                        Background="#3F51B5"
+                <Button Content="Importar" 
+                        Width="110" Height="36"
+                        Background="{StaticResource PrimaryBrandGradient}"
                         Foreground="White"
                         BorderThickness="0"
+                        Cursor="Hand"
+                        FontWeight="SemiBold"
                         Command="{Binding ConfirmImportCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>

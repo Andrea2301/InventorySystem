@@ -68,9 +68,13 @@ namespace InventorySystem.ViewModel
 
         private async Task ExecuteLoginAsync()
         {
+            if (IsLoading) return;
+
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
-                ShowError("Please enter your username and password.");
+                var emptyMsg = System.Windows.Application.Current.TryFindResource("LoginErrorEmpty") as string 
+                    ?? "Please enter your username and password.";
+                ShowError(emptyMsg);
                 return;
             }
 
@@ -83,7 +87,9 @@ namespace InventorySystem.ViewModel
 
                 if (user == null)
                 {
-                    ShowError("Invalid credentials. Please try again.");
+                    var invalidMsg = System.Windows.Application.Current.TryFindResource("LoginErrorInvalid") as string 
+                        ?? "Invalid credentials. Please try again.";
+                    ShowError(invalidMsg);
                     return;
                 }
 
@@ -91,7 +97,12 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                ShowError($"Connection error: {ex.Message}");
+                string detail = ex.InnerException != null 
+                    ? $"{ex.Message} ({ex.InnerException.Message})" 
+                    : ex.Message;
+                var connFormat = System.Windows.Application.Current.TryFindResource("LoginErrorConnection") as string 
+                    ?? "Connection error: {0}";
+                ShowError(string.Format(connFormat, detail));
             }
             finally
             {

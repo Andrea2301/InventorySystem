@@ -8,8 +8,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1100">
     
-    <Grid Background="#F3F4F6">
-        <Border Background="White" Margin="20" CornerRadius="20">
+    <Grid Background="{StaticResource BrushMainBg}" TextElement.FontFamily="Segoe UI">
+        <Border Background="{StaticResource BrushCardWhite}" Margin="20" CornerRadius="20" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect Color="#202C47" BlurRadius="16" ShadowDepth="2" Opacity="0.06"/>
+            </Border.Effect>
             <Grid Margin="30">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/> <!-- Title & Search -->
@@ -17,21 +20,24 @@
                 </Grid.RowDefinitions>
 
                 <!-- HEADER -->
-                <Grid Grid.Row="0" Margin="0,0,0,30">
+                <Grid Grid.Row="0" Margin="0,0,0,24">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <fa:IconImage Icon="CalendarAlt" Foreground="#4F46E5" Width="28" Margin="0,0,15,0"/>
-                        <TextBlock Text="Sales History" FontSize="28" FontWeight="Bold" Foreground="#1F2937"/>
+                        <Border Width="46" Height="46" CornerRadius="12" Background="{StaticResource BrushSectionLilac}" Margin="0,0,14,0">
+                            <fa:IconImage Icon="CalendarAlt" Foreground="{StaticResource BrushPrimaryBlue}" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Sales History" FontSize="26" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Border HorizontalAlignment="Right" Background="#F9FAFB" CornerRadius="12" Width="350" Height="45" BorderBrush="#E5E7EB" BorderThickness="1">
+                    <Border HorizontalAlignment="Right" Background="{StaticResource BrushSectionLilac}" CornerRadius="12" Width="350" Height="44" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1">
                         <Grid>
-                            <fa:IconImage Icon="Search" Foreground="#9CA3AF" Width="16" HorizontalAlignment="Left" Margin="15,0"/>
+                            <fa:IconImage Icon="Search" Foreground="{StaticResource BrushPrimaryBlue}" Width="16" HorizontalAlignment="Left" Margin="15,0"/>
                             <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                                      VerticalAlignment="Center" 
                                      BorderThickness="0" 
                                      Background="Transparent" 
                                      Margin="45,0,15,0"
-                                     FontSize="15"/>
+                                     FontSize="14"
+                                     Foreground="{StaticResource BrushTextPrimary}"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -46,30 +52,31 @@
                           BorderThickness="0"
                           GridLinesVisibility="None"
                           HeadersVisibility="Column"
-                          RowHeight="60">
+                          RowHeight="56">
                     
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="#F9FAFB"/>
-                            <Setter Property="Foreground" Value="#6B7280"/>
+                            <Setter Property="Background" Value="{StaticResource BrushSectionLilac}"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushTitleText}"/>
                             <Setter Property="FontWeight" Value="SemiBold"/>
                             <Setter Property="Padding" Value="15,10"/>
                             <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
                         </Style>
                         <Style TargetType="DataGridRow">
-                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                            <Setter Property="BorderBrush" Value="#F3F4F6"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#F9FAFB"/>
+                                    <Setter Property="Background" Value="{StaticResource BrushSectionLilac}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                         <Style TargetType="DataGridCell">
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -89,8 +96,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <fa:IconImage Icon="Clock" Width="12" Foreground="#9CA3AF" Margin="0,0,5,0"/>
-                                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" Foreground="#374151"/>
+                                        <fa:IconImage Icon="Clock" Width="12" Foreground="{StaticResource BrushSecondaryBlue}" Margin="0,0,6,0"/>
+                                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" Foreground="{StaticResource BrushTextPrimary}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -101,7 +108,7 @@
                         <DataGridTemplateColumn Header="Amount" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontWeight="Bold" Foreground="#4F46E5" FontSize="15"/>
+                                    <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontWeight="Bold" Foreground="{StaticResource BrushPrimaryBlue}" FontSize="15"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

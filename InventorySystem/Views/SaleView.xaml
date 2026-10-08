@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200">
     
-    <Grid Background="#F3F4F6">
+    <Grid Background="{StaticResource BrushMainBg}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>    <!-- Product Selection -->
             <ColumnDefinition Width="400"/>  <!-- Cart Summary -->
@@ -239,15 +239,15 @@
                         <TextBlock Text="$0.00" HorizontalAlignment="Right" Foreground="#1F2937"/>
                     </Grid>
                     <Grid Margin="0,15,0,0">
-                        <TextBlock Text="{DynamicResource SaleTotal}" FontSize="24" FontWeight="ExtraBold" Foreground="#1F2937"/>
-                        <TextBlock Text="{Binding Total, StringFormat=C}" FontSize="24" FontWeight="ExtraBold" Foreground="#4F46E5" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{DynamicResource SaleTotal}" FontSize="24" FontWeight="ExtraBold" Foreground="{StaticResource BrushTitleText}"/>
+                        <TextBlock Text="{Binding Total, StringFormat=C}" FontSize="24" FontWeight="ExtraBold" Foreground="{StaticResource BrushPrimaryBlue}" HorizontalAlignment="Right"/>
                     </Grid>
                 </StackPanel>
 
                 <!-- Finalize Button -->
                 <Button Grid.Row="3" Command="{Binding CheckoutCommand}"
                         Content="{DynamicResource SaleFinalizeBtn}" 
-                        Background="#4F46E5" Foreground="White" 
+                        Background="{StaticResource PrimaryBrandGradient}" Foreground="White" 
                         Height="50" FontSize="16" FontWeight="Bold"
                         BorderThickness="0" Cursor="Hand">
                     <Button.Resources>

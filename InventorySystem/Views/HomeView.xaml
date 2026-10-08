@@ -8,307 +8,390 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     mc:Ignorable="d"
-    Height="610" Width="1000">
+    FontFamily="Segoe UI">
 
-    <Border Background="#F9FAFB" CornerRadius="10">
+    <Border Background="{StaticResource BrushMainBg}" CornerRadius="12">
         <Grid>
             <!-- Main Content Container with Margin -->
-            <Grid Margin="20">
+            <Grid Margin="18">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/> <!-- KPIs -->
                     <RowDefinition Height="*"/>    <!-- Main Content -->
                 </Grid.RowDefinitions>
 
-            <!-- KPI Row -->
-            <UniformGrid Columns="4" Grid.Row="0" Margin="0,0,0,20">
-                <!-- Total Revenue -->
-                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
-                    </Border.Effect>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <fa:IconImage Icon="CircleDollarToSlot" Foreground="#6366F1" Width="20" Height="20"/>
-                            <TextBlock Text="{DynamicResource DashTotalRevenue}" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="{Binding TotalSalesToday}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
-                        <TextBlock Text="{Binding SalesTrend}" FontSize="11" Foreground="#10B981" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- Stock Value -->
-                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
-                    </Border.Effect>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <fa:IconImage Icon="Vault" Foreground="#F59E0B" Width="20" Height="20"/>
-                            <TextBlock Text="{DynamicResource DashInventoryValue}" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="{Binding TotalStockValue}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
-                        <TextBlock Text="{DynamicResource DashAssetsDescription}" FontSize="11" Foreground="#9CA3AF" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- Critical Stock -->
-                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
-                    </Border.Effect>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <fa:IconImage Icon="TriangleExclamation" Foreground="#EF4444" Width="20" Height="20"/>
-                            <TextBlock Text="{DynamicResource DashCriticalStock}" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="{Binding CriticalStockCount}" FontSize="24" FontWeight="Bold" Foreground="#EF4444"/>
-                        <TextBlock Text="{DynamicResource DashItemsRestock}" FontSize="11" Foreground="#EF4444" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- Productivity / New Clients -->
-                <Border Background="White" CornerRadius="12" Margin="8" Padding="15">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#E5E7EB" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
-                    </Border.Effect>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <fa:IconImage Icon="UserPlus" Foreground="#10B981" Width="20" Height="20"/>
-                            <TextBlock Text="{DynamicResource DashNewClients}" Margin="10,0,0,0" Foreground="#6B7280" FontSize="13" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="{Binding NewClientsToday}" FontSize="24" FontWeight="Bold" Foreground="#111827"/>
-                        <TextBlock Text="{DynamicResource DashRegisteredToday}" FontSize="11" Foreground="#9CA3AF" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </Border>
-            </UniformGrid>
-
-            <!-- Main Content Grid -->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.8*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Left Column (Ventas Recientes & Top Selling Products) -->
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.2*"/> <!-- Recent Sales -->
-                        <RowDefinition Height="*"/>    <!-- Top Products -->
-                    </Grid.RowDefinitions>
-
-                    <!-- Recent Sales Panel -->
-                    <Border Grid.Row="0" Background="White" CornerRadius="15" Margin="8" Padding="20">
+                <!-- KPI Row -->
+                <UniformGrid Columns="4" Grid.Row="0" Margin="0,0,0,16">
+                    <!-- Total Revenue -->
+                    <Border Background="{StaticResource BrushCardWhite}" 
+                            BorderBrush="{StaticResource BrushBorderSubtle}" 
+                            BorderThickness="1" 
+                            CornerRadius="14" 
+                            Margin="6" 
+                            Padding="16">
                         <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
+                            <DropShadowEffect Color="#172033" BlurRadius="12" ShadowDepth="2" Opacity="0.05"/>
                         </Border.Effect>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/> <!-- Header -->
-                                <RowDefinition Height="*"/>    <!-- List -->
-                            </Grid.RowDefinitions>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <Border Background="{StaticResource BrushSectionLilac}" CornerRadius="8" Padding="6">
+                                    <fa:IconImage Icon="CircleDollarToSlot" Foreground="{StaticResource BrushPrimaryBlue}" Width="16" Height="16"/>
+                                </Border>
+                                <TextBlock Text="{DynamicResource DashTotalRevenue}" Margin="10,0,0,0" Foreground="{StaticResource BrushTextMuted}" FontSize="12.5" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding TotalSalesToday}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                            <TextBlock Text="{Binding SalesTrend}" FontSize="11" Foreground="#059669" Margin="0,4,0,0" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
 
-                            <Grid Grid.Row="0" Margin="0,0,0,15">
-                                <TextBlock Text="{DynamicResource DashRecentSales}" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" VerticalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Command="{Binding ShowDatabaseStatsCommand}" Style="{StaticResource controlButton}" ToolTip="Show Database Stats" Margin="0,0,10,0">
-                                        <fa:IconImage Icon="Database" Foreground="#10B981" Width="14"/>
-                                    </Button>
-                                    <Button Command="{Binding SeedDataCommand}" Style="{StaticResource controlButton}" ToolTip="Generate Sample Data" Margin="0,0,10,0">
-                                        <fa:IconImage Icon="WandMagicSparkles" Foreground="#6366F1" Width="14"/>
-                                    </Button>
-                                    <Button Command="{Binding RefreshCommand}" Style="{StaticResource controlButton}" ToolTip="Refresh Data">
-                                        <fa:IconImage Icon="ArrowsRotate" Foreground="#6B7280" Width="14"/>
-                                    </Button>
-                                </StackPanel>
+                    <!-- Stock Value -->
+                    <Border Background="{StaticResource BrushCardWhite}" 
+                            BorderBrush="{StaticResource BrushBorderSubtle}" 
+                            BorderThickness="1" 
+                            CornerRadius="14" 
+                            Margin="6" 
+                            Padding="16">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#172033" BlurRadius="12" ShadowDepth="2" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <Border Background="#FEF3C7" CornerRadius="8" Padding="6">
+                                    <fa:IconImage Icon="Vault" Foreground="#D97706" Width="16" Height="16"/>
+                                </Border>
+                                <TextBlock Text="{DynamicResource DashInventoryValue}" Margin="10,0,0,0" Foreground="{StaticResource BrushTextMuted}" FontSize="12.5" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding TotalStockValue}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                            <TextBlock Text="{DynamicResource DashAssetsDescription}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Critical Stock -->
+                    <Border Background="{StaticResource BrushCardWhite}" 
+                            BorderBrush="{StaticResource BrushBorderSubtle}" 
+                            BorderThickness="1" 
+                            CornerRadius="14" 
+                            Margin="6" 
+                            Padding="16">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#172033" BlurRadius="12" ShadowDepth="2" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <Border Background="#FEE2E2" CornerRadius="8" Padding="6">
+                                    <fa:IconImage Icon="TriangleExclamation" Foreground="#DC2626" Width="16" Height="16"/>
+                                </Border>
+                                <TextBlock Text="{DynamicResource DashCriticalStock}" Margin="10,0,0,0" Foreground="{StaticResource BrushTextMuted}" FontSize="12.5" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding CriticalStockCount}" FontSize="24" FontWeight="Bold" Foreground="#DC2626"/>
+                            <TextBlock Text="{DynamicResource DashItemsRestock}" FontSize="11" Foreground="#DC2626" Margin="0,4,0,0" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Productivity / New Clients -->
+                    <Border Background="{StaticResource BrushCardWhite}" 
+                            BorderBrush="{StaticResource BrushBorderSubtle}" 
+                            BorderThickness="1" 
+                            CornerRadius="14" 
+                            Margin="6" 
+                            Padding="16">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#172033" BlurRadius="12" ShadowDepth="2" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <Border Background="#ECFDF5" CornerRadius="8" Padding="6">
+                                    <fa:IconImage Icon="UserPlus" Foreground="#059669" Width="16" Height="16"/>
+                                </Border>
+                                <TextBlock Text="{DynamicResource DashNewClients}" Margin="10,0,0,0" Foreground="{StaticResource BrushTextMuted}" FontSize="12.5" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding NewClientsToday}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}"/>
+                            <TextBlock Text="{DynamicResource DashRegisteredToday}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- Main Content Grid -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.8*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left Column (Ventas Recientes & Top Selling Products) -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.2*"/> <!-- Recent Sales -->
+                            <RowDefinition Height="*"/>    <!-- Top Products -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Recent Sales Panel -->
+                        <Border Grid.Row="0" 
+                                Background="{StaticResource BrushCardWhite}" 
+                                BorderBrush="{StaticResource BrushBorderSubtle}" 
+                                BorderThickness="1" 
+                                CornerRadius="14" 
+                                Margin="6" 
+                                Padding="18">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#172033" BlurRadius="14" ShadowDepth="2" Opacity="0.05"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/> <!-- Header -->
+                                    <RowDefinition Height="*"/>    <!-- List -->
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Margin="0,0,0,14">
+                                    <TextBlock Text="{DynamicResource DashRecentSales}" FontSize="15.5" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" VerticalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Command="{Binding ShowDatabaseStatsCommand}" Style="{StaticResource controlButton}" ToolTip="Estadísticas de BD" Margin="0,0,6,0">
+                                            <fa:IconImage Icon="Database" Foreground="#059669" Width="13"/>
+                                        </Button>
+                                        <Button Command="{Binding SeedDataCommand}" Style="{StaticResource controlButton}" ToolTip="Datos de Muestra" Margin="0,0,6,0">
+                                            <fa:IconImage Icon="WandMagicSparkles" Foreground="{StaticResource BrushPrimaryBlue}" Width="13"/>
+                                        </Button>
+                                        <Button Command="{Binding RefreshCommand}" Style="{StaticResource controlButton}" ToolTip="Actualizar">
+                                            <fa:IconImage Icon="ArrowsRotate" Foreground="{StaticResource BrushTextMuted}" Width="13"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding RecentSales}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="0,0,0,1" Padding="0,9">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/> <!-- ID / Icon -->
+                                                            <ColumnDefinition Width="*"/>    <!-- Client / Date -->
+                                                            <ColumnDefinition Width="Auto"/> <!-- Payment / Currency -->
+                                                            <ColumnDefinition Width="Auto"/> <!-- Total -->
+                                                            <ColumnDefinition Width="Auto"/> <!-- PDF Button -->
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Invoice Icon & ID -->
+                                                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,14,0">
+                                                            <fa:IconImage Icon="Receipt" Foreground="{StaticResource BrushPrimaryBlue}" Width="15" Height="15" VerticalAlignment="Center"/>
+                                                            <TextBlock Text="{Binding Id, StringFormat='#{0:D5}'}" FontWeight="Bold" Foreground="{StaticResource BrushPrimaryBlue}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+
+                                                        <!-- Date & Client -->
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Client.FullName, FallbackValue='Consumidor Final'}" FontWeight="SemiBold" Foreground="{StaticResource BrushTextPrimary}" FontSize="13"/>
+                                                            <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" FontSize="11" Foreground="{StaticResource BrushTextMuted}"/>
+                                                        </StackPanel>
+
+                                                        <!-- Payment Method & Currency -->
+                                                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="14,0">
+                                                            <Border Background="{StaticResource BrushSectionLilac}" CornerRadius="6" Padding="8,3">
+                                                                <TextBlock Text="{Binding PaymentMethod}" FontSize="11" Foreground="{StaticResource BrushSecondaryBlue}" FontWeight="Medium"/>
+                                                            </Border>
+                                                        </StackPanel>
+
+                                                        <!-- Total Amount -->
+                                                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,14,0">
+                                                            <TextBlock Text="{Binding TotalAmount, StringFormat=N2}" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" FontSize="13"/>
+                                                            <TextBlock Text="{Binding Currency}" FontSize="10.5" Foreground="{StaticResource BrushTextMuted}" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+
+                                                        <!-- Open Receipt PDF -->
+                                                        <Button Grid.Column="4" 
+                                                                Command="{Binding DataContext.OpenReceiptCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                CommandParameter="{Binding}"
+                                                                Style="{StaticResource controlButton}" 
+                                                                ToolTip="Ver Factura PDF" 
+                                                                Height="28" Width="28"
+                                                                Background="#FEF2F2"
+                                                                BorderBrush="#FEE2E2">
+                                                            <fa:IconImage Icon="FilePdf" Foreground="#DC2626" Width="13" Height="13"/>
+                                                        </Button>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
                             </Grid>
+                        </Border>
 
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding RecentSales}">
+                        <!-- Top Selling Products -->
+                        <Border Grid.Row="1" 
+                                Background="{StaticResource BrushCardWhite}" 
+                                BorderBrush="{StaticResource BrushBorderSubtle}" 
+                                BorderThickness="1" 
+                                CornerRadius="14" 
+                                Margin="6" 
+                                Padding="18">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#172033" BlurRadius="14" ShadowDepth="2" Opacity="0.05"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource DashTopSelling}" FontSize="15.5" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" Margin="0,0,0,12"/>
+                                <ItemsControl ItemsSource="{Binding TopProducts}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="#F3F4F6" BorderThickness="0,0,0,1" Padding="0,8">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/> <!-- ID / Icon -->
-                                                        <ColumnDefinition Width="*"/>    <!-- Client / Date -->
-                                                        <ColumnDefinition Width="Auto"/> <!-- Payment / Currency -->
-                                                        <ColumnDefinition Width="Auto"/> <!-- Total -->
-                                                        <ColumnDefinition Width="Auto"/> <!-- PDF Button -->
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <!-- Invoice Icon & ID -->
-                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
-                                                        <fa:IconImage Icon="Receipt" Foreground="#6366F1" Width="16" Height="16" VerticalAlignment="Center"/>
-                                                        <TextBlock Text="{Binding Id, StringFormat='#{0:D5}'}" FontWeight="Bold" Foreground="#4F46E5" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-
-                                                    <!-- Date & Client -->
-                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Client.FullName, FallbackValue='Consumidor Final'}" FontWeight="SemiBold" Foreground="#374151" FontSize="13"/>
-                                                        <TextBlock Text="{Binding SaleDate, StringFormat='dd/MM/yyyy HH:mm'}" FontSize="11" Foreground="#9CA3AF"/>
-                                                    </StackPanel>
-
-                                                    <!-- Payment Method & Currency -->
-                                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="15,0">
-                                                        <Border Background="#F3F4F6" CornerRadius="6" Padding="6,2">
-                                                            <TextBlock Text="{Binding PaymentMethod}" FontSize="11" Foreground="#4B5563" FontWeight="Medium"/>
-                                                        </Border>
-                                                    </StackPanel>
-
-                                                    <!-- Total Amount -->
-                                                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
-                                                        <TextBlock Text="{Binding TotalAmount, StringFormat=N2}" FontWeight="Bold" Foreground="#111827" FontSize="13"/>
-                                                        <TextBlock Text="{Binding Currency}" FontSize="10" Foreground="#6B7280" Margin="4,0,0,0" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-
-                                                    <!-- Open Receipt PDF -->
-                                                    <Button Grid.Column="4" 
-                                                            Command="{Binding DataContext.OpenReceiptCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                            CommandParameter="{Binding}"
-                                                            Style="{StaticResource controlButton}" 
-                                                            ToolTip="Ver Factura PDF" 
-                                                            Height="30" Width="30"
-                                                            Background="#FEF2F2"
-                                                            BorderBrush="#FEE2E2">
-                                                        <fa:IconImage Icon="FilePdf" Foreground="#EF4444" Width="14" Height="14"/>
-                                                    </Button>
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </Grid>
-                    </Border>
-
-                    <!-- Top Selling Products -->
-                    <Border Grid.Row="1" Background="White" CornerRadius="15" Margin="8" Padding="20">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
-                        </Border.Effect>
-                        <StackPanel>
-                            <TextBlock Text="{DynamicResource DashTopSelling}" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,15"/>
-                            <ItemsControl ItemsSource="{Binding TopProducts}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="#F3F4F6" BorderThickness="0,0,0,1" Padding="0,10">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Medium" Foreground="#374151"/>
-                                                    <TextBlock Text="{Binding Category}" FontSize="11" Foreground="#9CA3AF"/>
-                                                </StackPanel>
-                                                <TextBlock Grid.Column="1" Text="{Binding Quantity, StringFormat={}{0} und}" 
-                                                           VerticalAlignment="Center" FontWeight="Bold" Foreground="#4F46E5"/>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-
-                <!-- Right Column (Quick Actions & Critical Stock Alerts) -->
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/> <!-- Quick Actions -->
-                        <RowDefinition Height="*"/>    <!-- Critical Stock -->
-                    </Grid.RowDefinitions>
-
-                    <!-- Quick Actions Panel -->
-                    <Border Grid.Row="0" Background="White" CornerRadius="15" Margin="8" Padding="20">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
-                        </Border.Effect>
-                        <StackPanel>
-                            <TextBlock Text="{DynamicResource DashQuickActions}" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,15"/>
-                                                        <UniformGrid Columns="2" Rows="2">
-                                <!-- Nueva Venta -->
-                                <Button Command="{Binding NavigateToSaleCommand}" Margin="4" Padding="10" Height="70" Background="#EEF2FF" BorderBrush="#C7D2FE" BorderThickness="1" Cursor="Hand">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <fa:IconImage Icon="CartPlus" Foreground="#4F46E5" Width="20" Height="20" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{DynamicResource DashBtnNewSale}" FontSize="11" FontWeight="SemiBold" Foreground="#4F46E5" Margin="0,4,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <!-- Registrar Producto -->
-                                <Button Command="{Binding NavigateToProductsCommand}" Margin="4" Padding="10" Height="70" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" Cursor="Hand">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <fa:IconImage Icon="BoxOpen" Foreground="#10B981" Width="20" Height="20" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{DynamicResource DashBtnProducts}" FontSize="11" FontWeight="SemiBold" Foreground="#047857" Margin="0,4,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <!-- Clientes -->
-                                <Button Command="{Binding NavigateToClientsCommand}" Margin="4" Padding="10" Height="70" Background="#FFF7ED" BorderBrush="#FED7AA" BorderThickness="1" Cursor="Hand">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <fa:IconImage Icon="UserGroup" Foreground="#F97316" Width="20" Height="20" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{DynamicResource DashBtnClients}" FontSize="11" FontWeight="SemiBold" Foreground="#C2410C" Margin="0,4,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <!-- Historial -->
-                                <Button Command="{Binding NavigateToHistoryCommand}" Margin="4" Padding="10" Height="70" Background="#FAF5FF" BorderBrush="#E9D5FF" BorderThickness="1" Cursor="Hand">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <fa:IconImage Icon="ClockRotateLeft" Foreground="#A855F7" Width="20" Height="20" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{DynamicResource DashBtnHistory}" FontSize="11" FontWeight="SemiBold" Foreground="#7E22CE" Margin="0,4,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-                            </UniformGrid>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Critical Stock Alerts -->
-                    <Border Grid.Row="1" Background="White" CornerRadius="15" Margin="8" Padding="20">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#E5E7EB" BlurRadius="15" ShadowDepth="4" Opacity="0.2"/>
-                        </Border.Effect>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{DynamicResource DashCriticalStockAlerts}" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,15"/>
-                            
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding CriticalItems}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Background="#FEF2F2" CornerRadius="8" Margin="0,0,0,8" Padding="12">
+                                            <Border BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="0,0,0,1" Padding="0,9">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="#991B1B"/>
-                                                        <TextBlock Text="Baja disponibilidad" FontSize="11" Foreground="#B91C1C"/>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="{StaticResource BrushTextPrimary}"/>
+                                                        <TextBlock Text="{Binding Category}" FontSize="11" Foreground="{StaticResource BrushTextMuted}"/>
                                                     </StackPanel>
-                                                    <Border Grid.Column="1" Background="#FEE2E2" CornerRadius="10" Padding="8,2" Height="24" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Quantity}" Foreground="#991B1B" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <Border Grid.Column="1" Background="{StaticResource BrushSectionLilac}" CornerRadius="8" Padding="8,3" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Quantity, StringFormat={}{0} und}" 
+                                                                   FontWeight="Bold" Foreground="{StaticResource BrushPrimaryBlue}" FontSize="11.5"/>
                                                     </Border>
                                                 </Grid>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                            </ScrollViewer>
-                        </Grid>
-                    </Border>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Right Column (Quick Actions & Critical Stock Alerts) -->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/> <!-- Quick Actions -->
+                            <RowDefinition Height="*"/>    <!-- Critical Stock -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Quick Actions Panel -->
+                        <Border Grid.Row="0" 
+                                Background="{StaticResource BrushCardWhite}" 
+                                BorderBrush="{StaticResource BrushBorderSubtle}" 
+                                BorderThickness="1" 
+                                CornerRadius="14" 
+                                Margin="6" 
+                                Padding="18">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#172033" BlurRadius="14" ShadowDepth="2" Opacity="0.05"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource DashQuickActions}" FontSize="15.5" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" Margin="0,0,0,12"/>
+                                <UniformGrid Columns="2" Rows="2">
+                                    <!-- Nueva Venta -->
+                                    <Button Command="{Binding NavigateToSaleCommand}" Margin="4" Padding="8" Height="68" Background="{StaticResource BrushSectionLilac}" BorderBrush="#D4DCF0" BorderThickness="1" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <fa:IconImage Icon="CartPlus" Foreground="{StaticResource BrushPrimaryBlue}" Width="19" Height="19" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource DashBtnNewSale}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource BrushPrimaryBlue}" Margin="0,4,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <!-- Registrar Producto -->
+                                    <Button Command="{Binding NavigateToProductsCommand}" Margin="4" Padding="8" Height="68" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <fa:IconImage Icon="BoxOpen" Foreground="#059669" Width="19" Height="19" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource DashBtnProducts}" FontSize="11" FontWeight="SemiBold" Foreground="#047857" Margin="0,4,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <!-- Clientes -->
+                                    <Button Command="{Binding NavigateToClientsCommand}" Margin="4" Padding="8" Height="68" Background="#FFF7ED" BorderBrush="#FED7AA" BorderThickness="1" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <fa:IconImage Icon="UserGroup" Foreground="#EA580C" Width="19" Height="19" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource DashBtnClients}" FontSize="11" FontWeight="SemiBold" Foreground="#C2410C" Margin="0,4,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <!-- Historial -->
+                                    <Button Command="{Binding NavigateToHistoryCommand}" Margin="4" Padding="8" Height="68" Background="#FAF5FF" BorderBrush="#E9D5FF" BorderThickness="1" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <fa:IconImage Icon="ClockRotateLeft" Foreground="{StaticResource BrushPurpleAccent}" Width="19" Height="19" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource DashBtnHistory}" FontSize="11" FontWeight="SemiBold" Foreground="#6D28D9" Margin="0,4,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </UniformGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Critical Stock Alerts -->
+                        <Border Grid.Row="1" 
+                                Background="{StaticResource BrushCardWhite}" 
+                                BorderBrush="{StaticResource BrushBorderSubtle}" 
+                                BorderThickness="1" 
+                                CornerRadius="14" 
+                                Margin="6" 
+                                Padding="18">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#172033" BlurRadius="14" ShadowDepth="2" Opacity="0.05"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{DynamicResource DashCriticalStockAlerts}" FontSize="15.5" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" Margin="0,0,0,12"/>
+                                
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding CriticalItems}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FEF2F2" BorderBrush="#FEE2E2" BorderThickness="1" CornerRadius="9" Margin="0,0,0,8" Padding="12,10">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel>
+                                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="#991B1B"/>
+                                                            <TextBlock Text="Baja disponibilidad" FontSize="11" Foreground="#B91C1C"/>
+                                                        </StackPanel>
+                                                        <Border Grid.Column="1" Background="#FEE2E2" CornerRadius="8" Padding="8,3" Height="24" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Quantity}" Foreground="#991B1B" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-        <!-- LOADING OVERLAY -->
-        <Grid Style="{StaticResource LoadingOverlay}">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
-                <TextBlock Text="{DynamicResource DashUpdating}" Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
-            </StackPanel>
-        </Grid>
+
+            <!-- LOADING OVERLAY -->
+            <Grid Style="{StaticResource LoadingOverlay}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource DashUpdating}" Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>
