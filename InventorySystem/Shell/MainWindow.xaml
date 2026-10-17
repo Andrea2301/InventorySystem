@@ -92,177 +92,194 @@
                     BorderBrush="#25FFFFFF">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <!-- Brand Header -->
+                        <!-- Top Brand Header + Active Workspace Card -->
                         <RowDefinition Height="Auto"/>
-                        <!-- Navigation Items (Scrollable) -->
+                        <!-- Navigation Items -->
                         <RowDefinition Height="*"/>
-                        <!-- Footer / System Info -->
+                        <!-- Footer / User Profile & Sign Out -->
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Decorative ambient glow inside sidebar -->
-                    <Ellipse Grid.Row="0" Width="180" Height="180"
-                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                             Margin="-60,-60,0,0" Opacity="0.12">
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#7C8EF3" Offset="0"/>
-                                <GradientStop Color="Transparent" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
+                    <!-- TOP SECTION: BRAND HEADER & ACTIVE WORKSPACE -->
+                    <StackPanel Grid.Row="0" Margin="16,18,16,10">
+                        <!-- Brand Header -->
+                        <Grid Margin="2,0,2,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                    <!-- BRAND / LOGO -->
-                    <StackPanel Grid.Row="0" Margin="18,22,18,12">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <!-- Glassmorphism Logo Badge -->
-                            <Border Width="42" Height="42"
-                                    CornerRadius="12"
-                                    Background="#22FFFFFF"
-                                    BorderBrush="#35FFFFFF"
+                            <!-- Cloud Icon Badge -->
+                            <Border Grid.Column="0" Width="38" Height="38"
+                                    CornerRadius="10"
+                                    Background="#1F2E70"
+                                    BorderBrush="#35499A"
                                     BorderThickness="1">
-                                <Image Source="../Assets/img/logo.png" Height="26" Width="26"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <fa:IconImage Icon="Cloud" Foreground="#FFFFFF" Width="18" Height="18"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
 
-                            <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="INVST"
-                                           Foreground="#FFFFFF"
-                                           FontSize="19"
-                                           FontWeight="Bold"/>
-                                <TextBlock Text="INVENTORY SYSTEM"
-                                           Foreground="{StaticResource BrushPurpleAccent}"
+                            <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="Inventory"
+                                               Foreground="#FFFFFF"
+                                               FontSize="16.5"
+                                               FontWeight="Bold"/>
+                                    <!-- Green Pulse Dot -->
+                                    <Ellipse Width="7" Height="7"
+                                             Fill="#22C55E"
+                                             VerticalAlignment="Center"
+                                             Margin="8,1,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="DESKTOP WORKSPACE"
+                                           Foreground="{StaticResource BrushSidebarTextMuted}"
                                            FontSize="9.5"
-                                           FontWeight="SemiBold"
+                                           FontWeight="Bold"
                                            Margin="0,1,0,0"/>
                             </StackPanel>
-                        </StackPanel>
+                        </Grid>
 
-                        <!-- Sutil Separator -->
-                        <Rectangle Height="1" Fill="#1FFFFFFF" Margin="2,16,2,0"/>
+                        <!-- ACTIVE WORKSPACE CARD -->
+                        <Border Background="{StaticResource BrushSidebarCard}"
+                                BorderBrush="{StaticResource BrushSidebarCardBorder}"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="10,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Cube Badge -->
+                                <Border Grid.Column="0" Width="28" Height="28"
+                                        CornerRadius="7"
+                                        Background="#28387F"
+                                        VerticalAlignment="Center">
+                                    <fa:IconImage Icon="Cube" Foreground="{StaticResource BrushSidebarTextMuted}" Width="13" Height="13"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="ACTIVE WORKSPACE"
+                                               FontSize="8.5"
+                                               FontWeight="Bold"
+                                               Foreground="{StaticResource BrushSidebarTextMuted}"/>
+                                    <TextBlock Text="My Inventory"
+                                               FontSize="12.5"
+                                               FontWeight="SemiBold"
+                                               Foreground="#FFFFFF"
+                                               Margin="0,1,0,0"/>
+                                </StackPanel>
+
+                                <fa:IconImage Grid.Column="2" Icon="ChevronDown" Foreground="{StaticResource BrushSidebarTextMuted}" Width="10" Height="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
                     </StackPanel>
 
                     <!-- NAVIGATION MENU ITEMS -->
                     <ScrollViewer Grid.Row="1"
                                   VerticalScrollBarVisibility="Hidden"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <StackPanel Margin="6,6,6,10">
+                        <StackPanel Margin="0,4,0,10">
 
-                            <!-- General Section -->
-                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
-                                <Expander.Header>
-                                    <TextBlock Text="{DynamicResource HeaderGeneral}" Style="{StaticResource ExpanderHeaderText}"/>
-                                </Expander.Header>
-                                <StackPanel>
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 IsChecked="True"
-                                                 Command="{Binding ShowHomeViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="ChartLine" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuHome}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
+                            <!-- Section: OPERATIONS -->
+                            <TextBlock Text="OPERATIONS"
+                                       Foreground="{StaticResource BrushSidebarTextMuted}"
+                                       FontSize="10"
+                                       FontWeight="Bold"
+                                       Margin="22,10,22,6"/>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         IsChecked="True"
+                                         Command="{Binding ShowHomeViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="ChartLine" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Dashboard" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
-                            </Expander>
+                            </RadioButton>
 
-                            <!-- Management Section -->
-                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
-                                <Expander.Header>
-                                    <TextBlock Text="{DynamicResource HeaderManagement}" Style="{StaticResource ExpanderHeaderText}"/>
-                                </Expander.Header>
-                                <StackPanel>
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowClientViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="UserGroup" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuClients}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
-
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowProductsViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="BoxesStacked" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuProducts}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
-
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowSupplierViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="TruckFast" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuSuppliers}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowProductsViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="BoxesStacked" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Products" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
-                            </Expander>
+                            </RadioButton>
 
-                            <!-- Sales Section -->
-                            <Expander Style="{StaticResource MenuExpander}" IsExpanded="True">
-                                <Expander.Header>
-                                    <TextBlock Text="{DynamicResource HeaderSales}" Style="{StaticResource ExpanderHeaderText}"/>
-                                </Expander.Header>
-                                <StackPanel>
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowSaleViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="CashRegister" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuSales}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
-
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowSalesHistoryViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="ClockRotateLeft" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuHistory}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowClientViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Users" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Clients" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
-                            </Expander>
+                            </RadioButton>
 
-                            <!-- System Section -->
-                            <Expander Style="{StaticResource MenuExpander}">
-                                <Expander.Header>
-                                    <TextBlock Text="{DynamicResource HeaderSystem}" Style="{StaticResource ExpanderHeaderText}"/>
-                                </Expander.Header>
-                                <StackPanel>
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowReportsViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuReports}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
-
-                                    <RadioButton Style="{StaticResource MenuBottons}"
-                                                 GroupName="MainMenu"
-                                                 Command="{Binding ShowMaintenanceViewCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <fa:IconImage Icon="Database" Style="{StaticResource MenuButtonIcon}"/>
-                                            <TextBlock Text="{DynamicResource MenuMaintenance}" Style="{StaticResource ButtonText}"/>
-                                        </StackPanel>
-                                    </RadioButton>
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSaleViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="CashRegister" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Sales" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
-                            </Expander>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSalesHistoryViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="ClockRotateLeft" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Sales History" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <!-- Section: MANAGEMENT -->
+                            <TextBlock Text="MANAGEMENT"
+                                       Foreground="{StaticResource BrushSidebarTextMuted}"
+                                       FontSize="10"
+                                       FontWeight="Bold"
+                                       Margin="22,18,22,6"/>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowSupplierViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="TruckFast" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowReportsViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Reports" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton Style="{StaticResource MenuBottons}"
+                                         GroupName="MainMenu"
+                                         Command="{Binding ShowMaintenanceViewCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:IconImage Icon="Gear" Style="{StaticResource MenuButtonIcon}"/>
+                                    <TextBlock Text="Settings" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                            </RadioButton>
 
                         </StackPanel>
                     </ScrollViewer>
 
-                    <!-- SIDEBAR FOOTER (Glass Badge) -->
+                    <!-- SIDEBAR FOOTER (User Profile & Sign Out) -->
                     <Border Grid.Row="2"
-                            Margin="14,10,14,16"
-                            Padding="12,10"
-                            CornerRadius="12"
-                            Background="#18FFFFFF"
-                            BorderBrush="#25FFFFFF"
+                            Margin="12,8,12,14"
+                            Padding="10,8"
+                            CornerRadius="10"
+                            Background="{StaticResource BrushSidebarCard}"
+                            BorderBrush="{StaticResource BrushSidebarCardBorder}"
                             BorderThickness="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -271,25 +288,49 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0" Width="30" Height="30"
-                                    CornerRadius="15"
-                                    Background="{StaticResource BrushPrimaryBlue}">
-                                <fa:IconImage Icon="Check" Foreground="White" Width="14" Height="14"/>
+                            <!-- Warm Amber Avatar Badge: "AD" -->
+                            <Border Grid.Column="0" Width="32" Height="32"
+                                    CornerRadius="16"
+                                    Background="#D97706">
+                                <TextBlock Text="AD"
+                                           Foreground="#FFFFFF"
+                                           FontWeight="Bold"
+                                           FontSize="11.5"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                             </Border>
 
                             <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="Sistema Activo"
+                                <TextBlock Text="admin"
                                            Foreground="#FFFFFF"
-                                           FontSize="12"
+                                           FontSize="12.5"
                                            FontWeight="SemiBold"/>
-                                <TextBlock Text="v1.1.0 • Seguro"
-                                           Foreground="#A9B8DF"
+                                <TextBlock Text="Admin"
+                                           Foreground="{StaticResource BrushSidebarTextMuted}"
                                            FontSize="10.5"/>
                             </StackPanel>
 
-                            <Ellipse Grid.Column="2" Width="8" Height="8"
-                                     Fill="#10B981"
-                                     VerticalAlignment="Center"/>
+                            <!-- Sign Out Button -->
+                            <Button Grid.Column="2"
+                                    ToolTip="Cerrar Sesión"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="BtnSignOut_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="SignOutBorder" Background="Transparent" CornerRadius="6" Padding="6,4">
+                                            <fa:IconImage x:Name="SignOutIcon" Icon="ArrowRightFromBracket" Foreground="{StaticResource BrushSidebarTextMuted}" Width="13" Height="13"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="SignOutBorder" Property="Background" Value="#25FFFFFF"/>
+                                                <Setter TargetName="SignOutIcon" Property="Foreground" Value="#FFFFFF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </Grid>
                     </Border>
                 </Grid>

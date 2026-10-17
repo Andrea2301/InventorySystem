@@ -17,15 +17,43 @@ namespace InventorySystem.ViewModel
 {
     public class HomeViewModel : ViewModelBase
     {
-        private string _totalSalesToday;
-        private string _newClientsToday;
-        private string _totalStock;
-        private string _totalStockValue;
-        private string _criticalStockCount;
-        private string _salesTrend;
+        private string _totalSalesToday = "$0.00";
+        private string _totalSalesCount = "0";
+        private string _salesRevenueFormatted = "COP 0";
+        private string _inventoryValueFormatted = "COP 0";
+        private string _productsCountSubtitle = "0 products in catalog";
+        private string _newClientsToday = "0";
+        private string _totalStock = "0";
+        private string _totalStockValue = "0";
+        private string _criticalStockCount = "0";
+        private string _salesTrend = string.Empty;
         private ObservableCollection<Product> _criticalItems;
         private ObservableCollection<TopProductInfo> _topProducts;
         private ObservableCollection<Sale> _recentSales;
+
+        public string TotalSalesCount
+        {
+            get => _totalSalesCount;
+            set { _totalSalesCount = value; OnPropertyChanged(nameof(TotalSalesCount)); }
+        }
+
+        public string SalesRevenueFormatted
+        {
+            get => _salesRevenueFormatted;
+            set { _salesRevenueFormatted = value; OnPropertyChanged(nameof(SalesRevenueFormatted)); }
+        }
+
+        public string InventoryValueFormatted
+        {
+            get => _inventoryValueFormatted;
+            set { _inventoryValueFormatted = value; OnPropertyChanged(nameof(InventoryValueFormatted)); }
+        }
+
+        public string ProductsCountSubtitle
+        {
+            get => _productsCountSubtitle;
+            set { _productsCountSubtitle = value; OnPropertyChanged(nameof(ProductsCountSubtitle)); }
+        }
 
         public string TotalSalesToday
         {
@@ -176,7 +204,11 @@ namespace InventorySystem.ViewModel
                         .Sum(s => s.TotalAmount);
 
                     var newClients = db.Clients.Count(c => c.CreatedAt >= today);
+                    var allSalesList = db.Sales.ToList();
+                    var totalSalesCount = allSalesList.Count;
+                    var totalSalesRevenue = allSalesList.Sum(s => s.TotalAmount);
                     var allProducts = db.Products.Where(p => p.IsActive).ToList();
+                    var totalInventoryValue = allProducts.Sum(p => p.Price * p.Quantity);
 
                     var lowStock = allProducts
                         .Where(p => p.Quantity < 5)
@@ -199,6 +231,9 @@ namespace InventorySystem.ViewModel
 
                     return new
                     {
+                        TotalSalesCount = totalSalesCount,
+                        TotalSalesRevenue = totalSalesRevenue,
+                        TotalInventoryValue = totalInventoryValue,
                         SalesTotalToday = salesTotalToday,
                         SalesYesterday = salesYesterday,
                         NewClients = newClients,
@@ -210,6 +245,11 @@ namespace InventorySystem.ViewModel
                 });
 
                 // Update UI properties back on the UI thread
+                TotalSalesCount = data.TotalSalesCount.ToString();
+                SalesRevenueFormatted = $"COP {data.TotalSalesRevenue:N0}";
+                InventoryValueFormatted = $"COP {data.TotalInventoryValue:N0}";
+                ProductsCountSubtitle = $"{data.AllProducts.Count} products in catalog";
+
                 TotalSalesToday = $"${data.SalesTotalToday:N2}";
 
                 if (data.SalesYesterday > 0)
@@ -224,7 +264,7 @@ namespace InventorySystem.ViewModel
 
                 NewClientsToday = data.NewClients.ToString();
                 TotalStock = data.AllProducts.Sum(p => p.Quantity).ToString();
-                TotalStockValue = $"${data.AllProducts.Sum(p => p.Price * p.Quantity):N0}";
+                TotalStockValue = $"${data.TotalInventoryValue:N0}";
 
                 CriticalItems.Clear();
                 foreach (var item in data.LowStock) CriticalItems.Add(item);

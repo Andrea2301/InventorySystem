@@ -47,11 +47,21 @@ namespace InventorySystem.Shell
         private void Btn_Maximize_Click(object sender, RoutedEventArgs e)
         {
            if(WindowState == WindowState.Normal)
-            
                 this.WindowState = WindowState.Maximized;
-                else this.WindowState = WindowState.Normal;
-            
+           else 
+                this.WindowState = WindowState.Normal;
+        }
 
+        private void BtnSignOut_Click(object sender, RoutedEventArgs e)
+        {
+            var loginVm = App.ServiceProvider.GetService(typeof(LoginViewModel)) as LoginViewModel;
+            if (loginVm != null)
+            {
+                var loginWindow = new LoginWindow(loginVm);
+                App.Current.MainWindow = loginWindow;
+                loginWindow.Show();
+                this.Close();
+            }
         }
     }
 }

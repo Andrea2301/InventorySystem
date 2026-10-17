@@ -56,5 +56,17 @@ namespace InventorySystem.Shell
         {
             _viewModel.Password = PwdPassword.Password;
         }
+
+        private void BtnDemoLogin_Click(object sender, RoutedEventArgs e)
+        {
+            TxtUsername.Text = "admin";
+            PwdPassword.Password = "admin";
+            _viewModel.Username = "admin";
+            _viewModel.Password = "admin";
+            if (_viewModel.LoginCommand.CanExecute(null))
+            {
+                _viewModel.LoginCommand.Execute(null);
+            }
+        }
     }
 }

@@ -23,13 +23,23 @@
     <SolidColorBrush x:Key="BrushSectionLilac" Color="{StaticResource ColorSectionLilac}"/>
     <SolidColorBrush x:Key="BrushCardWhite" Color="{StaticResource ColorCardWhite}"/>
 
+    <!-- Sidebar & Twin App Theme -->
+    <Color x:Key="ColorSidebarBg">#28387F</Color>
+    <SolidColorBrush x:Key="BrushSidebarBg" Color="{StaticResource ColorSidebarBg}"/>
+    <SolidColorBrush x:Key="BrushSidebarCard" Color="#1E2B68"/>
+    <SolidColorBrush x:Key="BrushSidebarCardBorder" Color="#2E3E85"/>
+    <SolidColorBrush x:Key="BrushSidebarText" Color="#DCE3F8"/>
+    <SolidColorBrush x:Key="BrushSidebarTextMuted" Color="#8C9CD6"/>
+    <SolidColorBrush x:Key="BrushSidebarActivePill" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushSidebarActiveText" Color="#28387F"/>
+
     <!-- Subtle Borders & Glass Accents -->
-    <SolidColorBrush x:Key="BrushBorderSubtle" Color="#D9E0EE"/>
+    <SolidColorBrush x:Key="BrushBorderSubtle" Color="#E2E8F0"/>
     <SolidColorBrush x:Key="BrushBorderGlassLight" Color="#80FFFFFF"/>
     <SolidColorBrush x:Key="BrushGlassDarkSurface" Color="#1A202C47"/>
     <SolidColorBrush x:Key="BrushGlassPillHover" Color="#157C8EF3"/>
     <SolidColorBrush x:Key="BrushGlassPillActive" Color="#257C8EF3"/>
-    <SolidColorBrush x:Key="BrushTextMuted" Color="#5A6A85"/>
+    <SolidColorBrush x:Key="BrushTextMuted" Color="#64748B"/>
 
     <!-- Backward Compatibility Aliases -->
     <SolidColorBrush x:Key="Primary Color" Color="{StaticResource ColorPrimaryBlue}"/>
@@ -37,19 +47,18 @@
 
     <!-- Gradients -->
     <LinearGradientBrush x:Key="PrimaryBrandGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#4359A8" Offset="0.0"/>
-        <GradientStop Color="#7C8EF3" Offset="1.0"/>
+        <GradientStop Color="#3B4FA6" Offset="0.0"/>
+        <GradientStop Color="#6366F1" Offset="1.0"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="PrimaryBrandGradientHover" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#35498F" Offset="0.0"/>
-        <GradientStop Color="#6B7DE2" Offset="1.0"/>
+        <GradientStop Color="#2F408A" Offset="0.0"/>
+        <GradientStop Color="#4F46E5" Offset="1.0"/>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="SidebarBrandGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#202C47" Offset="0.0"/>
-        <GradientStop Color="#35498F" Offset="0.55"/>
-        <GradientStop Color="#4359A8" Offset="1.0"/>
+    <LinearGradientBrush x:Key="SidebarBrandGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#28387F" Offset="0.0"/>
+        <GradientStop Color="#23316E" Offset="1.0"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="SecondaryGradient" StartPoint="0,0" EndPoint="1,1">
@@ -59,7 +68,7 @@
 
     <LinearGradientBrush x:Key="CardGlassGradient" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="#FFFFFF" Offset="0.0"/>
-        <GradientStop Color="#F8FAFD" Offset="1.0"/>
+        <GradientStop Color="#F8FAFC" Offset="1.0"/>
     </LinearGradientBrush>
 
     <!-- Modern Soft Palette for Actions -->

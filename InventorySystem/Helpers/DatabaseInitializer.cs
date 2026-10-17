@@ -41,6 +41,20 @@ namespace InventorySystem.Helpers
 
             // 5. Ensure default admin user exists
             await authService.EnsureDefaultAdminAsync();
+
+            // 6. Auto-seed demo data if product catalog is empty (matches twin cloud app on fresh install)
+            try
+            {
+                if (!await context.Products.AnyAsync())
+                {
+                    var seedService = new SeedDataService(context);
+                    await seedService.SeedAsync();
+                }
+            }
+            catch
+            {
+                // Non-critical if auto-seed cannot run
+            }
         }
 
         private static async Task EnsureAllTablesExistAsync(AppDbContext context)

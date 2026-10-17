@@ -2,63 +2,38 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
 
-    <!-- Modern Glassmorphism Navigation Menu RadioButton -->
+    <!-- Modern Navigation Menu RadioButton (Twin Cloud Design) -->
     <Style x:Key="MenuBottons" TargetType="RadioButton">
-        <Setter Property="Height" Value="44"/>
-        <Setter Property="Margin" Value="10,2,10,3"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="10,2,10,2"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#C9D3EC"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushSidebarText}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="13"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="MenuPill"
                             Background="{TemplateBinding Background}"
-                            BorderThickness="1"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            CornerRadius="10"
+                            BorderThickness="0"
+                            CornerRadius="8"
                             Padding="12,0,12,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Active Indicator Dot / Glow Pill -->
-                            <Border x:Name="ActiveIndicator"
-                                    Grid.Column="0"
-                                    Width="3" Height="18"
-                                    CornerRadius="1.5"
-                                    Background="{StaticResource BrushPurpleAccent}"
-                                    Visibility="Collapsed"
-                                    Margin="-4,0,8,0"/>
-
-                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Grid>
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!-- Hover: Translucent Glass Glow -->
+                        <!-- Hover: Soft Translucent -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MenuPill" Property="Background" Value="#22FFFFFF"/>
-                            <Setter TargetName="MenuPill" Property="BorderBrush" Value="#30FFFFFF"/>
+                            <Setter TargetName="MenuPill" Property="Background" Value="#18FFFFFF"/>
                             <Setter Property="Foreground" Value="#FFFFFF"/>
                         </Trigger>
 
-                        <!-- Checked / Active: Vibrant Gradient Pill with Purple Accent Border -->
+                        <!-- Checked / Active: Solid White Pill with Deep Blue Text & Icon -->
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="MenuPill" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <GradientStop Color="#4359A8" Offset="0.0"/>
-                                        <GradientStop Color="#5368B5" Offset="1.0"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="MenuPill" Property="BorderBrush" Value="#7C8EF3"/>
-                            <Setter TargetName="ActiveIndicator" Property="Visibility" Value="Visible"/>
-                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                            <Setter TargetName="MenuPill" Property="Background" Value="#FFFFFF"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushSidebarActiveText}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

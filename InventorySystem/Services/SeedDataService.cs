@@ -25,61 +25,74 @@ namespace InventorySystem.Services
         {
             if (_db.Products.Any())
             {
-                throw new InvalidOperationException("Database already contains products. Delete existing data first or use the Refresh button to reload the dashboard.");
+                return;
             }
 
-            // 1. Categories and Products
-            var products = new List<Product>
+            // 1. Products matching the Cloud Sister App
+            var laptop = new Product
             {
-                new Product { Name = "Laptop Pro 16", Category = "Electronics", Price = 1200.00m, Quantity = 15, Description = "High performance laptop" },
-                new Product { Name = "Wireless Mouse", Category = "Accessories", Price = 25.50m, Quantity = 3, Description = "Ergonomic mouse" },
-                new Product { Name = "Monitor 4K", Category = "Electronics", Price = 450.00m, Quantity = 8, Description = "32 inch 4K Display" },
-                new Product { Name = "Mechanical Keyboard", Category = "Accessories", Price = 89.99m, Quantity = 20, Description = "RGB Backlit" },
-                new Product { Name = "USB-C Hub", Category = "Accessories", Price = 45.00m, Quantity = 1, Description = "7-in-1 adapter" }
+                Name = "Laptop Pro 13",
+                Category = "General",
+                Price = 1333m,
+                Quantity = 1, // Triggers Stock Alert = 1
+                Description = "Portátil ultraligero de alto rendimiento",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
             };
+
+            var monitor = new Product
+            {
+                Name = "Monitor Curvo 34",
+                Category = "Electronics",
+                Price = 14297m,
+                Quantity = 1, // 1333 + 14297 = COP 15,630 total inventory value
+                Description = "Monitor profesional panorámico 4K",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var products = new List<Product> { laptop, monitor };
             await _db.Products.AddRangeAsync(products);
 
-            // 2. Clients
-            var clients = new List<Client>
+            // 2. Client matching Cloud Sister App
+            var clientDairo = new Client
             {
-                new Client { FirstName = "Juan", LastName = "Pérez", Email = "juan@example.com", DocumentNumber = "12345678", PhoneNumber = "555-0101" },
-                new Client { FirstName = "María", LastName = "García", Email = "maria@example.com", DocumentNumber = "87654321", PhoneNumber = "555-0102" }
+                FirstName = "Dairo",
+                LastName = "ospino",
+                Email = "dairo.ospino@example.com",
+                DocumentNumber = "1045238910",
+                PhoneNumber = "+57 300 123 4567",
+                Address = "Calle 100 # 15-20",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
             };
-            await _db.Clients.AddRangeAsync(clients);
-            await _db.SaveChangesAsync(); // Save to get IDs
 
-            // 3. Sales (Historical)
-            var today = DateTime.Today;
-            var random = new Random();
-            var sales = new List<Sale>();
+            await _db.Clients.AddAsync(clientDairo);
+            await _db.SaveChangesAsync(); // Save to obtain generated IDs
 
-            for (int i = 5; i >= 0; i--)
+            // 3. Recent Sale matching Cloud Sister App
+            var demoSale = new Sale
             {
-                var saleDate = today.AddMonths(-i);
-                var sale = new Sale
+                ClientId = clientDairo.Id,
+                SaleDate = DateTime.Now,
+                TotalAmount = 1333m,
+                PaymentMethod = "Cash",
+                Currency = "COP",
+                AmountPaid = 1333m,
+                ChangeDue = 0m,
+                SaleDetails = new List<SaleDetail>
                 {
-                    SaleDate = saleDate,
-                    ClientId = clients[random.Next(clients.Count)].Id,
-                    TotalAmount = random.Next(500, 3000),
-                    SaleDetails = new List<SaleDetail>()
-                };
-                
-                // Add some random details
-                for (int j = 0; j < 3; j++)
-                {
-                    var p = products[random.Next(products.Count)];
-                    int qty = random.Next(1, 4);
-                    sale.SaleDetails.Add(new SaleDetail
+                    new SaleDetail
                     {
-                        ProductId = p.Id,
-                        Quantity = qty,
-                        UnitPrice = p.Price,
-                        TotalPrice = qty * p.Price
-                    });
+                        ProductId = laptop.Id,
+                        Quantity = 1,
+                        UnitPrice = 1333m,
+                        TotalPrice = 1333m
+                    }
                 }
-                sales.Add(sale);
-            }
-            await _db.Sales.AddRangeAsync(sales);
+            };
+
+            await _db.Sales.AddAsync(demoSale);
             await _db.SaveChangesAsync();
         }
     }
