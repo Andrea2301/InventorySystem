@@ -45,7 +45,7 @@ The system emphasizes a desktop-first approach, prioritizing:
 ### Dashboard Preview
 The dashboard provides a high-level view of business operations, including real-time KPIs and critical inventory status.
 
-![Dashboard](./InventorySystem/Assets/Screenshots/Dashboard.png)
+![Dashboard](./InventorySystem/Assets/Screenshots/update.png)
 *Figure 1: Main dashboard with sales analytics and stock monitoring.*
 
 ---
