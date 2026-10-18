@@ -17,7 +17,7 @@
 
         <!-- HEADER -->
         <Grid Grid.Row="0" Margin="20,15">
-            <TextBlock Text="Reports &amp; Analytics" 
+            <TextBlock Text="{DynamicResource ReportsTitle}" 
                        FontSize="28" 
                        FontWeight="SemiBold" 
                        Foreground="{StaticResource BrushTitleText}" 
@@ -44,14 +44,14 @@
                             <Border Background="#EEF2FF" CornerRadius="8" Padding="10">
                                 <fa:IconImage Icon="ChartLine" Foreground="#4F46E5" Width="24" Height="24"/>
                             </Border>
-                            <TextBlock Text="Sales Report" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
+                            <TextBlock Text="{DynamicResource ReportsSalesCard}" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
                         </StackPanel>
                         
-                        <TextBlock Grid.Row="1" Text="Comprehensive analysis of sales performance, top products, and revenue trends." 
+                        <TextBlock Grid.Row="1" Text="{DynamicResource ReportsSalesDesc}" 
                                    TextWrapping="Wrap" Foreground="#6B7280" Margin="0,15,0,0" FontSize="14"/>
 
                         <Button Grid.Row="2" 
-                                Content="Generate PDF" 
+                                Content="{DynamicResource ReportsBtnGenerate}" 
                                 Background="#4F46E5" 
                                 Foreground="White"
                                 Height="40"
@@ -84,14 +84,14 @@
                             <Border Background="#EEF2FF" CornerRadius="8" Padding="10">
                                 <fa:IconImage Icon="Boxes" Foreground="#4F46E5" Width="24" Height="24"/>
                             </Border>
-                            <TextBlock Text="Inventory Report" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
+                            <TextBlock Text="{DynamicResource ReportsInventoryCard}" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
                         </StackPanel>
                         
-                        <TextBlock Grid.Row="1" Text="Stock levels, product valuations, and low stock indicators." 
+                        <TextBlock Grid.Row="1" Text="{DynamicResource ReportsInventoryDesc}" 
                                    TextWrapping="Wrap" Foreground="#6B7280" Margin="0,15,0,0" FontSize="14"/>
 
                         <Button Grid.Row="2" 
-                                Content="Generate PDF" 
+                                Content="{DynamicResource ReportsBtnGenerate}" 
                                 Background="#4F46E5" 
                                 Foreground="White"
                                 Height="40"
@@ -124,14 +124,14 @@
                             <Border Background="#EEF2FF" CornerRadius="8" Padding="10">
                                 <fa:IconImage Icon="Users" Foreground="#4F46E5" Width="24" Height="24"/>
                             </Border>
-                            <TextBlock Text="Clients Report" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
+                            <TextBlock Text="{DynamicResource ReportsClientsCard}" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
                         </StackPanel>
                         
-                        <TextBlock Grid.Row="1" Text="Detailed list of cliemts and behavioral metrics." 
+                        <TextBlock Grid.Row="1" Text="{DynamicResource ReportsClientsDesc}" 
                                    TextWrapping="Wrap" Foreground="#6B7280" Margin="0,15,0,0" FontSize="14"/>
 
                         <Button Grid.Row="2" 
-                                Content="Generate PDF" 
+                                Content="{DynamicResource ReportsBtnGenerate}" 
                                 Background="#4F46E5" 
                                 Foreground="White"
                                 Height="40"
@@ -164,14 +164,14 @@
                             <Border Background="#EEF2FF" CornerRadius="8" Padding="10">
                                 <fa:IconImage Icon="Truck" Foreground="#4F46E5" Width="24" Height="24"/>
                             </Border>
-                            <TextBlock Text="Suppliers Report" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
+                            <TextBlock Text="{DynamicResource ReportsSuppliersCard}" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#1F2937"/>
                         </StackPanel>
                         
-                        <TextBlock Grid.Row="1" Text="Information on all suppliers and evaluation." 
+                        <TextBlock Grid.Row="1" Text="{DynamicResource ReportsSuppliersDesc}" 
                                    TextWrapping="Wrap" Foreground="#6B7280" Margin="0,15,0,0" FontSize="14"/>
 
                         <Button Grid.Row="2" 
-                                Content="Generate PDF" 
+                                Content="{DynamicResource ReportsBtnGenerate}" 
                                 Background="#4F46E5" 
                                 Foreground="White"
                                 Height="40"

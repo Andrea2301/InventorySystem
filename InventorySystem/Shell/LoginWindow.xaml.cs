@@ -60,9 +60,9 @@ namespace InventorySystem.Shell
         private void BtnDemoLogin_Click(object sender, RoutedEventArgs e)
         {
             TxtUsername.Text = "admin";
-            PwdPassword.Password = "admin";
+            PwdPassword.Password = "Admin123!";
             _viewModel.Username = "admin";
-            _viewModel.Password = "admin";
+            _viewModel.Password = "Admin123!";
             if (_viewModel.LoginCommand.CanExecute(null))
             {
                 _viewModel.LoginCommand.Execute(null);

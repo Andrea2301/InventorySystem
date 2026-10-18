@@ -97,6 +97,59 @@
     <sys:String x:Key="SaleTotal">TOTAL</sys:String>
     <sys:String x:Key="SaleFinalizeBtn">Finalizar Transacción</sys:String>
     <sys:String x:Key="SaleLoadingOverlay">Procesando venta...</sys:String>
+    <sys:String x:Key="SaleSuccessPrompt">¡Venta finalizada con éxito!&#x0a;&#x0a;¿Desea abrir o imprimir el ticket PDF de la venta?</sys:String>
+    <sys:String x:Key="SaleSuccessTitle">Venta Exitosa</sys:String>
+    <sys:String x:Key="SaleErrorTitle">Error al finalizar la venta: {0}</sys:String>
+
+    <!-- Checkout / Payment Processing -->
+    <sys:String x:Key="CheckoutTitle">Finalizar Transacción</sys:String>
+    <sys:String x:Key="CheckoutHeader">Procesar Pago</sys:String>
+    <sys:String x:Key="CheckoutSaleSummary">Resumen de la Venta</sys:String>
+    <sys:String x:Key="CheckoutClient">Cliente:</sys:String>
+    <sys:String x:Key="CheckoutFinalConsumer">Consumidor Final</sys:String>
+    <sys:String x:Key="CheckoutTotalToCharge">TOTAL A COBRAR</sys:String>
+    <sys:String x:Key="CheckoutPaymentCurrency">Moneda de Pago</sys:String>
+    <sys:String x:Key="CheckoutPaymentMethod">Método de Pago</sys:String>
+    <sys:String x:Key="CheckoutCash">Efectivo</sys:String>
+    <sys:String x:Key="CheckoutCashDesc">Pago con moneda nacional</sys:String>
+    <sys:String x:Key="CheckoutDigital">Pago Digital / QR</sys:String>
+    <sys:String x:Key="CheckoutDigitalDesc">Stripe Terminal / QR Code</sys:String>
+    <sys:String x:Key="CheckoutCashTitle">Cobro en Efectivo</sys:String>
+    <sys:String x:Key="CheckoutCashReceived">Monto Entregado por el Cliente</sys:String>
+    <sys:String x:Key="CheckoutChangeDue">CAMBIO A ENTREGAR</sys:String>
+    <sys:String x:Key="CheckoutDigitalTitle">Cobro Digital Stripe / QR</sys:String>
+    <sys:String x:Key="CheckoutSimulateBtn">Simular Pago Pasarela</sys:String>
+    <sys:String x:Key="CheckoutCancelBtn">Cancelar</sys:String>
+    <sys:String x:Key="CheckoutConfirmBtn">Confirmar Cobro</sys:String>
+    <sys:String x:Key="CheckoutStatusPending">Pendiente</sys:String>
+    <sys:String x:Key="CheckoutStatusWaitingPayment">Pendiente (Esperando pago)</sys:String>
+    <sys:String x:Key="CheckoutStatusVerifying">Verificando con pasarela Stripe...</sys:String>
+    <sys:String x:Key="CheckoutStatusApproved">Aprobado (Pago verificado)</sys:String>
+    <sys:String x:Key="CheckoutStatusError">Error en el pago</sys:String>
+    <sys:String x:Key="CheckoutSuccessInfo">Pago procesado exitosamente por la pasarela de Stripe.</sys:String>
+
+    <!-- Common Columns -->
+    <sys:String x:Key="ColActions">Acciones</sys:String>
+
+    <!-- Suppliers -->
+    <sys:String x:Key="SupplierColId">ID</sys:String>
+    <sys:String x:Key="SupplierColCompany">Empresa</sys:String>
+    <sys:String x:Key="SupplierColContact">Contacto</sys:String>
+    <sys:String x:Key="SupplierColPhone">Teléfono</sys:String>
+    <sys:String x:Key="SupplierColEmail">Correo</sys:String>
+    <sys:String x:Key="SupplierColCategory">Categoría</sys:String>
+    <sys:String x:Key="SupplierColStatus">Estado</sys:String>
+    <sys:String x:Key="SupplierStatusActive">Activo</sys:String>
+    <sys:String x:Key="SupplierStatusInactive">Inactivo</sys:String>
+    <sys:String x:Key="SupplierLoadingOverlay">Cargando proveedores...</sys:String>
+
+    <!-- Import Dialog -->
+    <sys:String x:Key="ImportTitle">Importar Archivo Excel</sys:String>
+    <sys:String x:Key="ImportDragDrop">Arrastra y suelta tu archivo Excel o CSV aquí</sys:String>
+    <sys:String x:Key="ImportSupportedFormats">Formatos admitidos: .xlsx, .xls, .csv</sys:String>
+    <sys:String x:Key="ImportBrowseFiles">Explorar Archivos</sys:String>
+    <sys:String x:Key="ImportBtnCancel">Cancelar</sys:String>
+    <sys:String x:Key="ImportBtnConfirm">Confirmar</sys:String>
 
     <!-- Products -->
     <sys:String x:Key="ProdTitle">Productos</sys:String>
@@ -134,5 +187,43 @@
     <sys:String x:Key="MaintSettingsSaveSuccess">La configuración del negocio se guardó correctamente.</sys:String>
     <sys:String x:Key="MaintSettingsSaveError">No se pudo guardar la configuración.</sys:String>
     <sys:String x:Key="MaintSettingsCompanyNameRequired">El nombre de la empresa es obligatorio.</sys:String>
+
+    <!-- Operations & History -->
+    <sys:String x:Key="HeaderOperations">OPERACIONES</sys:String>
+    <sys:String x:Key="HeaderManagementUpper">GESTIÓN</sys:String>
+    <sys:String x:Key="HistoryTitle">Historial de Ventas</sys:String>
+    <sys:String x:Key="HistorySearchPlaceholder">Buscar por cliente o N° orden...</sys:String>
+    <sys:String x:Key="HistoryColOrder">N° Orden</sys:String>
+    <sys:String x:Key="HistoryColDate">Fecha</sys:String>
+    <sys:String x:Key="HistoryColClient">Cliente</sys:String>
+    <sys:String x:Key="HistoryColAmount">Monto</sys:String>
+    <sys:String x:Key="HistoryColActions">Acciones</sys:String>
+    <sys:String x:Key="HistoryTooltipDetails">Ver Detalle</sys:String>
+    <sys:String x:Key="HistoryTooltipReceipt">Ver Recibo PDF</sys:String>
+    <sys:String x:Key="HistoryLoading">Cargando historial...</sys:String>
+
+    <!-- Sale Detail Window -->
+    <sys:String x:Key="DetailTitle">Detalle de la Venta</sys:String>
+    <sys:String x:Key="DetailBreakdown">Desglose de la Transacción</sys:String>
+    <sys:String x:Key="DetailOrderNumber">NÚMERO DE ORDEN</sys:String>
+    <sys:String x:Key="DetailSaleDate">FECHA DE VENTA</sys:String>
+    <sys:String x:Key="DetailColProduct">Producto</sys:String>
+    <sys:String x:Key="DetailColQty">Cant.</sys:String>
+    <sys:String x:Key="DetailColPrice">Precio</sys:String>
+    <sys:String x:Key="DetailColTotal">Total</sys:String>
+    <sys:String x:Key="DetailTotalPaid">Monto Total</sys:String>
+    <sys:String x:Key="DetailBtnBack">Volver al Historial</sys:String>
+
+    <!-- Reports -->
+    <sys:String x:Key="ReportsTitle">Reportes y Análisis</sys:String>
+    <sys:String x:Key="ReportsSalesCard">Reporte de Ventas</sys:String>
+    <sys:String x:Key="ReportsSalesDesc">Análisis detallado de rendimiento de ventas, productos más vendidos y tendencias de ingresos.</sys:String>
+    <sys:String x:Key="ReportsInventoryCard">Reporte de Inventario</sys:String>
+    <sys:String x:Key="ReportsInventoryDesc">Estado actual del stock, productos bajo límite mínimo y valuación total de inventario.</sys:String>
+    <sys:String x:Key="ReportsClientsCard">Directorio de Clientes</sys:String>
+    <sys:String x:Key="ReportsClientsDesc">Listado completo de clientes registrados con historial de compras e información de contacto.</sys:String>
+    <sys:String x:Key="ReportsSuppliersCard">Directorio de Proveedores</sys:String>
+    <sys:String x:Key="ReportsSuppliersDesc">Información consolidada de proveedores registrados, contactos y servicios asociados.</sys:String>
+    <sys:String x:Key="ReportsBtnGenerate">Generar PDF</sys:String>
 
 </ResourceDictionary>

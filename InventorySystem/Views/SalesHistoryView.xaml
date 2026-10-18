@@ -25,7 +25,7 @@
                         <Border Width="46" Height="46" CornerRadius="12" Background="{StaticResource BrushSectionLilac}" Margin="0,0,14,0">
                             <fa:IconImage Icon="CalendarAlt" Foreground="{StaticResource BrushPrimaryBlue}" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <TextBlock Text="Sales History" FontSize="26" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource HistoryTitle}" FontSize="26" FontWeight="Bold" Foreground="{StaticResource BrushTitleText}" VerticalAlignment="Center"/>
                     </StackPanel>
 
                     <Border HorizontalAlignment="Right" Background="{StaticResource BrushSectionLilac}" CornerRadius="12" Width="350" Height="44" BorderBrush="{StaticResource BrushBorderSubtle}" BorderThickness="1">
@@ -90,9 +90,9 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Order #" Binding="{Binding Id}" Width="100"/>
+                        <DataGridTextColumn Header="{DynamicResource HistoryColOrder}" Binding="{Binding Id}" Width="100"/>
                         
-                        <DataGridTemplateColumn Header="Date" Width="180">
+                        <DataGridTemplateColumn Header="{DynamicResource HistoryColDate}" Width="180">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -103,9 +103,9 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Client" Binding="{Binding Client.FullName, FallbackValue='General Client'}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource HistoryColClient}" Binding="{Binding Client.FullName, FallbackValue='General Client'}" Width="*"/>
                         
-                        <DataGridTemplateColumn Header="Amount" Width="150">
+                        <DataGridTemplateColumn Header="{DynamicResource HistoryColAmount}" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding TotalAmount, StringFormat=C}" FontWeight="Bold" Foreground="{StaticResource BrushPrimaryBlue}" FontSize="15"/>
@@ -113,17 +113,17 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Actions" Width="150">
+                        <DataGridTemplateColumn Header="{DynamicResource HistoryColActions}" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Margin="0,0,10,0" ToolTip="View Details"
+                                        <Button Margin="0,0,10,0" ToolTip="{DynamicResource HistoryTooltipDetails}"
                                                 Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource btnEdit}">
                                             <fa:IconImage Icon="Eye" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                                         </Button>
-                                        <Button ToolTip="Print Receipt"
+                                        <Button ToolTip="{DynamicResource HistoryTooltipReceipt}"
                                                 Command="{Binding DataContext.PrintReceiptCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource btnInfo}">
@@ -141,7 +141,7 @@
         <Grid Style="{StaticResource LoadingOverlay}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Control Style="{StaticResource LoadingSpinner}" HorizontalAlignment="Center"/>
-                <TextBlock Text="Loading history..." Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="{DynamicResource HistoryLoading}" Margin="0,10,0,0" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
             </StackPanel>
         </Grid>
     </Grid>

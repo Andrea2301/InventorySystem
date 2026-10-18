@@ -1,4 +1,4 @@
-﻿using FontAwesome.Sharp;
+using FontAwesome.Sharp;
 using InventorySystem.ViewModel.Base;
 using System;
 using System.Collections.Generic;
@@ -88,59 +88,64 @@ namespace InventorySystem.ViewModel
             ExecuteShowHomeViewCommand(null);
         }
 
+        private string GetResource(string key, string fallback)
+        {
+            return System.Windows.Application.Current?.TryFindResource(key) as string ?? fallback;
+        }
+
         private void ExecuteShowHomeViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<HomeViewModel>();
-            Caption = "Dashboard";
+            Caption = GetResource("MenuHome", "Dashboard");
             IconChar = IconChar.Home;
         }
 
         private void ExecuteShowClientViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<ClientViewModel>();
-            Caption = "Clients";
+            Caption = GetResource("MenuClients", "Clientes");
             IconChar = IconChar.UserGroup; 
         }
 
         private void ExecuteShowProductsViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<ProductsViewModel>();
-            Caption = "Products";
+            Caption = GetResource("MenuProducts", "Productos");
             IconChar = IconChar.Boxes;
         }
 
         private void ExecuteShowSaleViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<SaleViewModel>();
-            Caption = "Sales";
+            Caption = GetResource("MenuSales", "Ventas (POS)");
             IconChar = IconChar.FileInvoiceDollar;
         }
 
         private void ExecuteShowSalesHistoryViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<SalesHistoryViewModel>();
-            Caption = "Sales History";
+            Caption = GetResource("MenuHistory", "Historial de Ventas");
             IconChar = IconChar.History;
         }
 
         private void ExecuteShowSupplierViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<SupplierViewModel>();
-            Caption = "Suppliers";
+            Caption = GetResource("MenuSuppliers", "Proveedores");
             IconChar = IconChar.Truck;
         }
 
         private void ExecuteShowReportsViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<ReportsViewModel>();
-            Caption = "Reports";
+            Caption = GetResource("MenuReports", "Reportes");
             IconChar = IconChar.ChartPie;
         }
 
         private void ExecuteShowMaintenanceViewCommand(object obj)
         {
             CurrentChildView = _serviceProvider.GetRequiredService<MaintenanceViewModel>();
-            Caption = "Maintenance";
+            Caption = GetResource("MenuMaintenance", "Mantenimiento");
             IconChar = IconChar.Database;
         }
     }

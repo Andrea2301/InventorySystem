@@ -30,12 +30,6 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title -->
-            <TextBlock Text="{DynamicResource ClientTitle}" 
-                       Grid.Column="0"
-                       FontSize="28" 
-                       FontWeight="SemiBold" 
-                       Foreground="{StaticResource BrushTitleText}" 
-                       VerticalAlignment="Center"/>
 
             <!-- Right Actions Group -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
@@ -181,118 +175,150 @@
 
         <!-- TABLE -->
         <Border Grid.Row="1"
-                Background="White"
-                CornerRadius="10"
+                Background="{StaticResource BrushCardWhite}"
+                CornerRadius="20"
                 Margin="20"
-                Padding="10">
+                BorderBrush="{StaticResource BrushBorderSubtle}"
+                BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect Color="#202C47" BlurRadius="16" ShadowDepth="2" Opacity="0.06"/>
+            </Border.Effect>
 
-            <DataGrid AutoGenerateColumns="False"
-                      GridLinesVisibility="None"
-                      BorderThickness="0"
-                      AlternatingRowBackground="#F9FAFB"
-                      CanUserAddRows="False"
-                      ItemsSource="{Binding ClientsView}"
-                      SelectedItem="{Binding SelectedClient}">
+            <Grid Margin="15">
+                <DataGrid AutoGenerateColumns="False"
+                          GridLinesVisibility="None"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          HeadersVisibility="Column"
+                          RowHeight="52"
+                          ItemsSource="{Binding ClientsView}"
+                          SelectedItem="{Binding SelectedClient}">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="Auto"
-                                        MinWidth="50"
-                                        MaxWidth="80"
-                                        Binding="{Binding Id}"
-                                        IsReadOnly="True" />
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="{StaticResource BrushSectionLilac}"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushTitleText}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Padding" Value="15,10"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+                        </Style>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource BrushSectionLilac}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                        <Border Padding="15,0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
 
-                    <DataGridTextColumn Header="Name"  Width="*"
-                                        MinWidth="120"
-                                        MaxWidth="250" 
-                                        Binding="{Binding FirstName}"
-                                        IsReadOnly="True"/>
-                                        
-                    <DataGridTextColumn Header="Last Name"  Width="*"
-                                        MinWidth="120"
-                                        MaxWidth="250"
-                                        Binding="{Binding LastName}"
-                                        IsReadOnly="True"/>
-                                        
-                    <DataGridTextColumn Header="Phone" Width="Auto"
-                                        MinWidth="120"
-                                        MaxWidth="150"
-                                        Binding="{Binding PhoneNumber}"
-                                        IsReadOnly="True"/>
-                    <DataGridTextColumn Header="E-mail" Width="2*"
-                                        MinWidth="180"
-                                        MaxWidth="300"
-                                        Binding="{Binding Email}"
-                                        IsReadOnly="True"/>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{DynamicResource ClientColId}" Width="70"
+                                            Binding="{Binding Id}"
+                                            IsReadOnly="True" />
 
-                    <!-- Date Added -->
-                    <DataGridTextColumn Header="Date Added"
-                                        Width="Auto"
-                                        MinWidth="120"
-                                        Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy}"
-                                        IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{DynamicResource ClientColName}" Width="*"
+                                            MinWidth="120"
+                                            Binding="{Binding FirstName}"
+                                            IsReadOnly="True"/>
+                                            
+                        <DataGridTextColumn Header="{DynamicResource ClientColLastName}" Width="*"
+                                            MinWidth="120"
+                                            Binding="{Binding LastName}"
+                                            IsReadOnly="True"/>
+                                            
+                        <DataGridTextColumn Header="{DynamicResource ClientColPhone}" Width="130"
+                                            Binding="{Binding PhoneNumber}"
+                                            IsReadOnly="True"/>
 
-                    <!-- Status -->
-                    <DataGridTemplateColumn Header="Status" Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="10" Padding="8,2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="Background" Value="#FFEBEE"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                    <Setter Property="Background" Value="#E8F5E9"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <TextBlock FontWeight="SemiBold" FontSize="12">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="{DynamicResource ClientStatusInactive}"/>
-                                                <Setter Property="Foreground" Value="#C62828"/>
+                        <DataGridTextColumn Header="{DynamicResource ClientColEmail}" Width="1.5*"
+                                            MinWidth="160"
+                                            Binding="{Binding Email}"
+                                            IsReadOnly="True"/>
+
+                        <DataGridTextColumn Header="{DynamicResource ClientColDateAdded}"
+                                            Width="120"
+                                            Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy}"
+                                            IsReadOnly="True"/>
+
+                        <!-- Status -->
+                        <DataGridTemplateColumn Header="{DynamicResource ClientColStatus}" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="8" Padding="10,4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#FEE2E2"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                        <Setter Property="Text" Value="{DynamicResource ClientStatusActive}"/>
-                                                        <Setter Property="Foreground" Value="#2E7D32"/>
+                                                        <Setter Property="Background" Value="#DCFCE7"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Border>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                        </Border.Style>
+                                        <TextBlock FontWeight="SemiBold" FontSize="12">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="{DynamicResource ClientStatusInactive}"/>
+                                                    <Setter Property="Foreground" Value="#B91C1C"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                            <Setter Property="Text" Value="{DynamicResource ClientStatusActive}"/>
+                                                            <Setter Property="Foreground" Value="#15803D"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <!-- ACTIONS -->
-                    <DataGridTemplateColumn Width="80"
-                        MinWidth="80"
-                        MaxWidth="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center">
+                        <!-- ACTIONS -->
+                        <DataGridTemplateColumn Header="{DynamicResource ColActions}" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Style="{StaticResource btnEdit}"
+                                                Margin="0,0,8,0"
+                                                Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}">
+                                            <fa:IconImage Icon="Edit" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                                        </Button>
 
-                                    <Button Style="{StaticResource btnEdit}"
-                                            Margin="0,0,6,0"
-                                            Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            CommandParameter="{Binding}">
-                                        <fa:IconImage Icon="Edit" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
-                                    </Button>
+                                        <Button Style="{StaticResource btnDelete}"
+                                                Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}">
+                                            <fa:IconImage Icon="Trash" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                                    <Button Style="{StaticResource btnDelete}"
-                                            Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            CommandParameter="{Binding}">
-                                        <fa:IconImage Icon="Trash" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </Border>
 
         <!-- LOADING OVERLAY -->

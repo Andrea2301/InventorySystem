@@ -172,7 +172,7 @@
                                                Margin="0,1,0,0"/>
                                 </StackPanel>
 
-                                <fa:IconImage Grid.Column="2" Icon="ChevronDown" Foreground="{StaticResource BrushSidebarTextMuted}" Width="10" Height="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                              
                             </Grid>
                         </Border>
                     </StackPanel>
@@ -184,7 +184,7 @@
                         <StackPanel Margin="0,4,0,10">
 
                             <!-- Section: OPERATIONS -->
-                            <TextBlock Text="OPERATIONS"
+                            <TextBlock Text="{DynamicResource HeaderOperations}"
                                        Foreground="{StaticResource BrushSidebarTextMuted}"
                                        FontSize="10"
                                        FontWeight="Bold"
@@ -196,7 +196,7 @@
                                          Command="{Binding ShowHomeViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="ChartLine" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuHome}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -205,7 +205,7 @@
                                          Command="{Binding ShowProductsViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="BoxesStacked" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Products" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuProducts}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -214,7 +214,7 @@
                                          Command="{Binding ShowClientViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Users" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Clients" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuClients}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -223,7 +223,7 @@
                                          Command="{Binding ShowSaleViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="CashRegister" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Sales" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuSales}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -232,12 +232,12 @@
                                          Command="{Binding ShowSalesHistoryViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="ClockRotateLeft" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Sales History" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuHistory}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
                             <!-- Section: MANAGEMENT -->
-                            <TextBlock Text="MANAGEMENT"
+                            <TextBlock Text="{DynamicResource HeaderManagementUpper}"
                                        Foreground="{StaticResource BrushSidebarTextMuted}"
                                        FontSize="10"
                                        FontWeight="Bold"
@@ -248,7 +248,7 @@
                                          Command="{Binding ShowSupplierViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="TruckFast" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Suppliers" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuSuppliers}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -257,7 +257,7 @@
                                          Command="{Binding ShowReportsViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="ChartPie" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Reports" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuReports}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -266,7 +266,7 @@
                                          Command="{Binding ShowMaintenanceViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:IconImage Icon="Gear" Style="{StaticResource MenuButtonIcon}"/>
-                                    <TextBlock Text="Settings" Style="{StaticResource ButtonText}"/>
+                                    <TextBlock Text="{DynamicResource MenuMaintenance}" Style="{StaticResource ButtonText}"/>
                                 </StackPanel>
                             </RadioButton>
 
@@ -425,10 +425,6 @@
                                                Foreground="{StaticResource BrushTitleText}"
                                                FontSize="18"
                                                FontWeight="Bold"/>
-                                    <TextBlock Text="Panel de Administración y Control"
-                                               Foreground="{StaticResource BrushTextMuted}"
-                                               FontSize="11.5"
-                                               Margin="0,1,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

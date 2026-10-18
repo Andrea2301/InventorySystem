@@ -224,7 +224,12 @@ namespace InventorySystem.ViewModel
 
                 await _saleService.CreateSaleAsync(sale);
 
-                bool openPdf = _messageService.ShowConfirmation("¡Venta finalizada con éxito!\n\n¿Desea abrir o imprimir el ticket PDF de la venta?", "Venta Exitosa");
+                string prompt = (System.Windows.Application.Current?.TryFindResource("SaleSuccessPrompt") as string)
+                    ?? "¡Venta finalizada con éxito!\n\n¿Desea abrir o imprimir el ticket PDF de la venta?";
+                string title = (System.Windows.Application.Current?.TryFindResource("SaleSuccessTitle") as string)
+                    ?? "Venta Exitosa";
+
+                bool openPdf = _messageService.ShowConfirmation(prompt, title);
                 if (openPdf)
                 {
                     await GenerateAndOpenReceiptAsync(sale);
@@ -235,7 +240,9 @@ namespace InventorySystem.ViewModel
             }
             catch (Exception ex)
             {
-                _messageService.ShowError($"Error al finalizar la venta: {ex.Message}");
+                string errorFmt = (System.Windows.Application.Current?.TryFindResource("SaleErrorTitle") as string)
+                    ?? "Error al finalizar la venta: {0}";
+                _messageService.ShowError(string.Format(errorFmt, ex.Message));
             }
             finally
             {

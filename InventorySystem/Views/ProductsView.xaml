@@ -24,12 +24,6 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title -->
-            <TextBlock Text="{DynamicResource ProdTitle}" 
-                       Grid.Column="0"
-                       FontSize="28" 
-                       FontWeight="SemiBold" 
-                       Foreground="{StaticResource BrushTitleText}" 
-                       VerticalAlignment="Center"/>
 
             <!-- Right Actions Group -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
@@ -308,13 +302,13 @@
                                                     Margin="0,0,8,0"
                                                     Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}">
-                                                <fa:IconImage Icon="Edit" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource Self}, Path=(Button.Foreground)}"/>
+                                                <fa:IconImage Icon="Edit" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource Self}}"/>
                                             </Button>
 
                                             <Button Style="{StaticResource btnDelete}" 
                                                     Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}">
-                                                <fa:IconImage Icon="Trash" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource Self}, Path=(Button.Foreground)}"/>
+                                                <fa:IconImage Icon="Trash" Width="14" Height="14" Foreground="{Binding Foreground, RelativeSource={RelativeSource Self}}"/>
                                             </Button>
 
                                         </StackPanel>

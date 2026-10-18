@@ -60,7 +60,7 @@
             </Border>
 
             <!-- Form Content -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="15,15,10,15">
                 <StackPanel>
                     
                     <!-- Status Toggle -->

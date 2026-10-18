@@ -15,13 +15,21 @@ namespace InventorySystem.ViewModel
         private string _paymentMethod = "Efectivo"; // Default
         private decimal _cashReceived;
         private decimal _changeDue;
-        private string _paymentStatus = "Pendiente";
+        private string _paymentStatus = "";
         private bool _isPaymentSuccessful;
         private bool _isProcessingPayment;
+        private bool _isDigitalPaymentApproved;
         private string _selectedCurrency = "COP";
         private string[] _currencies = new[] { "COP", "USD", "EUR" };
 
         public event EventHandler? RequestClose;
+
+        private string GetResource(string key, string fallback)
+        {
+            return (System.Windows.Application.Current?.TryFindResource(key) as string) ?? fallback;
+        }
+
+        public string ClientDisplayName => SelectedClient?.FullName ?? GetResource("CheckoutFinalConsumer", "Consumidor Final");
 
         public decimal TotalAmount
         {
@@ -32,7 +40,7 @@ namespace InventorySystem.ViewModel
         public Client? SelectedClient
         {
             get => _selectedClient;
-            set { _selectedClient = value; OnPropertyChanged(nameof(SelectedClient)); }
+            set { _selectedClient = value; OnPropertyChanged(nameof(SelectedClient)); OnPropertyChanged(nameof(ClientDisplayName)); }
         }
 
         public string PaymentMethod
@@ -154,6 +162,7 @@ namespace InventorySystem.ViewModel
             _totalAmount = totalAmount;
             _selectedClient = selectedClient;
             _messageService = messageService;
+            _paymentStatus = GetResource("CheckoutStatusPending", "Pendiente");
 
             ConfirmPaymentCommand = new ViewModelCommand(ExecuteConfirmPayment, CanConfirmPayment);
             CancelCommand = new ViewModelCommand(ExecuteCancel);
@@ -178,14 +187,15 @@ namespace InventorySystem.ViewModel
         {
             if (PaymentMethod == "Efectivo")
             {
-                PaymentStatus = "Pendiente";
+                PaymentStatus = GetResource("CheckoutStatusPending", "Pendiente");
                 CashReceived = 0;
                 ChangeDue = 0;
             }
             else
             {
-                PaymentStatus = "Pendiente (Esperando pago)";
+                PaymentStatus = GetResource("CheckoutStatusWaitingPayment", "Pendiente (Esperando pago)");
             }
+            _isDigitalPaymentApproved = false;
         }
 
         private bool CanConfirmPayment(object obj)
@@ -196,7 +206,7 @@ namespace InventorySystem.ViewModel
             }
             else // Pago Digital
             {
-                return PaymentStatus == "Aprobado";
+                return _isDigitalPaymentApproved;
             }
         }
 
@@ -214,25 +224,27 @@ namespace InventorySystem.ViewModel
 
         private bool CanSimulatePayment(object obj)
         {
-            return !IsProcessingPayment && PaymentStatus != "Aprobado";
+            return !IsProcessingPayment && !_isDigitalPaymentApproved;
         }
 
         private async void ExecuteSimulatePayment(object obj)
         {
             IsProcessingPayment = true;
-            PaymentStatus = "Verificando con pasarela Stripe...";
+            PaymentStatus = GetResource("CheckoutStatusVerifying", "Verificando con pasarela Stripe...");
 
             try
             {
                 // Simula el tiempo de conexión y validación de la transacción
                 await Task.Delay(2000);
-                PaymentStatus = "Aprobado (Pago verificado)";
-                _messageService.ShowInfo("Pago procesado exitosamente por la pasarela de Stripe.");
+                _isDigitalPaymentApproved = true;
+                PaymentStatus = GetResource("CheckoutStatusApproved", "Aprobado (Pago verificado)");
+                _messageService.ShowInfo(GetResource("CheckoutSuccessInfo", "Pago procesado exitosamente por la pasarela de Stripe."));
             }
             catch (Exception ex)
             {
-                PaymentStatus = "Error en el pago";
-                _messageService.ShowError($"Error al verificar el pago: {ex.Message}");
+                _isDigitalPaymentApproved = false;
+                PaymentStatus = GetResource("CheckoutStatusError", "Error en el pago");
+                _messageService.ShowError($"Error: {ex.Message}");
             }
             finally
             {

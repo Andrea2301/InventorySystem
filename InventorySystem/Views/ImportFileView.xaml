@@ -42,7 +42,7 @@
             <!-- Header -->
             <Border Grid.Row="0" CornerRadius="14,14,0,0" Background="{StaticResource PrimaryBrandGradient}">
                 <Grid>
-                    <TextBlock Text="Importar Archivo Excel" 
+                    <TextBlock Text="{DynamicResource ImportTitle}" 
                                Foreground="White" 
                                FontSize="17.5" 
                                FontWeight="Bold" 
@@ -63,13 +63,14 @@
             </Border>
 
             <!-- Drop Zone -->
-            <Grid Grid.Row="1" Margin="20">
+            <Grid Grid.Row="1" Margin="20" Background="Transparent" AllowDrop="True" Drop="Grid_Drop" DragEnter="Grid_DragEnter" DragLeave="Grid_DragLeave">
                 
                 <!-- Dashed Border Background -->
                 <Rectangle RadiusX="10" RadiusY="10" 
                            StrokeThickness="2" 
                            SnapsToDevicePixels="True"
-                           RenderOptions.EdgeMode="Aliased">
+                           RenderOptions.EdgeMode="Aliased"
+                           IsHitTestVisible="False">
                     <Rectangle.Style>
                         <Style TargetType="Rectangle">
                             <Setter Property="Stroke" Value="#9FA8DA"/>
@@ -94,25 +95,26 @@
                                   Height="60" 
                                   Margin="0,0,0,10"/>
                     
-                    <TextBlock Text="Drag &amp; Drop your Excel file here" 
+                    <TextBlock Text="{DynamicResource ImportDragDrop}" 
                                Foreground="#37474F" 
                                FontSize="16" 
                                FontWeight="SemiBold"
                                HorizontalAlignment="Center"
                                Margin="0,0,0,5"/>
 
-                    <TextBlock Text="Supported formats: .xlsx, .xls" 
-                                   Foreground="#90A4AE" 
-                                   FontSize="12" 
-                                   HorizontalAlignment="Center"
-                                   Margin="0,0,0,20"/>
+                    <TextBlock Text="{DynamicResource ImportSupportedFormats}" 
+                               Foreground="#90A4AE" 
+                               FontSize="12" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
 
-                    <Button Content="Browse Files" 
+                    <Button Content="{DynamicResource ImportBrowseFiles}" 
                             Padding="15,8"
                             Background="White"
                             Foreground="#3F51B5"
                             BorderBrush="#3F51B5"
                             BorderThickness="1"
+                            Cursor="Hand"
                             Command="{Binding BrowseFileCommand}">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -136,19 +138,11 @@
                     </StackPanel>
 
                 </StackPanel>
-                
-                <!-- Overlay for Drag Events (Hack if we want to handle events on the Grid) -->
-                <Grid Background="Transparent" 
-                      AllowDrop="True"
-                      Drop="Grid_Drop"
-                      DragEnter="Grid_DragEnter"
-                      DragLeave="Grid_DragLeave"/>
-                
             </Grid>
 
             <!-- Footer Actions -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-                <Button Content="Cancelar" 
+                <Button Content="{DynamicResource ImportBtnCancel}" 
                         Width="105" Height="36" 
                         Margin="0,0,10,0"
                         Background="{StaticResource BrushSectionLilac}"
@@ -166,7 +160,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button Content="Importar" 
+                <Button Content="{DynamicResource ImportBtnConfirm}" 
                         Width="110" Height="36"
                         Background="{StaticResource PrimaryBrandGradient}"
                         Foreground="White"

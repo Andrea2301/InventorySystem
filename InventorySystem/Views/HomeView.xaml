@@ -36,10 +36,6 @@
                                    FontWeight="Bold"
                                    Foreground="{StaticResource BrushTextMuted}"
                                    Margin="0,0,0,2"/>
-                        <TextBlock Text="Dashboard"
-                                   FontSize="25"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource BrushTitleText}"/>
                         <TextBlock Text="A quick look at your store's activity and inventory."
                                    FontSize="13"
                                    Foreground="{StaticResource BrushTextMuted}"
